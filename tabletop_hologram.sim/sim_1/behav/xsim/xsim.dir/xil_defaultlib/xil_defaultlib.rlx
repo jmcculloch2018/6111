@@ -1,0 +1,9 @@
+0.6
+2019.1
+May 24 2019
+15:06:07
+C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.sim/sim_1/behav/xsim/glbl.v,1558713910,verilog,,,,glbl,,,,,,,,
+C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sim_1/new/rasterize_tb.sv,1573093062,systemVerilog,,,,rasterize_tb,,,,,,,,
+C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/z_interp_divider/sim/z_interp_divider.vhd,1573064639,vhdl,,,,z_interp_divider,,,,,,,,
+C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/pipeline.sv,1573013693,systemVerilog,,C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/rasterize.sv,,pipeline,,,,,,,,
+C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/rasterize.sv,1573099394,systemVerilog,,C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sim_1/new/rasterize_tb.sv,,get_area;get_max;get_min;rasterize,,,,,,,,
