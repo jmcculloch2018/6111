@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="z_interp_divider_synth_1" LaunchPart="xc7a100tcsg324-3" LaunchTime="1573064640">
   <File Type="PA-TCL" Name="z_interp_divider.tcl"/>
-  <File Type="RDS-PROPCONSTRS" Name="z_interp_divider_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="z_interp_divider_reports.tcl"/>
   <File Type="RDS-RDS" Name="z_interp_divider.vds"/>
   <File Type="RDS-UTIL" Name="z_interp_divider_utilization_synth.rpt"/>
   <File Type="RDS-UTIL-PB" Name="z_interp_divider_utilization_synth.pb"/>
   <File Type="RDS-DCP" Name="z_interp_divider.dcp"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="z_interp_divider_timing_summary_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="z_interp_divider_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/z_interp_divider">
     <File Path="$PSRCDIR/sources_1/ip/z_interp_divider/z_interp_divider.xci">
       <FileInfo>
@@ -42,9 +39,7 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2019">
-      <Desc>Vivado Synthesis Defaults</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2019"/>
     <Step Id="synth_design"/>
   </Strategy>
 </GenRun>
