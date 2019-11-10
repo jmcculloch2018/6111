@@ -36,12 +36,19 @@ module top_level(
     parameter SCREEN_WIDTH = 320, SCREEN_HEIGHT = 240;
     
     logic clk, reset;
+    assign clk = clk_100mhz;
+    debounce reset_debounce(.reset_in(0), .clock_in(clk), .noisy_in(btnc), .clean_out(reset));
     
-    logic vclock;
+    // 25 mhz enable
+    logic [1:0] vclock_count;
+    logic vclock_enable;
+    assign vclock_enable = (vclock_count == 0);
+    
     logic [8:0] vcount;
     logic [9:0] hcount;
     logic vsync, hsync, blank;
-    xvga my_vga(.vclock_in(vclock),
+    xvga my_vga(.vclock_in(clk),
+            .vclock_enable(vclock_enable),
             .hcount_out(hcount),    // pixel number on current line
             .vcount_out(vcount),
             .vsync_out(vsync),
@@ -118,6 +125,11 @@ module top_level(
     assign vga_hs = ~hs;
     assign vga_vs = ~vs;
     always_ff @(posedge clk) begin 
+        if (reset) begin
+            vclock_count <= 0;
+        end else begin
+            vclock_count <= vclock_count + 1;
+        end
         last_vsync <= vsync;
          hs <= hsync; // buffered by 1
          vs <= vsync; 

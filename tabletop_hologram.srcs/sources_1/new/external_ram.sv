@@ -19,6 +19,7 @@ module frame_buffer_manager(
 
     );
     parameter SCREEN_WIDTH = 320;
+    parameter SCREEN_HEIGHT = 240;
     
        
     logic [16:0] address_write_inactive;
@@ -27,6 +28,7 @@ module frame_buffer_manager(
     logic reset_busy [1:0];
     logic [19:0] data_read [1:0];
     logic active_frame;
+    logic pixel_in_frame;
     
     frame_buffer buffer0 (
       .clka(clk_in),            // input wire clka
@@ -57,7 +59,7 @@ module frame_buffer_manager(
     );
     
     assign address_read_active = x_active_frame + y_active_frame * SCREEN_WIDTH;
-    assign rgb_active_frame = data_read[active_frame][19:8];
+    assign rgb_active_frame = pixel_in_frame ? data_read[active_frame][19:8] : 12'h000; // Black if outside screen
     
     assign address_write_inactive = x_write_inactive_frame + 
         y_write_inactive_frame * SCREEN_WIDTH;
@@ -71,6 +73,7 @@ module frame_buffer_manager(
             active_frame <= 0;
         end else if (next_frame) begin
             active_frame <= ~active_frame;
+            pixel_in_frame <= (x_active_frame < SCREEN_WIDTH) && (y_active_frame < SCREEN_HEIGHT);
         end
     end
 
