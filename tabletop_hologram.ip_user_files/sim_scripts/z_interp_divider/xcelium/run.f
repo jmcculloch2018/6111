@@ -1,3 +1,9 @@
+-makelib xcelium_lib/xil_defaultlib -sv \
+  "C:/Xilinx/Vivado/2019.1/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
+-endlib
+-makelib xcelium_lib/xpm \
+  "C:/Xilinx/Vivado/2019.1/data/ip/xpm/xpm_VCOMP.vhd" \
+-endlib
 -makelib xcelium_lib/xbip_utils_v3_0_10 \
   "../../../ipstatic/hdl/xbip_utils_v3_0_vh_rfs.vhd" \
 -endlib
@@ -33,5 +39,8 @@
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
   "../../../../tabletop_hologram.srcs/sources_1/ip/z_interp_divider/sim/z_interp_divider.vhd" \
+-endlib
+-makelib xcelium_lib/xil_defaultlib \
+  glbl.v
 -endlib
 

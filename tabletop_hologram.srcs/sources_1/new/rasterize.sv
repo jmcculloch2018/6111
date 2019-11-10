@@ -5,34 +5,34 @@ module rasterize(
     input clk_in,
     input rst_in, 
     input [11:0] rgb_in,
-    input is_triangle, // Unused
     input [15:0] vertices [8:0],
     input new_data, 
     output logic busy,
     // RAM
     input [15:0] z_read,
     output logic write_ram,
-    output logic [15:0] x_ram,
-    output logic [15:0] y_ram,
+    output logic [8:0] x_write,
+    output logic [7:0] y_write,
+    output logic [8:0] x_read,
+    output logic [7:0] y_read,
     output logic [11:0] rgb_write,
-    output logic [15:0] z_write
+    output logic [7:0] z_write
     );  
     
-    parameter DIVISION_LATENCY = 53;  
+    parameter DIVISION_LATENCY = 30;  
     
-    // Lag of 0 (driving values)
-    logic [15:0] x_cur;
-    logic [15:0] y_cur;
-    logic write;
+    // Lag of 0
+    logic [8:0] x_cur;
+    logic [7:0] y_cur;
         
-    logic [15:0] x_min, x_max, y_min, y_max;
+    logic [8:0] x_min, x_max, y_min, y_max;
     get_min get_min_x(.val1(vertices[8]), .val2(vertices[5]), .val3(vertices[2]), .min(x_min));
     get_min get_min_y(.val1(vertices[7]), .val2(vertices[4]), .val3(vertices[1]), .min(y_min));
     get_max get_max_x(.val1(vertices[8]), .val2(vertices[5]), .val3(vertices[2]), .max(x_max));
     get_max get_max_y(.val1(vertices[7]), .val2(vertices[4]), .val3(vertices[1]), .max(y_max));
     
     // Calculate Area (lag by 1)
-    logic signed [31:0] area_total, area1, area2, area3, area_check; 
+    logic signed [17:0] area_total, area1, area2, area3, area_check; 
     get_area get_area_total(.clk_in(clk_in), .x1(vertices[8]), .y1(vertices[7]), .x2(vertices[5]), .y2(vertices[4]), 
         .x3(vertices[2]), .y3(vertices[1]), .area(area_total));
     get_area get_area1(.clk_in(clk_in), .x1(x_cur), .y1(y_cur), .x2(vertices[5]), .y2(vertices[4]), 
@@ -42,32 +42,27 @@ module rasterize(
     get_area get_area3(.clk_in(clk_in), .x1(vertices[8]), .y1(vertices[7]), .x2(vertices[5]), .y2(vertices[4]), 
         .x3(x_cur), .y3(y_cur), .area(area3));
     assign area_check = area1 + area2 + area3 - area_total;
+
     // Interp z before division (lag by 2) and test in triangle
-    logic signed [47:0] numerator;
-    logic signed [31:0] denominator;
+    logic signed [25:0] numerator;
+    logic signed [17:0] denominator;
     logic in_triangle;
-    logic valid_in, valid_out;
+    logic valid_in;
     logic divisor_ready, dividend_ready;
-    pipeline #(.N_BITS(1), .N_REGISTERS(2)) pipeline_valid_in(
-        .clk_in(clk_in), 
-        .rst_in(rst_in),
-        .data_in(~write),
-        .data_out(valid_in));
+    assign valid_in = 1;
     
     // Lag of 2 + DIVISION_LATENCY
-    logic [79:0] divider_out;
+    logic [55:0] divider_out;
     z_interp_divider my_div (
-      .aclk(clk_in), 
+      .aclk(clk_in),                                      // input wire aclk
       .s_axis_divisor_tvalid(valid_in),    // input wire s_axis_divisor_tvalid
-      .s_axis_divisor_tready(divisor_ready),    // output wire s_axis_divisor_tready
-      .s_axis_divisor_tdata(denominator),      // input wire [31 : 0] s_axis_divisor_tdata
+      .s_axis_divisor_tdata(denominator),      // input wire [23 : 0] s_axis_divisor_tdata
       .s_axis_dividend_tvalid(valid_in),  // input wire s_axis_dividend_tvalid
-      .s_axis_dividend_tready(dividend_ready),  // output wire s_axis_dividend_tread
-      .s_axis_dividend_tdata(numerator),    // input wire [47 : 0] s_axis_dividend_tdata
-      .m_axis_dout_tvalid(valid_out),          // output wire m_axis_dout_tvalid
-      .m_axis_dout_tdata(divider_out)            // output wire [79 : 0] m_axis_dout_tdata
+      .s_axis_dividend_tdata(numerator),    // input wire [31 : 0] s_axis_dividend_tdata
+      .m_axis_dout_tvalid(),          // output wire m_axis_dout_tvalid
+      .m_axis_dout_tdata(divider_out)            // output wire [55 : 0] m_axis_dout_tdata
     );
-    assign z_write = divider_out[47:32];
+    assign z_write = divider_out[31:24];
     
     
     // Delay x, y, read (lag by 1 + DIVISION_LATENCY)
@@ -75,26 +70,26 @@ module rasterize(
         .clk_in(clk_in), 
         .rst_in(rst_in),
         .data_in(x_cur),
-        .data_out(x_ram));
+        .data_out(x_read));
     pipeline #(.N_BITS(16), .N_REGISTERS(1 + DIVISION_LATENCY)) pipeline_y(
         .clk_in(clk_in), 
         .rst_in(rst_in),
         .data_in(y_cur),
-        .data_out(y_ram));
-        
-    logic write_lag;
-    pipeline #(.N_BITS(1), .N_REGISTERS(1 + DIVISION_LATENCY)) pipeline_write(
-        .clk_in(clk_in), 
-        .rst_in(rst_in),
-        .data_in(write),
-        .data_out(write_lag));    
+        .data_out(x_read));
+
     logic in_triangle_lag;
     pipeline #(.N_BITS(1), .N_REGISTERS(DIVISION_LATENCY)) pipeline_intri(
         .clk_in(clk_in), 
         .rst_in(rst_in),
         .data_in(in_triangle),
         .data_out(in_triangle_lag));
-    assign write_ram = z_write > z_read && in_triangle_lag && write_lag;
+    logic busy_lag;
+    pipeline #(.N_BITS(1), .N_REGISTERS(DIVISION_LATENCY + 2)) pipeline_busy(
+        .clk_in(clk_in), 
+        .rst_in(rst_in),
+        .data_in(busy),
+        .data_out(busy_lag));
+    assign write_ram = z_write > z_read && in_triangle_lag && ~busy_lag;
 
     pipeline #(.N_BITS(12), .N_REGISTERS(2 + DIVISION_LATENCY)) pipeline_rgb(
         .clk_in(clk_in), 
@@ -102,37 +97,32 @@ module rasterize(
         .data_in(rgb_in),
         .data_out(rgb_write));
      
-        
-
 
     always_ff @(posedge clk_in) begin
         if (rst_in) begin
             busy <= 0;
-            numerator <= 0;
-            denominator <= 1;
-            in_triangle <= 0;
+            x_cur <= 0;
+            y_cur <= 0;
         end else if (~busy) begin
             busy <= new_data;
             x_cur <= x_min;
             y_cur <= y_min;
-            write <= 0;
         end else begin
-            write <= ~write;
-            x_cur <= ~write ? x_cur : ((x_cur == x_max) ? x_min : (x_cur + 1));
-            y_cur <= (write && x_cur == x_max && y_cur < y_max) ? (y_cur + 1) : y_cur;
-            busy <= ~(write && x_cur == x_max && y_cur == y_max);
-            numerator <= area1 * $signed(vertices[6]) + 
+            x_cur <= ((x_cur == x_max) ? x_min : (x_cur + 1));
+            y_cur <= y_cur + 1;
+            busy <= ~(x_cur == x_max && y_cur == y_max);
+        end
+        numerator <= area1 * $signed(vertices[6]) + 
                 area2 * $signed(vertices[3]) + 
                 area3 * $signed(vertices[0]);
-            denominator <= area_total;
-            in_triangle <= (area1 > 0 && area2 > 0 && area3 > 0) || (area1 < 0 && area2 < 0 && area3 < 0);
-        end
-        
-        
+        denominator <= area_total;
+        in_triangle <= (area1 > 0 && area2 > 0 && area3 > 0) || (area1 < 0 && area2 < 0 && area3 < 0);
+        x_write <= x_read;
+        y_write <= y_read;
     end
 endmodule   
 
-module get_max(input [15:0] val1, input [15:0] val2, input [15:0] val3, output logic [15:0] max);
+module get_max(input [8:0] val1, input [8:0] val2, input [8:0] val3, output logic [8:0] max);
     always_comb begin 
         if (val1 > val2 && val1 > val3) begin
             max = val1;
@@ -146,7 +136,7 @@ endmodule
 
 
 
-module get_min(input [15:0] val1, input [15:0] val2, input [15:0] val3, output logic [15:0] min);
+module get_min(input [8:0] val1, input [8:0] val2, input [8:0] val3, output logic [8:0] min);
     always_comb begin 
         if (val1 < val2 && val1 < val3) begin
             min = val1;

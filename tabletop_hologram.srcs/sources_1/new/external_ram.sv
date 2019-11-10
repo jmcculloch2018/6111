@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module external_ram(
+module frame_buffer_manager(
     input clk_in,
     input rst_in,
     input next_frame,
