@@ -60,11 +60,8 @@ COMPONENT frame_buffer
     addra : IN STD_LOGIC_VECTOR(16 DOWNTO 0);
     dina : IN STD_LOGIC_VECTOR(19 DOWNTO 0);
     clkb : IN STD_LOGIC;
-    rstb : IN STD_LOGIC;
     addrb : IN STD_LOGIC_VECTOR(16 DOWNTO 0);
-    doutb : OUT STD_LOGIC_VECTOR(19 DOWNTO 0);
-    rsta_busy : OUT STD_LOGIC;
-    rstb_busy : OUT STD_LOGIC
+    doutb : OUT STD_LOGIC_VECTOR(19 DOWNTO 0)
   );
 END COMPONENT;
 -- COMP_TAG_END ------ End COMPONENT Declaration ------------
@@ -81,11 +78,8 @@ your_instance_name : frame_buffer
     addra => addra,
     dina => dina,
     clkb => clkb,
-    rstb => rstb,
     addrb => addrb,
-    doutb => doutb,
-    rsta_busy => rsta_busy,
-    rstb_busy => rstb_busy
+    doutb => doutb
   );
 -- INST_TAG_END ------ End INSTANTIATION Template ---------
 

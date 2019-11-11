@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="frame_buffer_synth_1" LaunchPart="xc7a100tcsg324-3" LaunchTime="1573239549">
+<GenRun Id="frame_buffer_synth_1" LaunchPart="xc7a100tcsg324-3" LaunchTime="1573417592">
   <File Type="PA-TCL" Name="frame_buffer.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="frame_buffer_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="frame_buffer_reports.tcl"/>

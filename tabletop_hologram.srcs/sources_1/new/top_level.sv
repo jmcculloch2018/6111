@@ -37,17 +37,21 @@ module top_level(
     
     logic clk, reset;
     assign clk = clk_100mhz;
-    debounce reset_debounce(.reset_in(0), .clock_in(clk), .noisy_in(btnc), .clean_out(reset));
-    
+    synchronize synchronize_reset(
+        .clk(clk), 
+        .in(sw[15]),
+        .out(reset));
+        
     // 25 mhz enable
     logic [1:0] vclock_count;
     logic vclock_enable;
     assign vclock_enable = (vclock_count == 0);
     
-    logic [8:0] vcount;
-    logic [9:0] hcount;
+    logic [15:0] vcount;
+    logic [15:0] hcount;
     logic vsync, hsync, blank;
     xvga my_vga(.vclock_in(clk),
+            .rst_in(reset),
             .vclock_enable(vclock_enable),
             .hcount_out(hcount),    // pixel number on current line
             .vcount_out(vcount),
@@ -61,10 +65,10 @@ module top_level(
     
     // Inactive
     logic write_inactive_frame;
-    logic [8:0] x_read_inactive_frame;
-    logic [7:0] y_read_inactive_frame;
-    logic [8:0] x_write_inactive_frame;
-    logic [7:0] y_write_inactive_frame;
+    logic [15:0] x_read_inactive_frame;
+    logic [15:0] y_read_inactive_frame;
+    logic [15:0] x_write_inactive_frame;
+    logic [15:0] y_write_inactive_frame;
     logic [11:0] rgb_write_inactive_frame;
     logic signed [7:0] z_write_inactive_frame;
     logic signed [7:0] z_read_inactive_frame;
@@ -89,12 +93,12 @@ module top_level(
     );
     
     
-    logic [11:0] rgb_in;
-    logic [15:0] vertices [8:0];
+    logic [11:0] rgb_triangle;
+    logic [15:0] triangle_vertices [8:0];
     logic next_triangle; 
     logic rasterize_busy;
-    assign rgb_in = 12'hF00;
-    assign vertices = '{100, 100, 0, 200, 50, 0, 250, 150, 0};
+    assign rgb_triangle = 12'hF00;
+    assign triangle_vertices = '{100, 100, 0, 200, 50, 0, 250, 150, 0};
     assign next_triangle = next_frame;
     rasterize my_rasterize(
         .clk_in(clk),
@@ -118,6 +122,20 @@ module top_level(
 
 
     // the following lines are required for the Nexys4 VGA circuit - do not change
+    
+    pipeline #(.N_BITS(1), .N_REGISTERS(2)) pipeline_vs (
+        .clk_in(clk), .rst_in(reset), 
+        .data_in(vsync), .data_out(vs)
+    );
+    pipeline #(.N_BITS(1), .N_REGISTERS(2)) pipeline_hs (
+        .clk_in(clk), .rst_in(reset), 
+        .data_in(hsync), .data_out(hs)
+    );
+    pipeline #(.N_BITS(1), .N_REGISTERS(2)) pipeline_b (
+        .clk_in(clk), .rst_in(reset), 
+        .data_in(blank), .data_out(b)
+    );
+    
     assign vga_r = ~b ? rgb_active_frame[11:8]: 0;
     assign vga_g = ~b ? rgb_active_frame[7:4] : 0;
     assign vga_b = ~b ? rgb_active_frame[3:0] : 0;
@@ -131,8 +149,6 @@ module top_level(
             vclock_count <= vclock_count + 1;
         end
         last_vsync <= vsync;
-         hs <= hsync; // buffered by 1
-         vs <= vsync; 
-         b <= blank;
+
     end
 endmodule

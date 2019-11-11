@@ -9,30 +9,30 @@ module rasterize(
     input new_data, 
     output logic busy,
     // RAM
-    input [15:0] z_read,
+    input signed [7:0] z_read,
     output logic write_ram,
-    output logic [8:0] x_write,
-    output logic [7:0] y_write,
-    output logic [8:0] x_read,
-    output logic [7:0] y_read,
+    output logic [15:0] x_write,
+    output logic [15:0] y_write,
+    output logic [15:0] x_read,
+    output logic [15:0] y_read,
     output logic [11:0] rgb_write,
-    output logic [7:0] z_write
-    );  
+    output logic signed [7:0] z_write
+);  
     
     parameter DIVISION_LATENCY = 30;  
     
     // Lag of 0
-    logic [8:0] x_cur;
-    logic [7:0] y_cur;
+    logic [15:0] x_cur;
+    logic [15:0] y_cur;
         
-    logic [8:0] x_min, x_max, y_min, y_max;
+    logic [15:0] x_min, x_max, y_min, y_max;
     get_min get_min_x(.val1(vertices[8]), .val2(vertices[5]), .val3(vertices[2]), .min(x_min));
     get_min get_min_y(.val1(vertices[7]), .val2(vertices[4]), .val3(vertices[1]), .min(y_min));
     get_max get_max_x(.val1(vertices[8]), .val2(vertices[5]), .val3(vertices[2]), .max(x_max));
     get_max get_max_y(.val1(vertices[7]), .val2(vertices[4]), .val3(vertices[1]), .max(y_max));
     
     // Calculate Area (lag by 1)
-    logic signed [17:0] area_total, area1, area2, area3, area_check; 
+    logic signed [23:0] area_total, area1, area2, area3, area_check; 
     get_area get_area_total(.clk_in(clk_in), .x1(vertices[8]), .y1(vertices[7]), .x2(vertices[5]), .y2(vertices[4]), 
         .x3(vertices[2]), .y3(vertices[1]), .area(area_total));
     get_area get_area1(.clk_in(clk_in), .x1(x_cur), .y1(y_cur), .x2(vertices[5]), .y2(vertices[4]), 
@@ -44,11 +44,10 @@ module rasterize(
     assign area_check = area1 + area2 + area3 - area_total;
 
     // Interp z before division (lag by 2) and test in triangle
-    logic signed [25:0] numerator;
-    logic signed [17:0] denominator;
+    logic signed [31:0] numerator;
+    logic signed [23:0] denominator;
     logic in_triangle;
     logic valid_in;
-    logic divisor_ready, dividend_ready;
     assign valid_in = 1;
     
     // Lag of 2 + DIVISION_LATENCY
@@ -65,17 +64,17 @@ module rasterize(
     assign z_write = divider_out[31:24];
     
     
-    // Delay x, y, read (lag by 1 + DIVISION_LATENCY)
-    pipeline #(.N_BITS(16), .N_REGISTERS(1 + DIVISION_LATENCY)) pipeline_x(
+    // Delay x, y, read (lag by DIVISION_LATENCY)
+    pipeline #(.N_BITS(16), .N_REGISTERS(DIVISION_LATENCY)) pipeline_x(
         .clk_in(clk_in), 
         .rst_in(rst_in),
         .data_in(x_cur),
         .data_out(x_read));
-    pipeline #(.N_BITS(16), .N_REGISTERS(1 + DIVISION_LATENCY)) pipeline_y(
+    pipeline #(.N_BITS(16), .N_REGISTERS(DIVISION_LATENCY)) pipeline_y(
         .clk_in(clk_in), 
         .rst_in(rst_in),
         .data_in(y_cur),
-        .data_out(x_read));
+        .data_out(y_read));
 
     logic in_triangle_lag;
     pipeline #(.N_BITS(1), .N_REGISTERS(DIVISION_LATENCY)) pipeline_intri(
@@ -89,7 +88,7 @@ module rasterize(
         .rst_in(rst_in),
         .data_in(busy),
         .data_out(busy_lag));
-    assign write_ram = z_write > z_read && in_triangle_lag && ~busy_lag;
+    assign write_ram = (z_write > z_read) && in_triangle_lag && busy_lag;
 
     pipeline #(.N_BITS(12), .N_REGISTERS(2 + DIVISION_LATENCY)) pipeline_rgb(
         .clk_in(clk_in), 
@@ -109,7 +108,7 @@ module rasterize(
             y_cur <= y_min;
         end else begin
             x_cur <= ((x_cur == x_max) ? x_min : (x_cur + 1));
-            y_cur <= y_cur + 1;
+            y_cur <= (x_cur == x_max) ? (y_cur + 1) : y_cur;
             busy <= ~(x_cur == x_max && y_cur == y_max);
         end
         numerator <= area1 * $signed(vertices[6]) + 
@@ -122,7 +121,7 @@ module rasterize(
     end
 endmodule   
 
-module get_max(input [8:0] val1, input [8:0] val2, input [8:0] val3, output logic [8:0] max);
+module get_max(input [15:0] val1, input [15:0] val2, input [15:0] val3, output logic [15:0] max);
     always_comb begin 
         if (val1 > val2 && val1 > val3) begin
             max = val1;
@@ -134,9 +133,7 @@ module get_max(input [8:0] val1, input [8:0] val2, input [8:0] val3, output logi
     end
 endmodule
 
-
-
-module get_min(input [8:0] val1, input [8:0] val2, input [8:0] val3, output logic [8:0] min);
+module get_min(input [15:0] val1, input [15:0] val2, input [15:0] val3, output logic [15:0] min);
     always_comb begin 
         if (val1 < val2 && val1 < val3) begin
             min = val1;
@@ -156,7 +153,7 @@ module get_area(
     input [15:0] y2,
     input [15:0] x3,
     input [15:0] y3,
-    output logic signed [31:0] area);
+    output logic signed [23:0] area);
     
     logic signed [15:0] v1x;
     logic signed [15:0] v1y;

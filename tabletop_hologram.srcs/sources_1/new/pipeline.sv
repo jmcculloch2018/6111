@@ -6,7 +6,7 @@ module pipeline(
     input [(N_BITS-1):0] data_in,
     output logic [(N_BITS-1):0] data_out); 
     parameter N_BITS = 1;
-    parameter N_REGISTERS = 1;
+    parameter N_REGISTERS = 2; // If just one register do manually
     
     logic [(N_BITS * N_REGISTERS - 1):0] buffer ;
     always_ff @(posedge clk_in) begin
