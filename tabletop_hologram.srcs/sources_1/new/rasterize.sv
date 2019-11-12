@@ -5,9 +5,9 @@ module rasterize(
     input clk_in,
     input rst_in, 
     input [11:0] rgb_in,
-    input [15:0] vertices [8:0],
+    input [8:0][15:0] vertices,
     input new_data, 
-    output logic busy,
+    output logic finished,
     // RAM
     input signed [7:0] z_read,
     output logic write_ram,
@@ -18,7 +18,8 @@ module rasterize(
     output logic [11:0] rgb_write,
     output logic signed [7:0] z_write
 );  
-    
+    logic busy;
+
     parameter DIVISION_LATENCY = 30;  
     
     // Lag of 0
@@ -97,6 +98,8 @@ module rasterize(
         .data_out(rgb_write));
      
 
+    assign finished = ~busy && last_busy;
+    logic last_busy;
     always_ff @(posedge clk_in) begin
         if (rst_in) begin
             busy <= 0;
@@ -115,9 +118,10 @@ module rasterize(
                 area2 * $signed(vertices[3]) + 
                 area3 * $signed(vertices[0]);
         denominator <= area_total;
-        in_triangle <= (area1 > 0 && area2 > 0 && area3 > 0) || (area1 < 0 && area2 < 0 && area3 < 0);
+        in_triangle <= (area1 >= 0 && area2 >= 0 && area3 >= 0) || (area1 <= 0 && area2 <= 0 && area3 <= 0);
         x_write <= x_read;
         y_write <= y_read;
+        last_busy <= busy;
     end
 endmodule   
 

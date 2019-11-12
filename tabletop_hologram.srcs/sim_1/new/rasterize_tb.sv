@@ -8,7 +8,7 @@ module rasterize_tb;
     logic rst;
     logic [11:0] rgb_in;
     logic is_triangle;
-    logic [15:0] vertices [8:0];
+    logic  [8:0][15:0] vertices;
     logic new_data;
     logic [15:0] z_read;
     
@@ -46,7 +46,7 @@ module rasterize_tb;
         rst = 0; //initialize rst (super important)
         rgb_in = 12'hfff;
         is_triangle = 1'b1;
-        vertices = '{8'h00, 8'h10, 8'h10, 8'h10, 8'h20, 8'h20, 8'h20, 8'h00, 8'h02};
+        vertices = {16'h00, 16'h10, 16'h10, 16'h10, 16'h20, 16'h20, 16'h20, 16'h00, 16'h02};
         new_data = 0;
         z_read = 8'h0;        
         #20  //wait a little bit of time at beginning

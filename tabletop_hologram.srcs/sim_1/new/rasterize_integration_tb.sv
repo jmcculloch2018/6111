@@ -39,7 +39,7 @@ module rasterize_integration_tb;
    logic vga_vs;
    logic ca, cb, cc, cd, ce, cf, cg, dp;  // segments a-g, dp
    logic[7:0] an;    // Display location 0-7
-    top_level uut(
+    rasterize_integration_test uut(
     .clk_100mhz(clk),
     .sw(sw), 
     .btnc(btnc), .btnu(btnu), .btnl(btnl), .btnr(btnr), .btnd(btnd),

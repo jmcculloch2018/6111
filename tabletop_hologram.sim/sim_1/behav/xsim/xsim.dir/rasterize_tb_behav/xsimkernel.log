@@ -1,7 +1,0 @@
-Running: xsim.dir/rasterize_tb_behav/xsimk.exe -simmode gui -wdb rasterize_tb_behav.wdb -simrunnum 0 -socket 52811
-Design successfully loaded
-Design Loading Memory Usage: 8232 KB (Peak: 8232 KB)
-Design Loading CPU Usage: 15 ms
-Simulation completed
-Simulation Memory Usage: 10648 KB (Peak: 10648 KB)
-Simulation CPU Usage: 1421 ms

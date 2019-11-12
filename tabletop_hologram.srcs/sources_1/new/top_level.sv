@@ -40,7 +40,73 @@ module top_level(
     synchronize synchronize_reset(
         .clk(clk), 
         .in(sw[15]),
-        .out(reset));
+        .out(reset)
+    );
+    
+    logic new_data_rasterize;    
+    graphics_fsm my_graphics_fsm(
+        .clk_in(clk),
+        .rst_in(reset),
+        .finish_rasterize(rasterize_finish),
+        .finish_projection(projection_finish),
+        .data_available_triangle_source(triangles_available),
+        .next_frame(next_frame),
+        .next_triangle(next_triangle),
+        .new_data_projection(new_data_projection),
+        .new_data_rasterize(new_data_rasterize)
+    );
+        
+    logic next_triangle;
+    logic triangles_available;
+    logic [11:0] rgb_triangle_source;    
+    logic [8:0][15:0] vertices_triangle_source;
+    triangle_source my_tri_source(
+        .clk_in(clk),
+        .rst_in(reset),
+        .next_triangle(next_triangle),
+        .next_frame(next_frame),
+        .triangles_available(triangles_available),
+        .rgb_out(rgb_triangle_source),
+        .vertices_out(vertices_triangle_source)
+    );
+    
+    logic [11:0] rgb_shader;    
+    logic [8:0][15:0] vertices_projection_out;
+    logic signed [1:0][15:0] user;
+    logic new_data_projection;
+    logic projection_finish;
+    
+    assign user = {16'd60, 16'd60};
+
+    projection my_projection(
+        .clk_in(clk),
+        .rst_in(reset),
+        .vertices_in(vertices_triangle_source),
+        .user_in(user),
+        .new_data_in(new_data_projection),
+        .vertices_out(vertices_projection_out),
+        .finished_out(projection_finish)
+    );      
+        
+    logic [11:0] rgb_rasterize;
+    logic [8:0][15:0] vertices_rasterize;
+    logic rasterize_finish;
+    rasterize my_rasterize(
+        .clk_in(clk),
+        .rst_in(reset),
+        .rgb_in(rgb_rasterize), 
+        .vertices(vertices_rasterize),
+        .new_data(new_data_rasterize),
+        .finished(rasterize_finish),
+        .z_read(z_read_inactive_frame),
+        .write_ram(write_inactive_frame),
+        .x_write(x_write_inactive_frame),
+        .y_write(y_write_inactive_frame),
+        .x_read(x_read_inactive_frame),
+        .y_read(y_read_inactive_frame),
+        .rgb_write(rgb_write_inactive_frame),
+        .z_write(z_write_inactive_frame)
+    );  
         
     // 25 mhz enable
     logic [1:0] vclock_count;
@@ -93,29 +159,7 @@ module top_level(
     );
     
     
-    logic [11:0] rgb_triangle;
-    logic [15:0] triangle_vertices [8:0];
-    logic next_triangle; 
-    logic rasterize_busy;
-    assign rgb_triangle = 12'hF00;
-    assign triangle_vertices = '{100, 100, 0, 200, 50, 0, 250, 150, 0};
-    assign next_triangle = next_frame;
-    rasterize my_rasterize(
-        .clk_in(clk),
-        .rst_in(reset),
-        .rgb_in(rgb_triangle), 
-        .vertices(triangle_vertices),
-        .new_data(next_triangle),
-        .busy(rasterize_busy),
-        .z_read(z_read_inactive_frame),
-        .write_ram(write_inactive_frame),
-        .x_write(x_write_inactive_frame),
-        .y_write(y_write_inactive_frame),
-        .x_read(x_read_inactive_frame),
-        .y_read(y_read_inactive_frame),
-        .rgb_write(rgb_write_inactive_frame),
-        .z_write(z_write_inactive_frame)
-    );  
+    
 
     logic b,hs,vs;
         
@@ -134,7 +178,7 @@ module top_level(
     pipeline #(.N_BITS(1), .N_REGISTERS(2)) pipeline_b (
         .clk_in(clk), .rst_in(reset), 
         .data_in(blank), .data_out(b)
-    );
+    ); 
     
     assign vga_r = ~b ? rgb_active_frame[11:8]: 0;
     assign vga_g = ~b ? rgb_active_frame[7:4] : 0;
@@ -145,9 +189,16 @@ module top_level(
     always_ff @(posedge clk) begin 
         if (reset) begin
             vclock_count <= 0;
+            rgb_rasterize <= 0;
+            rgb_shader <= 0;
+            vertices_rasterize <= 0;
         end else begin
             vclock_count <= vclock_count + 1;
+            rgb_rasterize <= next_triangle ? rgb_shader : rgb_rasterize;
+            rgb_shader <= new_data_projection ? rgb_triangle_source : rgb_shader;
+            vertices_rasterize <= next_triangle ? vertices_projection_out : vertices_rasterize;
         end
+        
         last_vsync <= vsync;
 
     end

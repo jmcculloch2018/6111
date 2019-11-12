@@ -78,11 +78,6 @@ module frame_buffer_manager(
     assign data_write_inactive = {rgb_write_inactive_frame, z_write_inactive_frame};
     assign z_read_inactive_frame = data_read[~active_frame][7:0];
      
-//    pipeline #(.N_BITS(1), .N_REGISTERS(2)) pipeline_in_frame (
-//        .clk_in(clk_in), .rst_in(rst_in),
-//        .data_in(),
-//        .data_out()
-//    );
     assign write_active_frame = (last_x_active_frame < SCREEN_WIDTH) && (last_y_active_frame < SCREEN_HEIGHT);
     always_ff @(posedge clk_in) begin
         if (rst_in) begin 
