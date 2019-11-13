@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-| Date         : Wed Nov 13 10:53:55 2019
+| Date         : Wed Nov 13 12:12:33 2019
 | Host         : DESKTOP-982HE02 running 64-bit major release  (build 9200)
 | Command      : report_methodology -file top_level_methodology_drc_routed.rpt -pb top_level_methodology_drc_routed.pb -rpx top_level_methodology_drc_routed.rpx
 | Design       : top_level
@@ -23,13 +23,13 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 55
+             Violations found: 57
 +-----------+----------+-------------------------------+------------+
 | Rule      | Severity | Description                   | Violations |
 +-----------+----------+-------------------------------+------------+
 | SYNTH-11  | Warning  | DSP output not registered     | 4          |
-| SYNTH-12  | Warning  | DSP input not registered      | 3          |
-| SYNTH-13  | Warning  | combinational multiplier      | 13         |
+| SYNTH-12  | Warning  | DSP input not registered      | 4          |
+| SYNTH-13  | Warning  | combinational multiplier      | 14         |
 | TIMING-18 | Warning  | Missing input or output delay | 35         |
 +-----------+----------+-------------------------------+------------+
 
@@ -37,100 +37,110 @@ Table of Contents
 -----------------
 SYNTH-11#1 Warning
 DSP output not registered  
-DSP instance my_manager/address_read_inactive is not fully pipelined on the output side. MREG/PREG are not used.
+DSP instance my_graphics/my_manager/address_write_active is not fully pipelined on the output side. MREG/PREG are not used.
 Related violations: <none>
 
 SYNTH-11#2 Warning
 DSP output not registered  
-DSP instance my_manager/address_write_active is not fully pipelined on the output side. MREG/PREG are not used.
+DSP instance my_graphics/my_manager/address_write_inactive is not fully pipelined on the output side. MREG/PREG are not used.
 Related violations: <none>
 
 SYNTH-11#3 Warning
 DSP output not registered  
-DSP instance my_manager/address_write_inactive is not fully pipelined on the output side. MREG/PREG are not used.
+DSP instance my_graphics/my_rasterize/numerator0 is not fully pipelined on the output side. MREG/PREG are not used.
 Related violations: <none>
 
 SYNTH-11#4 Warning
 DSP output not registered  
-DSP instance my_rasterize/numerator1 is not fully pipelined on the output side. MREG/PREG are not used.
+DSP instance my_graphics/my_rasterize/numerator1 is not fully pipelined on the output side. MREG/PREG are not used.
 Related violations: <none>
 
 SYNTH-12#1 Warning
 DSP input not registered  
-DSP instance my_rasterize/get_area1/area_reg is not fully pipelined on the input side. AREG/BREG/CREG/DREG are not used.
+DSP instance my_graphics/my_rasterize/get_area1/area_reg is not fully pipelined on the input side. AREG/BREG/CREG/DREG are not used.
 Related violations: <none>
 
 SYNTH-12#2 Warning
 DSP input not registered  
-DSP instance my_rasterize/get_area2/area_reg is not fully pipelined on the input side. AREG/BREG/CREG/DREG are not used.
+DSP instance my_graphics/my_rasterize/get_area2/area_reg is not fully pipelined on the input side. AREG/BREG/CREG/DREG are not used.
 Related violations: <none>
 
 SYNTH-12#3 Warning
 DSP input not registered  
-DSP instance my_rasterize/get_area3/area_reg is not fully pipelined on the input side. AREG/BREG/CREG/DREG are not used.
+DSP instance my_graphics/my_rasterize/get_area3/area_reg is not fully pipelined on the input side. AREG/BREG/CREG/DREG are not used.
+Related violations: <none>
+
+SYNTH-12#4 Warning
+DSP input not registered  
+DSP instance my_graphics/my_rasterize/get_area_total/area_reg is not fully pipelined on the input side. AREG/BREG/CREG/DREG are not used.
 Related violations: <none>
 
 SYNTH-13#1 Warning
 combinational multiplier  
-Detected combinational multiplier in DSP instance my_manager/address_read_active.
+Detected combinational multiplier in DSP instance my_graphics/my_manager/address_read_active.
 Related violations: <none>
 
 SYNTH-13#2 Warning
 combinational multiplier  
-Detected combinational multiplier in DSP instance my_rasterize/get_area1/area1.
+Detected combinational multiplier in DSP instance my_graphics/my_rasterize/get_area1/area1.
 Related violations: <none>
 
 SYNTH-13#3 Warning
 combinational multiplier  
-Detected combinational multiplier in DSP instance my_rasterize/get_area2/area1.
+Detected combinational multiplier in DSP instance my_graphics/my_rasterize/get_area2/area1.
 Related violations: <none>
 
 SYNTH-13#4 Warning
 combinational multiplier  
-Detected combinational multiplier in DSP instance my_rasterize/get_area3/area1.
+Detected combinational multiplier in DSP instance my_graphics/my_rasterize/get_area3/area1.
 Related violations: <none>
 
 SYNTH-13#5 Warning
 combinational multiplier  
-Detected combinational multiplier in DSP instance p_0_out.
+Detected combinational multiplier in DSP instance my_graphics/my_rasterize/get_area_total/area1.
 Related violations: <none>
 
 SYNTH-13#6 Warning
 combinational multiplier  
-Detected combinational multiplier in DSP instance p_0_out__0.
+Detected combinational multiplier in DSP instance p_0_out.
 Related violations: <none>
 
 SYNTH-13#7 Warning
 combinational multiplier  
-Detected combinational multiplier in DSP instance p_0_out__1.
+Detected combinational multiplier in DSP instance p_0_out__0.
 Related violations: <none>
 
 SYNTH-13#8 Warning
 combinational multiplier  
-Detected combinational multiplier in DSP instance p_0_out__2.
+Detected combinational multiplier in DSP instance p_0_out__1.
 Related violations: <none>
 
 SYNTH-13#9 Warning
 combinational multiplier  
-Detected combinational multiplier in DSP instance p_0_out__3.
+Detected combinational multiplier in DSP instance p_0_out__2.
 Related violations: <none>
 
 SYNTH-13#10 Warning
 combinational multiplier  
-Detected combinational multiplier in DSP instance p_0_out__4.
+Detected combinational multiplier in DSP instance p_0_out__3.
 Related violations: <none>
 
 SYNTH-13#11 Warning
 combinational multiplier  
-Detected combinational multiplier in DSP instance p_0_out__5.
+Detected combinational multiplier in DSP instance p_0_out__4.
 Related violations: <none>
 
 SYNTH-13#12 Warning
 combinational multiplier  
-Detected combinational multiplier in DSP instance p_0_out__6.
+Detected combinational multiplier in DSP instance p_0_out__5.
 Related violations: <none>
 
 SYNTH-13#13 Warning
+combinational multiplier  
+Detected combinational multiplier in DSP instance p_0_out__6.
+Related violations: <none>
+
+SYNTH-13#14 Warning
 combinational multiplier  
 Detected combinational multiplier in DSP instance p_0_out__7.
 Related violations: <none>

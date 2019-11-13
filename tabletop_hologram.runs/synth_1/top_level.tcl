@@ -38,6 +38,7 @@ read_verilog -library xil_defaultlib -sv {
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/debounce.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/external_ram.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/graphics_fsm.sv
+  C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/graphics_subsystem.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/pipeline.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/projection.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/rasterize.sv
