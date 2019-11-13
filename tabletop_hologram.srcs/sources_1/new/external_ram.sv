@@ -14,17 +14,23 @@ module frame_buffer_manager(
     input signed [7:0] z_write_inactive_frame,
     output logic signed [7:0] z_read_inactive_frame,
     // Active
-    input [15:0] x_active_frame,
-    input [15:0] y_active_frame,
+    input [15:0] hcount_in,
+    input [15:0] vcount_in,
     output logic [11:0] rgb_active_frame
 
     );
     parameter SCREEN_WIDTH = 320;
-    parameter SCREEN_HEIGHT = 240;
+    parameter SCREEN_HEIGHT = 320;
     
-   
-    logic [15:0] last_x_active_frame;
-    logic [15:0] last_y_active_frame;
+    parameter VGA_WIDTH = 640;
+    parameter VGA_HEIGHT = 480;
+    
+    assign x_active_frame = hcount_in - VGA_WIDTH / 2 + SCREEN_WIDTH / 2;
+    assign y_active_frame = vcount_in - VGA_HEIGHT / 2 + SCREEN_HEIGHT / 2;
+    logic signed [15:0] x_active_frame;
+    logic signed [15:0] y_active_frame;
+    logic signed [15:0] last_x_active_frame;
+    logic signed [15:0] last_y_active_frame;
     logic [16:0] address_write_active, address_write_inactive;
     logic [16:0] address_read_active, address_read_inactive;
     logic [19:0] data_write_active, data_write_inactive;
@@ -46,7 +52,6 @@ module frame_buffer_manager(
         
     frame_buffer buffer0(
       .clka(clk_in),            // input wire clka
-      .ena(1'b1),              // input wire ena
       .wea((active_frame == 0) ? write_active_frame : write_inactive_frame),              // input wire [0 : 0] wea
       .addra((active_frame == 0) ? address_write_active : address_write_inactive),          // input wire [16 : 0] addra
       .dina((active_frame == 0) ? data_write_active : data_write_inactive),            // input wire [19 : 0] dina
@@ -57,7 +62,6 @@ module frame_buffer_manager(
 
     frame_buffer buffer1(
       .clka(clk_in),            // input wire clka
-      .ena(1'b1),              // input wire ena
       .wea((active_frame == 1) ? write_active_frame : write_inactive_frame),              // input wire [0 : 0] wea
       .addra((active_frame == 1) ? address_write_active : address_write_inactive),          // input wire [16 : 0] addra
       .dina((active_frame == 1) ? data_write_active : data_write_inactive),            // input wire [19 : 0] dina
@@ -78,14 +82,16 @@ module frame_buffer_manager(
     assign data_write_inactive = {rgb_write_inactive_frame, z_write_inactive_frame};
     assign z_read_inactive_frame = data_read[~active_frame][7:0];
      
-    assign write_active_frame = (last_x_active_frame < SCREEN_WIDTH) && (last_y_active_frame < SCREEN_HEIGHT);
+    assign write_active_frame = (last_x_active_frame < SCREEN_WIDTH) && (last_x_active_frame >= 0) &&
+        (last_y_active_frame >= 0) && (last_y_active_frame < SCREEN_HEIGHT);
     always_ff @(posedge clk_in) begin
         if (rst_in) begin 
             active_frame <= 0;
             pixel_in_frame <= 0;
         end else begin 
             active_frame <= next_frame ? ~active_frame : active_frame;
-            pixel_in_frame <= (x_active_frame < SCREEN_WIDTH) && (y_active_frame < SCREEN_HEIGHT);
+            pixel_in_frame <= (x_active_frame < SCREEN_WIDTH) && (x_active_frame >= 0) &&
+                (y_active_frame >= 0) && (y_active_frame < SCREEN_HEIGHT);
         end
         
     end

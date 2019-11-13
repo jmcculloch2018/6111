@@ -89,6 +89,16 @@ module rasterize(
         .rst_in(rst_in),
         .data_in(busy),
         .data_out(busy_lag));
+     pipeline #(.N_BITS(16), .N_REGISTERS(2)) pipeline_x_write(
+        .clk_in(clk_in), 
+        .rst_in(rst_in),
+        .data_in(x_read),
+        .data_out(x_write));
+    pipeline #(.N_BITS(16), .N_REGISTERS(2)) pipeline_y_write(
+        .clk_in(clk_in), 
+        .rst_in(rst_in),
+        .data_in(y_read),
+        .data_out(y_write));
     assign write_ram = (z_write > z_read) && in_triangle_lag && busy_lag;
 
     pipeline #(.N_BITS(12), .N_REGISTERS(2 + DIVISION_LATENCY)) pipeline_rgb(
@@ -119,8 +129,6 @@ module rasterize(
                 area3 * $signed(vertices[0]);
         denominator <= area_total;
         in_triangle <= (area1 >= 0 && area2 >= 0 && area3 >= 0) || (area1 <= 0 && area2 <= 0 && area3 <= 0);
-        x_write <= x_read;
-        y_write <= y_read;
         last_busy <= busy;
     end
 endmodule   

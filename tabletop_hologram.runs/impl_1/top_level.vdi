@@ -2,8 +2,8 @@
 # Vivado v2019.1 (64-bit)
 # SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
 # IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
-# Start of session at: Tue Nov 12 18:10:32 2019
-# Process ID: 13980
+# Start of session at: Wed Nov 13 10:49:29 2019
+# Process ID: 6544
 # Current directory: C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/impl_1
 # Command line: vivado.exe -log top_level.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source top_level.tcl -notrace
 # Log file: C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/impl_1/top_level.vdi
@@ -17,20 +17,20 @@ INFO: [Device 21-403] Loading part xc7a100tcsg324-3
 INFO: [Project 1-454] Reading design checkpoint 'c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/frame_buffer_1/frame_buffer.dcp' for cell 'my_manager/buffer0'
 INFO: [Project 1-454] Reading design checkpoint 'c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/z_interp_divider/z_interp_divider.dcp' for cell 'my_rasterize/my_div'
 INFO: [Project 1-454] Reading design checkpoint 'c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/triangles_rom/triangles_rom.dcp' for cell 'my_tri_source/my_rom'
-INFO: [Netlist 29-17] Analyzing 538 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 615 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-479] Netlist was created with Vivado 2019.1
 INFO: [Project 1-570] Preparing netlist for logic optimization
 Parsing XDC File [C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/constrs_1/imports/Downloads/nexys4_ddr_lab3.xdc]
 Finished Parsing XDC File [C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/constrs_1/imports/Downloads/nexys4_ddr_lab3.xdc]
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 716.906 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 720.000 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 10 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
 link_design completed successfully
-link_design: Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 716.906 ; gain = 424.918
+link_design: Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 720.000 ; gain = 428.273
 Command: opt_design
 Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
@@ -41,54 +41,54 @@ INFO: [DRC 23-27] Running DRC with 2 threads
 INFO: [Project 1-461] DRC finished with 0 Errors
 INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 735.871 ; gain = 18.965
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 738.965 ; gain = 18.965
 
 Starting Cache Timing Information Task
 INFO: [Timing 38-35] Done setting XDC timing constraints.
-Ending Cache Timing Information Task | Checksum: 90eca96b
+Ending Cache Timing Information Task | Checksum: 1f9d7c917
 
-Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 1277.793 ; gain = 541.922
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 1294.660 ; gain = 555.695
 
 Starting Logic Optimization Task
 
 Phase 1 Retarget
 INFO: [Opt 31-138] Pushed 2 inverter(s) to 8 load pin(s).
 INFO: [Opt 31-49] Retargeted 0 cell(s).
-Phase 1 Retarget | Checksum: d38ba957
+Phase 1 Retarget | Checksum: 1252439b9
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.805 . Memory (MB): peak = 1425.727 ; gain = 0.000
-INFO: [Opt 31-389] Phase Retarget created 38 cells and removed 46 cells
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.532 . Memory (MB): peak = 1437.230 ; gain = 0.000
+INFO: [Opt 31-389] Phase Retarget created 0 cells and removed 6 cells
 
 Phase 2 Constant propagation
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Phase 2 Constant propagation | Checksum: 7d8e5376
+Phase 2 Constant propagation | Checksum: a0e93a50
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.889 . Memory (MB): peak = 1425.727 ; gain = 0.000
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.615 . Memory (MB): peak = 1437.230 ; gain = 0.000
 INFO: [Opt 31-389] Phase Constant propagation created 0 cells and removed 4 cells
 
 Phase 3 Sweep
-Phase 3 Sweep | Checksum: 152a25d6c
+Phase 3 Sweep | Checksum: 12b0e647c
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1425.727 ; gain = 0.000
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1437.230 ; gain = 0.000
 INFO: [Opt 31-389] Phase Sweep created 0 cells and removed 598 cells
 
 Phase 4 BUFG optimization
-Phase 4 BUFG optimization | Checksum: 152a25d6c
+Phase 4 BUFG optimization | Checksum: 12b0e647c
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1425.727 ; gain = 0.000
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1437.230 ; gain = 0.000
 INFO: [Opt 31-662] Phase BUFG optimization created 0 cells of which 0 are BUFGs and removed 0 cells.
 
 Phase 5 Shift Register Optimization
 INFO: [Opt 31-1064] SRL Remap converted 0 SRLs to 0 registers and converted 0 registers of register chains to 0 SRLs
-Phase 5 Shift Register Optimization | Checksum: 152a25d6c
+Phase 5 Shift Register Optimization | Checksum: 12b0e647c
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1425.727 ; gain = 0.000
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1437.230 ; gain = 0.000
 INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
 
 Phase 6 Post Processing Netlist
-Phase 6 Post Processing Netlist | Checksum: 152a25d6c
+Phase 6 Post Processing Netlist | Checksum: 12b0e647c
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1425.727 ; gain = 0.000
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1437.230 ; gain = 0.000
 INFO: [Opt 31-389] Phase Post Processing Netlist created 0 cells and removed 0 cells
 Opt_design Change Summary
 =========================
@@ -97,7 +97,7 @@ Opt_design Change Summary
 -------------------------------------------------------------------------------------------------------------------------
 |  Phase                        |  #Cells created  |  #Cells Removed  |  #Constrained objects preventing optimizations  |
 -------------------------------------------------------------------------------------------------------------------------
-|  Retarget                     |              38  |              46  |                                              0  |
+|  Retarget                     |               0  |               6  |                                              0  |
 |  Constant propagation         |               0  |               4  |                                              0  |
 |  Sweep                        |               0  |             598  |                                              0  |
 |  BUFG optimization            |               0  |               0  |                                              0  |
@@ -109,10 +109,10 @@ Opt_design Change Summary
 
 Starting Connectivity Check Task
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.028 . Memory (MB): peak = 1425.727 ; gain = 0.000
-Ending Logic Optimization Task | Checksum: f6304626
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 1437.230 ; gain = 0.000
+Ending Logic Optimization Task | Checksum: 1bc7fe475
 
-Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1425.727 ; gain = 0.000
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 1437.230 ; gain = 0.000
 
 Starting Power Optimization Task
 INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
@@ -126,45 +126,45 @@ INFO: [Pwropt 34-10] Applying ODC optimizations ...
 
 
 Starting PowerOpt Patch Enables Task
-INFO: [Pwropt 34-162] WRITE_MODE attribute of 0 BRAM(s) out of a total of 91 has been updated to save power. Run report_power_opt to get a complete listing of the BRAMs updated.
+INFO: [Pwropt 34-162] WRITE_MODE attribute of 0 BRAM(s) out of a total of 117 has been updated to save power. Run report_power_opt to get a complete listing of the BRAMs updated.
 INFO: [Pwropt 34-201] Structural ODC has moved 0 WE to EN ports
-Number of BRAM Ports augmented: 180 newly gated: 46 Total Ports: 182
+Number of BRAM Ports augmented: 126 newly gated: 114 Total Ports: 234
 Number of Flops added for Enable Generation: 4
 
-Ending PowerOpt Patch Enables Task | Checksum: 10b3b7172
+Ending PowerOpt Patch Enables Task | Checksum: 12431748f
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Ending Power Optimization Task | Checksum: 10b3b7172
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Ending Power Optimization Task | Checksum: 12431748f
 
-Time (s): cpu = 00:00:23 ; elapsed = 00:00:20 . Memory (MB): peak = 1796.801 ; gain = 371.074
+Time (s): cpu = 00:00:42 ; elapsed = 00:00:39 . Memory (MB): peak = 1895.668 ; gain = 458.438
 
 Starting Final Cleanup Task
 
 Starting Logic Optimization Task
 INFO: [Timing 38-35] Done setting XDC timing constraints.
-Ending Logic Optimization Task | Checksum: 1933873db
+Ending Logic Optimization Task | Checksum: 100e28d6c
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Ending Final Cleanup Task | Checksum: 1933873db
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Ending Final Cleanup Task | Checksum: 100e28d6c
 
-Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:04 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Starting Netlist Obfuscation Task
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Ending Netlist Obfuscation Task | Checksum: 1933873db
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Ending Netlist Obfuscation Task | Checksum: 100e28d6c
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1895.668 ; gain = 0.000
 INFO: [Common 17-83] Releasing license: Implementation
 34 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
 opt_design completed successfully
-opt_design: Time (s): cpu = 00:00:46 ; elapsed = 00:00:43 . Memory (MB): peak = 1796.801 ; gain = 1079.895
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1796.801 ; gain = 0.000
+opt_design: Time (s): cpu = 00:01:06 ; elapsed = 00:01:00 . Memory (MB): peak = 1895.668 ; gain = 1175.668
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1895.668 ; gain = 0.000
 INFO: [Timing 38-480] Writing timing data to binary archive.
 Writing placer database...
 Writing XDEF routing.
 Writing XDEF routing logical nets.
 Writing XDEF routing special nets.
-Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.136 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.113 . Memory (MB): peak = 1895.668 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/impl_1/top_level_opt.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_drc -file top_level_drc_opted.rpt -pb top_level_drc_opted.pb -rpx top_level_drc_opted.rpx
 Command: report_drc -file top_level_drc_opted.rpt -pb top_level_drc_opted.pb -rpx top_level_drc_opted.rpx
@@ -189,37 +189,37 @@ INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 
 Phase 1 Placer Initialization
 
 Phase 1.1 Placer Initialization Netlist Sorting
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Phase 1.1 Placer Initialization Netlist Sorting | Checksum: ddfdfcd4
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Phase 1.1 Placer Initialization Netlist Sorting | Checksum: b5fc5e19
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
 INFO: [Timing 38-35] Done setting XDC timing constraints.
-Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: 14ba74b1e
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: 10fea00d1
 
-Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 1.3 Build Placer Netlist Model
-Phase 1.3 Build Placer Netlist Model | Checksum: 249851b33
+Phase 1.3 Build Placer Netlist Model | Checksum: 1b6dd8b98
 
-Time (s): cpu = 00:00:06 ; elapsed = 00:00:04 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:04 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 1.4 Constrain Clocks/Macros
-Phase 1.4 Constrain Clocks/Macros | Checksum: 249851b33
+Phase 1.4 Constrain Clocks/Macros | Checksum: 1b6dd8b98
 
-Time (s): cpu = 00:00:06 ; elapsed = 00:00:04 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Phase 1 Placer Initialization | Checksum: 249851b33
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:04 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Phase 1 Placer Initialization | Checksum: 1b6dd8b98
 
-Time (s): cpu = 00:00:06 ; elapsed = 00:00:04 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:04 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 2 Global Placement
 
 Phase 2.1 Floorplanning
-Phase 2.1 Floorplanning | Checksum: 171441ffe
+Phase 2.1 Floorplanning | Checksum: 1702f3426
 
-Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 2.2 Global Placement Core
 
@@ -230,25 +230,108 @@ INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, 
 INFO: [Physopt 32-64] No nets found for fanout-optimization.
 INFO: [Physopt 32-232] Optimized 0 net. Created 0 new instance.
 INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[0] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[15] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__14 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[9] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__8 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[17] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__16 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[13] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__12 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[22] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__21 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[6] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__5 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[12] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__11 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[21] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__20 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[6] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__5 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[20] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__19 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[3] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__2 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[19] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__18 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[14] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__13 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[13] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__12 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[53].ram.r/prim_init.ram/ena_array[0] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[53].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram_i_1 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[18] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__17 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[15] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__14 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/enb_array[15] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/ENOUT__14 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/enb_array[0] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/ENOUT could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[5] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__4 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/enb_array[12] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/ENOUT__11 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/enb_array[9] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/ENOUT__8 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/enb_array[14] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/ENOUT__13 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[14] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__13 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[10] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__9 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[2] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__1 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[21] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__20 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[11] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__10 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/enb_array[3] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/ENOUT__2 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[12] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__11 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/enb_array[6] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/ENOUT__5 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/enb_array[13] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/ENOUT__12 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ram_ena__0_n_0 could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ram_ena__0 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[3] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__2 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ena_array[10] could not be optimized because driver my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_a.bindec_inst_a/ENOUT__9 could not be replicated
+INFO: [Physopt 32-117] Net my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/enb_array[17] could not be optimized because driver my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/bindec_b.bindec_inst_b/ENOUT__16 could not be replicated
+INFO: [Physopt 32-68] No nets found for critical-cell optimization.
+INFO: [Physopt 32-232] Optimized 0 net. Created 0 new instance.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
 INFO: [Physopt 32-456] No candidate cells for DSP register optimization found in the design.
 INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
 INFO: [Physopt 32-677] No candidate cells for Shift Register optimization found in the design
 INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
-INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[10].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
-INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[18].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM18.ram. 9 registers were pushed out.
-INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[7].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
-INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[3].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
-INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[10].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
-INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[9].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[15].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[12].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[8].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[19].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[13].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[11].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
 INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[14].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
-INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[5].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
-INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[2].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[7].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[17].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[16].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[5].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[28].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[16].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[10].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[19].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[17].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[24].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[9].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[18].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[20].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[6].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[20].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[13].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[27].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[15].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[14].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[22].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
 INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[11].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
-INFO: [Physopt 32-775] End 1 Pass. Optimized 10 nets or cells. Created 90 new cells, deleted 0 existing cell and moved 0 existing cell
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.050 . Memory (MB): peak = 1796.801 ; gain = 0.000
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[7].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[18].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[24].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[29].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[26].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[28].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[23].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[23].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[22].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[29].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[26].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[12].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[25].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[10].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[27].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[21].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[6].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[8].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[21].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[25].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[9].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_tri_source/my_rom/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[1].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM36.ram. 36 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[2].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM18.ram. 2 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer0/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[5].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 9 registers were pushed out.
+INFO: [Physopt 32-665] Processed cell my_manager/buffer1/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[4].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM36.ram. 1 register was pushed out.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 53 nets or cells. Created 489 new cells, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.182 . Memory (MB): peak = 1895.668 ; gain = 0.000
 INFO: [Physopt 32-949] No candidate nets found for HD net replication
 INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Summary of Physical Synthesis Optimizations
 ============================================
@@ -259,63 +342,74 @@ Summary of Physical Synthesis Optimizations
 ----------------------------------------------------------------------------------------------------------------------------------------
 |  Very High Fanout              |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
 |  Fanout                        |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Critical Cell                 |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
 |  DSP Register                  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
 |  Shift Register                |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  BRAM Register                 |           90  |              0  |                    10  |           0  |           1  |  00:00:01  |
+|  BRAM Register                 |          489  |              0  |                    53  |           0  |           1  |  00:00:06  |
 |  HD Interface Net Replication  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  Total                         |           90  |              0  |                    10  |           0  |           6  |  00:00:01  |
+|  Total                         |          489  |              0  |                    53  |           0  |           7  |  00:00:06  |
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 
-Phase 2.2.1 Physical Synthesis In Placer | Checksum: 1d885ac34
+Phase 2.2.1 Physical Synthesis In Placer | Checksum: 17ea29c1d
 
-Time (s): cpu = 00:00:26 ; elapsed = 00:00:18 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Phase 2.2 Global Placement Core | Checksum: bfe1fe46
+Time (s): cpu = 00:00:36 ; elapsed = 00:00:26 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Phase 2.2 Global Placement Core | Checksum: e5748e6e
 
-Time (s): cpu = 00:00:27 ; elapsed = 00:00:19 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Phase 2 Global Placement | Checksum: bfe1fe46
+Time (s): cpu = 00:00:38 ; elapsed = 00:00:27 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Phase 2 Global Placement | Checksum: e5748e6e
 
-Time (s): cpu = 00:00:27 ; elapsed = 00:00:19 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:38 ; elapsed = 00:00:27 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 3 Detail Placement
 
 Phase 3.1 Commit Multi Column Macros
-Phase 3.1 Commit Multi Column Macros | Checksum: cbcc5a86
+Phase 3.1 Commit Multi Column Macros | Checksum: 168559ece
 
-Time (s): cpu = 00:00:29 ; elapsed = 00:00:20 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:39 ; elapsed = 00:00:29 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 3.2 Commit Most Macros & LUTRAMs
-Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 1438fb9db
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 1de0ef1bf
 
-Time (s): cpu = 00:00:32 ; elapsed = 00:00:23 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:42 ; elapsed = 00:00:31 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 3.3 Area Swap Optimization
-Phase 3.3 Area Swap Optimization | Checksum: 14a5cbb9c
+Phase 3.3 Area Swap Optimization | Checksum: 2543d7e69
 
-Time (s): cpu = 00:00:32 ; elapsed = 00:00:23 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:42 ; elapsed = 00:00:31 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 3.4 Pipeline Register Optimization
-Phase 3.4 Pipeline Register Optimization | Checksum: 18b10f308
+Phase 3.4 Pipeline Register Optimization | Checksum: 19d2ae16a
 
-Time (s): cpu = 00:00:32 ; elapsed = 00:00:23 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:42 ; elapsed = 00:00:31 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
-Phase 3.5 Small Shape Detail Placement
-Phase 3.5 Small Shape Detail Placement | Checksum: f18577d7
+Phase 3.5 Fast Optimization
+Phase 3.5 Fast Optimization | Checksum: 19d1dcac2
 
-Time (s): cpu = 00:00:33 ; elapsed = 00:00:24 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:45 ; elapsed = 00:00:33 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
-Phase 3.6 Re-assign LUT pins
-Phase 3.6 Re-assign LUT pins | Checksum: 879708f1
+Phase 3.6 Small Shape Detail Placement
+Phase 3.6 Small Shape Detail Placement | Checksum: 20f5c7bad
 
-Time (s): cpu = 00:00:34 ; elapsed = 00:00:24 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:49 ; elapsed = 00:00:37 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
-Phase 3.7 Pipeline Register Optimization
-Phase 3.7 Pipeline Register Optimization | Checksum: 10135cd5d
+Phase 3.7 Re-assign LUT pins
+Phase 3.7 Re-assign LUT pins | Checksum: 2173a58bd
 
-Time (s): cpu = 00:00:34 ; elapsed = 00:00:25 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Phase 3 Detail Placement | Checksum: 10135cd5d
+Time (s): cpu = 00:00:49 ; elapsed = 00:00:38 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
-Time (s): cpu = 00:00:34 ; elapsed = 00:00:25 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Phase 3.8 Pipeline Register Optimization
+Phase 3.8 Pipeline Register Optimization | Checksum: 1dffdb35f
+
+Time (s): cpu = 00:00:49 ; elapsed = 00:00:38 . Memory (MB): peak = 1895.668 ; gain = 0.000
+
+Phase 3.9 Fast Optimization
+Phase 3.9 Fast Optimization | Checksum: 18b97c067
+
+Time (s): cpu = 00:00:54 ; elapsed = 00:00:42 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Phase 3 Detail Placement | Checksum: 18b97c067
+
+Time (s): cpu = 00:00:54 ; elapsed = 00:00:42 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 4 Post Placement Optimization and Clean-Up
 
@@ -323,59 +417,59 @@ Phase 4.1 Post Commit Optimization
 INFO: [Timing 38-35] Done setting XDC timing constraints.
 
 Phase 4.1.1 Post Placement Optimization
-Post Placement Optimization Initialization | Checksum: 18b00aab0
+Post Placement Optimization Initialization | Checksum: 17cd605d1
 
 Phase 4.1.1.1 BUFG Insertion
 INFO: [Place 46-56] BUFG insertion identified 0 candidate nets. Inserted BUFG: 0, Replicated BUFG Driver: 0, Skipped due to Placement/Routing Conflicts: 0, Skipped due to Timing Degradation: 0, Skipped due to Illegal Netlist: 0.
-Phase 4.1.1.1 BUFG Insertion | Checksum: 18b00aab0
+Phase 4.1.1.1 BUFG Insertion | Checksum: 17cd605d1
 
-Time (s): cpu = 00:00:38 ; elapsed = 00:00:27 . Memory (MB): peak = 1796.801 ; gain = 0.000
-INFO: [Place 30-746] Post Placement Timing Summary WNS=0.675. For the most accurate timing information please run report_timing.
-Phase 4.1.1 Post Placement Optimization | Checksum: aa1f08a6
+Time (s): cpu = 00:00:59 ; elapsed = 00:00:45 . Memory (MB): peak = 1895.668 ; gain = 0.000
+INFO: [Place 30-746] Post Placement Timing Summary WNS=0.314. For the most accurate timing information please run report_timing.
+Phase 4.1.1 Post Placement Optimization | Checksum: 141b4f5a8
 
-Time (s): cpu = 00:00:38 ; elapsed = 00:00:27 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Phase 4.1 Post Commit Optimization | Checksum: aa1f08a6
+Time (s): cpu = 00:01:15 ; elapsed = 00:01:00 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Phase 4.1 Post Commit Optimization | Checksum: 141b4f5a8
 
-Time (s): cpu = 00:00:38 ; elapsed = 00:00:28 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:01:15 ; elapsed = 00:01:00 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 4.2 Post Placement Cleanup
-Phase 4.2 Post Placement Cleanup | Checksum: aa1f08a6
+Phase 4.2 Post Placement Cleanup | Checksum: 141b4f5a8
 
-Time (s): cpu = 00:00:38 ; elapsed = 00:00:28 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:01:15 ; elapsed = 00:01:00 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 4.3 Placer Reporting
-Phase 4.3 Placer Reporting | Checksum: aa1f08a6
+Phase 4.3 Placer Reporting | Checksum: 141b4f5a8
 
-Time (s): cpu = 00:00:38 ; elapsed = 00:00:28 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:01:15 ; elapsed = 00:01:00 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 4.4 Final Placement Cleanup
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Phase 4.4 Final Placement Cleanup | Checksum: 99e88c08
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Phase 4.4 Final Placement Cleanup | Checksum: 1cf19e1ee
 
-Time (s): cpu = 00:00:38 ; elapsed = 00:00:28 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Phase 4 Post Placement Optimization and Clean-Up | Checksum: 99e88c08
+Time (s): cpu = 00:01:15 ; elapsed = 00:01:00 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: 1cf19e1ee
 
-Time (s): cpu = 00:00:39 ; elapsed = 00:00:28 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Ending Placer Task | Checksum: 93146531
+Time (s): cpu = 00:01:15 ; elapsed = 00:01:00 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Ending Placer Task | Checksum: 18516512a
 
-Time (s): cpu = 00:00:39 ; elapsed = 00:00:28 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:01:15 ; elapsed = 00:01:00 . Memory (MB): peak = 1895.668 ; gain = 0.000
 INFO: [Common 17-83] Releasing license: Implementation
-76 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+159 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
 place_design completed successfully
-place_design: Time (s): cpu = 00:00:42 ; elapsed = 00:00:30 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1796.801 ; gain = 0.000
+place_design: Time (s): cpu = 00:01:18 ; elapsed = 00:01:02 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1895.668 ; gain = 0.000
 INFO: [Timing 38-480] Writing timing data to binary archive.
 Writing placer database...
 Writing XDEF routing.
 Writing XDEF routing logical nets.
 Writing XDEF routing special nets.
-Write XDEF Complete: Time (s): cpu = 00:00:03 ; elapsed = 00:00:01 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Write XDEF Complete: Time (s): cpu = 00:00:05 ; elapsed = 00:00:01 . Memory (MB): peak = 1895.668 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/impl_1/top_level_placed.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_io -file top_level_io_placed.rpt
-report_io: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.148 . Memory (MB): peak = 1796.801 ; gain = 0.000
+report_io: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.080 . Memory (MB): peak = 1895.668 ; gain = 0.000
 INFO: [runtcl-4] Executing : report_utilization -file top_level_utilization_placed.rpt -pb top_level_utilization_placed.pb
 INFO: [runtcl-4] Executing : report_control_sets -verbose -file top_level_control_sets_placed.rpt
-report_control_sets: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.268 . Memory (MB): peak = 1796.801 ; gain = 0.000
+report_control_sets: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.187 . Memory (MB): peak = 1895.668 ; gain = 0.000
 Command: route_design
 Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
@@ -387,41 +481,41 @@ INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more in
 
 Starting Routing Task
 INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 2 CPUs
-Checksum: PlaceDB: 1b15e08f ConstDB: 0 ShapeSum: 77fe84a2 RouteDB: 0
+Checksum: PlaceDB: 8ba3b6e7 ConstDB: 0 ShapeSum: f9729a43 RouteDB: 0
 
 Phase 1 Build RT Design
-Phase 1 Build RT Design | Checksum: 9ece2df7
+Phase 1 Build RT Design | Checksum: ce4ad9ed
 
-Time (s): cpu = 00:00:46 ; elapsed = 00:00:38 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Post Restoration Checksum: NetGraph: 853406be NumContArr: 199a2739 Constraints: 0 Timing: 0
+Time (s): cpu = 00:00:50 ; elapsed = 00:00:44 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Post Restoration Checksum: NetGraph: 947e1e22 NumContArr: 39ccbbcb Constraints: 0 Timing: 0
 
 Phase 2 Router Initialization
 
 Phase 2.1 Create Timer
-Phase 2.1 Create Timer | Checksum: 9ece2df7
+Phase 2.1 Create Timer | Checksum: ce4ad9ed
 
-Time (s): cpu = 00:00:46 ; elapsed = 00:00:39 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:50 ; elapsed = 00:00:44 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 2.2 Fix Topology Constraints
-Phase 2.2 Fix Topology Constraints | Checksum: 9ece2df7
+Phase 2.2 Fix Topology Constraints | Checksum: ce4ad9ed
 
-Time (s): cpu = 00:00:46 ; elapsed = 00:00:39 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:50 ; elapsed = 00:00:44 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 2.3 Pre Route Cleanup
-Phase 2.3 Pre Route Cleanup | Checksum: 9ece2df7
+Phase 2.3 Pre Route Cleanup | Checksum: ce4ad9ed
 
-Time (s): cpu = 00:00:46 ; elapsed = 00:00:39 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:50 ; elapsed = 00:00:44 . Memory (MB): peak = 1895.668 ; gain = 0.000
  Number of Nodes with overlaps = 0
 
 Phase 2.4 Update Timing
-Phase 2.4 Update Timing | Checksum: 1dd6a14a5
+Phase 2.4 Update Timing | Checksum: 1ea9eca30
 
-Time (s): cpu = 00:00:51 ; elapsed = 00:00:42 . Memory (MB): peak = 1796.801 ; gain = 0.000
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.636  | TNS=0.000  | WHS=-0.225 | THS=-94.803|
+Time (s): cpu = 00:00:55 ; elapsed = 00:00:48 . Memory (MB): peak = 1895.668 ; gain = 0.000
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.296  | TNS=0.000  | WHS=-0.204 | THS=-113.149|
 
-Phase 2 Router Initialization | Checksum: 238e6a331
+Phase 2 Router Initialization | Checksum: 1fc09e2cc
 
-Time (s): cpu = 00:00:52 ; elapsed = 00:00:43 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:00:57 ; elapsed = 00:00:49 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Router Utilization Summary
   Global Vertical Routing Utilization    = 0 %
@@ -429,74 +523,74 @@ Router Utilization Summary
   Routable Net Status*
   *Does not include unroutable nets such as driverless and loadless.
   Run report_route_status for detailed report.
-  Number of Failed Nets               = 4694
+  Number of Failed Nets               = 5697
     (Failed Nets is the sum of unrouted and partially routed nets)
-  Number of Unrouted Nets             = 4694
+  Number of Unrouted Nets             = 5697
   Number of Partially Routed Nets     = 0
   Number of Node Overlaps             = 0
 
 
 Phase 3 Initial Routing
-Phase 3 Initial Routing | Checksum: 1c0f01357
+Phase 3 Initial Routing | Checksum: 16e89447c
 
-Time (s): cpu = 00:01:05 ; elapsed = 00:00:50 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:01:37 ; elapsed = 00:01:13 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 4 Rip-up And Reroute
 
 Phase 4.1 Global Iteration 0
- Number of Nodes with overlaps = 324
- Number of Nodes with overlaps = 112
- Number of Nodes with overlaps = 65
- Number of Nodes with overlaps = 31
- Number of Nodes with overlaps = 11
+ Number of Nodes with overlaps = 469
+ Number of Nodes with overlaps = 216
+ Number of Nodes with overlaps = 120
+ Number of Nodes with overlaps = 66
+ Number of Nodes with overlaps = 18
  Number of Nodes with overlaps = 3
  Number of Nodes with overlaps = 0
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.551  | TNS=0.000  | WHS=N/A    | THS=N/A    |
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.168  | TNS=0.000  | WHS=N/A    | THS=N/A    |
 
-Phase 4.1 Global Iteration 0 | Checksum: 17b37b9b6
+Phase 4.1 Global Iteration 0 | Checksum: 1a6876c5d
 
-Time (s): cpu = 00:01:25 ; elapsed = 00:01:04 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Phase 4 Rip-up And Reroute | Checksum: 17b37b9b6
+Time (s): cpu = 00:02:19 ; elapsed = 00:01:41 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Phase 4 Rip-up And Reroute | Checksum: 1a6876c5d
 
-Time (s): cpu = 00:01:25 ; elapsed = 00:01:04 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:02:19 ; elapsed = 00:01:41 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 5 Delay and Skew Optimization
 
 Phase 5.1 Delay CleanUp
-Phase 5.1 Delay CleanUp | Checksum: 17b37b9b6
+Phase 5.1 Delay CleanUp | Checksum: 1a6876c5d
 
-Time (s): cpu = 00:01:25 ; elapsed = 00:01:04 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:02:19 ; elapsed = 00:01:41 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 5.2 Clock Skew Optimization
-Phase 5.2 Clock Skew Optimization | Checksum: 17b37b9b6
+Phase 5.2 Clock Skew Optimization | Checksum: 1a6876c5d
 
-Time (s): cpu = 00:01:25 ; elapsed = 00:01:04 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Phase 5 Delay and Skew Optimization | Checksum: 17b37b9b6
+Time (s): cpu = 00:02:19 ; elapsed = 00:01:41 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Phase 5 Delay and Skew Optimization | Checksum: 1a6876c5d
 
-Time (s): cpu = 00:01:25 ; elapsed = 00:01:04 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:02:19 ; elapsed = 00:01:41 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 6 Post Hold Fix
 
 Phase 6.1 Hold Fix Iter
 
 Phase 6.1.1 Update Timing
-Phase 6.1.1 Update Timing | Checksum: 16ad79ed1
+Phase 6.1.1 Update Timing | Checksum: 1f7272265
 
-Time (s): cpu = 00:01:26 ; elapsed = 00:01:05 . Memory (MB): peak = 1796.801 ; gain = 0.000
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.611  | TNS=0.000  | WHS=0.061  | THS=0.000  |
+Time (s): cpu = 00:02:20 ; elapsed = 00:01:42 . Memory (MB): peak = 1895.668 ; gain = 0.000
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.174  | TNS=0.000  | WHS=0.051  | THS=0.000  |
 
-Phase 6.1 Hold Fix Iter | Checksum: 16ad79ed1
+Phase 6.1 Hold Fix Iter | Checksum: 1f7272265
 
-Time (s): cpu = 00:01:26 ; elapsed = 00:01:05 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Phase 6 Post Hold Fix | Checksum: 16ad79ed1
+Time (s): cpu = 00:02:20 ; elapsed = 00:01:42 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Phase 6 Post Hold Fix | Checksum: 1f7272265
 
-Time (s): cpu = 00:01:26 ; elapsed = 00:01:05 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:02:20 ; elapsed = 00:01:42 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 7 Route finalize
 
 Router Utilization Summary
-  Global Vertical Routing Utilization    = 1.90312 %
-  Global Horizontal Routing Utilization  = 2.11957 %
+  Global Vertical Routing Utilization    = 3.58754 %
+  Global Horizontal Routing Utilization  = 2.75355 %
   Routable Net Status*
   *Does not include unroutable nets such as driverless and loadless.
   Run report_route_status for detailed report.
@@ -506,45 +600,45 @@ Router Utilization Summary
   Number of Partially Routed Nets     = 0
   Number of Node Overlaps             = 0
 
-Phase 7 Route finalize | Checksum: 12dfcb7f2
+Phase 7 Route finalize | Checksum: 1de47c437
 
-Time (s): cpu = 00:01:26 ; elapsed = 00:01:05 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:02:20 ; elapsed = 00:01:42 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 8 Verifying routed nets
 
  Verification completed successfully
-Phase 8 Verifying routed nets | Checksum: 12dfcb7f2
+Phase 8 Verifying routed nets | Checksum: 1de47c437
 
-Time (s): cpu = 00:01:26 ; elapsed = 00:01:05 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:02:20 ; elapsed = 00:01:42 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 9 Depositing Routes
-Phase 9 Depositing Routes | Checksum: d7ed8d55
+Phase 9 Depositing Routes | Checksum: 20e7336cf
 
-Time (s): cpu = 00:01:27 ; elapsed = 00:01:05 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:02:21 ; elapsed = 00:01:43 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Phase 10 Post Router Timing
-INFO: [Route 35-57] Estimated Timing Summary | WNS=0.611  | TNS=0.000  | WHS=0.061  | THS=0.000  |
+INFO: [Route 35-57] Estimated Timing Summary | WNS=0.174  | TNS=0.000  | WHS=0.051  | THS=0.000  |
 
 INFO: [Route 35-327] The final timing numbers are based on the router estimated timing analysis. For a complete and accurate timing signoff, please run report_timing_summary.
-Phase 10 Post Router Timing | Checksum: d7ed8d55
+Phase 10 Post Router Timing | Checksum: 20e7336cf
 
-Time (s): cpu = 00:01:27 ; elapsed = 00:01:06 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:02:21 ; elapsed = 00:01:43 . Memory (MB): peak = 1895.668 ; gain = 0.000
 INFO: [Route 35-16] Router Completed Successfully
 
-Time (s): cpu = 00:01:27 ; elapsed = 00:01:06 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Time (s): cpu = 00:02:21 ; elapsed = 00:01:43 . Memory (MB): peak = 1895.668 ; gain = 0.000
 
 Routing Is Done.
 INFO: [Common 17-83] Releasing license: Implementation
-93 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+176 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
 route_design completed successfully
-route_design: Time (s): cpu = 00:01:30 ; elapsed = 00:01:07 . Memory (MB): peak = 1796.801 ; gain = 0.000
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1796.801 ; gain = 0.000
+route_design: Time (s): cpu = 00:02:25 ; elapsed = 00:01:45 . Memory (MB): peak = 1895.668 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1895.668 ; gain = 0.000
 INFO: [Timing 38-480] Writing timing data to binary archive.
 Writing placer database...
 Writing XDEF routing.
 Writing XDEF routing logical nets.
 Writing XDEF routing special nets.
-Write XDEF Complete: Time (s): cpu = 00:00:04 ; elapsed = 00:00:01 . Memory (MB): peak = 1796.801 ; gain = 0.000
+Write XDEF Complete: Time (s): cpu = 00:00:06 ; elapsed = 00:00:02 . Memory (MB): peak = 1895.668 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/impl_1/top_level_routed.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_drc -file top_level_drc_routed.rpt -pb top_level_drc_routed.pb -rpx top_level_drc_routed.rpx
 Command: report_drc -file top_level_drc_routed.rpt -pb top_level_drc_routed.pb -rpx top_level_drc_routed.rpx
@@ -558,14 +652,14 @@ INFO: [Timing 38-35] Done setting XDC timing constraints.
 INFO: [DRC 23-133] Running Methodology with 2 threads
 INFO: [Coretcl 2-1520] The results of Report Methodology are in file C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/impl_1/top_level_methodology_drc_routed.rpt.
 report_methodology completed successfully
-report_methodology: Time (s): cpu = 00:00:09 ; elapsed = 00:00:05 . Memory (MB): peak = 1796.801 ; gain = 0.000
+report_methodology: Time (s): cpu = 00:00:09 ; elapsed = 00:00:05 . Memory (MB): peak = 1895.668 ; gain = 0.000
 INFO: [runtcl-4] Executing : report_power -file top_level_power_routed.rpt -pb top_level_power_summary_routed.pb -rpx top_level_power_routed.rpx
 Command: report_power -file top_level_power_routed.rpt -pb top_level_power_summary_routed.pb -rpx top_level_power_routed.rpx
 INFO: [Timing 38-35] Done setting XDC timing constraints.
 Running Vector-less Activity Propagation...
 
 Finished Running Vector-less Activity Propagation
-105 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+188 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
 report_power completed successfully
 INFO: [runtcl-4] Executing : report_route_status -file top_level_route_status.rpt -pb top_level_route_status.pb
 INFO: [runtcl-4] Executing : report_timing_summary -max_paths 10 -file top_level_timing_summary_routed.rpt -pb top_level_timing_summary_routed.pb -rpx top_level_timing_summary_routed.rpx -warn_on_violation 
@@ -592,6 +686,8 @@ WARNING: [DRC CFGBVS-1] Missing CFGBVS and CONFIG_VOLTAGE Design Properties: Nei
  #where value2 is the voltage provided to configuration bank 0
 
 Refer to the device configuration user guide for more information.
+WARNING: [DRC DPIP-1] Input pipelining: DSP my_manager/address_read_active input my_manager/address_read_active/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP my_manager/address_read_active input my_manager/address_read_active/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 WARNING: [DRC DPIP-1] Input pipelining: DSP my_rasterize/get_area1/area1 input my_rasterize/get_area1/area1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 WARNING: [DRC DPIP-1] Input pipelining: DSP my_rasterize/get_area1/area1 input my_rasterize/get_area1/area1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 WARNING: [DRC DPIP-1] Input pipelining: DSP my_rasterize/get_area1/area_reg input my_rasterize/get_area1/area_reg/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
@@ -618,10 +714,19 @@ WARNING: [DRC DPIP-1] Input pipelining: DSP my_rasterize/numerator1 input my_ras
 WARNING: [DRC DPIP-1] Input pipelining: DSP my_rasterize/numerator_reg input my_rasterize/numerator_reg/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out input p_0_out/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__0 input p_0_out__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__0 input p_0_out__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__1 input p_0_out__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__1 input p_0_out__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__2 input p_0_out__2/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__3 input p_0_out__3/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__3 input p_0_out__3/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__4 input p_0_out__4/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__4 input p_0_out__4/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__5 input p_0_out__5/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__6 input p_0_out__6/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__6 input p_0_out__6/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__7 input p_0_out__7/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+WARNING: [DRC DPIP-1] Input pipelining: DSP p_0_out__7 input p_0_out__7/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 WARNING: [DRC DPOP-1] PREG Output pipelining: DSP my_manager/address_read_active output my_manager/address_read_active/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 WARNING: [DRC DPOP-1] PREG Output pipelining: DSP my_manager/address_read_inactive output my_manager/address_read_inactive/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 WARNING: [DRC DPOP-1] PREG Output pipelining: DSP my_manager/address_write_active output my_manager/address_write_active/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
@@ -637,6 +742,9 @@ WARNING: [DRC DPOP-1] PREG Output pipelining: DSP p_0_out__1 output p_0_out__1/P
 WARNING: [DRC DPOP-1] PREG Output pipelining: DSP p_0_out__2 output p_0_out__2/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 WARNING: [DRC DPOP-1] PREG Output pipelining: DSP p_0_out__3 output p_0_out__3/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 WARNING: [DRC DPOP-1] PREG Output pipelining: DSP p_0_out__4 output p_0_out__4/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+WARNING: [DRC DPOP-1] PREG Output pipelining: DSP p_0_out__5 output p_0_out__5/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+WARNING: [DRC DPOP-1] PREG Output pipelining: DSP p_0_out__6 output p_0_out__6/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+WARNING: [DRC DPOP-1] PREG Output pipelining: DSP p_0_out__7 output p_0_out__7/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 WARNING: [DRC DPOP-2] MREG Output pipelining: DSP my_manager/address_read_active multiplier stage my_manager/address_read_active/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
 WARNING: [DRC DPOP-2] MREG Output pipelining: DSP my_manager/address_read_inactive multiplier stage my_manager/address_read_inactive/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
 WARNING: [DRC DPOP-2] MREG Output pipelining: DSP my_manager/address_write_active multiplier stage my_manager/address_write_active/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
@@ -657,7 +765,10 @@ WARNING: [DRC DPOP-2] MREG Output pipelining: DSP p_0_out__1 multiplier stage p_
 WARNING: [DRC DPOP-2] MREG Output pipelining: DSP p_0_out__2 multiplier stage p_0_out__2/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
 WARNING: [DRC DPOP-2] MREG Output pipelining: DSP p_0_out__3 multiplier stage p_0_out__3/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
 WARNING: [DRC DPOP-2] MREG Output pipelining: DSP p_0_out__4 multiplier stage p_0_out__4/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
-INFO: [Vivado 12-3199] DRC finished with 0 Errors, 66 Warnings
+WARNING: [DRC DPOP-2] MREG Output pipelining: DSP p_0_out__5 multiplier stage p_0_out__5/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+WARNING: [DRC DPOP-2] MREG Output pipelining: DSP p_0_out__6 multiplier stage p_0_out__6/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+WARNING: [DRC DPOP-2] MREG Output pipelining: DSP p_0_out__7 multiplier stage p_0_out__7/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+INFO: [Vivado 12-3199] DRC finished with 0 Errors, 83 Warnings
 INFO: [Vivado 12-3200] Please refer to the DRC report (report_drc) for more information.
 INFO: [Designutils 20-2272] Running write_bitstream with 2 threads.
 Loading data files...
@@ -669,9 +780,9 @@ Creating bitstream...
 Writing bitstream ./top_level.bit...
 INFO: [Vivado 12-1842] Bitgen Completed Successfully.
 INFO: [Project 1-120] WebTalk data collection is mandatory when using a WebPACK part without a full Vivado license. To see the specific WebTalk data collected for your design, open the usage_statistics_webtalk.html or usage_statistics_webtalk.xml file in the implementation directory.
-INFO: [Common 17-186] 'C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/impl_1/usage_statistics_webtalk.xml' has been successfully sent to Xilinx on Tue Nov 12 18:14:06 2019. For additional details about this file, please refer to the WebTalk help file at C:/Xilinx/Vivado/2019.1/doc/webtalk_introduction.html.
+INFO: [Common 17-186] 'C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/impl_1/usage_statistics_webtalk.xml' has been successfully sent to Xilinx on Wed Nov 13 10:54:39 2019. For additional details about this file, please refer to the WebTalk help file at C:/Xilinx/Vivado/2019.1/doc/webtalk_introduction.html.
 INFO: [Common 17-83] Releasing license: Implementation
-125 Infos, 66 Warnings, 0 Critical Warnings and 0 Errors encountered.
+208 Infos, 83 Warnings, 0 Critical Warnings and 0 Errors encountered.
 write_bitstream completed successfully
-write_bitstream: Time (s): cpu = 00:00:37 ; elapsed = 00:00:32 . Memory (MB): peak = 2114.211 ; gain = 317.410
-INFO: [Common 17-206] Exiting Vivado at Tue Nov 12 18:14:06 2019...
+write_bitstream: Time (s): cpu = 00:00:48 ; elapsed = 00:00:39 . Memory (MB): peak = 2158.938 ; gain = 263.270
+INFO: [Common 17-206] Exiting Vivado at Wed Nov 13 10:54:39 2019...

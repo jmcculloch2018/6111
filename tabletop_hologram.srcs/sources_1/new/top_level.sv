@@ -33,7 +33,6 @@ module top_level(
    output[7:0] an    // Display location 0-7
     );
     
-    parameter SCREEN_WIDTH = 320, SCREEN_HEIGHT = 240;
     
     logic clk, reset;
     assign clk = clk_100mhz;
@@ -42,6 +41,46 @@ module top_level(
         .in(sw[15]),
         .out(reset)
     );
+    
+    logic user_up, user_down, user_left, user_right, user_reset;
+    logic btnu_clean, btnd_clean, btnl_clean, btnr_clean;
+    logic last_btnu_clean, last_btnd_clean, last_btnl_clean, last_btnr_clean;
+    assign user_up = btnu_clean && ~last_btnu_clean;
+    assign user_down = btnd_clean && ~last_btnd_clean;
+    assign user_right = btnr_clean && ~last_btnr_clean;
+    assign user_left = btnl_clean && ~last_btnl_clean;
+
+    debounce debounce_up (
+        .reset_in(reset),
+        .noisy_in(btnu),
+        .clock_in(clk),
+        .clean_out(btnu_clean)
+    );
+    debounce debounce_down (
+        .reset_in(reset),
+        .noisy_in(btnd),
+        .clock_in(clk),
+        .clean_out(btnd_clean)
+    );
+    debounce debounce_left (
+        .reset_in(reset),
+        .noisy_in(btnl),
+        .clock_in(clk),
+        .clean_out(btnl_clean)
+    );
+    debounce debounce_right (
+        .reset_in(reset),
+        .noisy_in(btnr),
+        .clock_in(clk),
+        .clean_out(btnr_clean)
+    );
+    debounce debounce_center (
+        .reset_in(reset),
+        .noisy_in(btnc),
+        .clock_in(clk),
+        .clean_out(user_reset)
+    );
+    
     
     logic new_data_rasterize;    
     graphics_fsm my_graphics_fsm(
@@ -59,7 +98,7 @@ module top_level(
     logic next_triangle;
     logic triangles_available;
     logic [11:0] rgb_triangle_source;    
-    logic [8:0][15:0] vertices_triangle_source;
+    logic signed [8:0][15:0] vertices_triangle_source;
     triangle_source my_tri_source(
         .clk_in(clk),
         .rst_in(reset),
@@ -71,12 +110,11 @@ module top_level(
     );
     
     logic [11:0] rgb_shader;    
-    logic [8:0][15:0] vertices_projection_out;
+    logic signed [8:0][15:0] vertices_projection_out;
     logic signed [1:0][15:0] user;
     logic new_data_projection;
     logic projection_finish;
     
-    assign user = {16'd60, 16'd60};
 
     projection my_projection(
         .clk_in(clk),
@@ -153,8 +191,8 @@ module top_level(
         .rgb_write_inactive_frame(rgb_write_inactive_frame),
         .z_write_inactive_frame(z_write_inactive_frame),
         .z_read_inactive_frame(z_read_inactive_frame),
-        .x_active_frame(hcount),
-        .y_active_frame(vcount),
+        .hcount_in(hcount),
+        .vcount_in(vcount),
         .rgb_active_frame(rgb_active_frame)
     );
     
@@ -192,14 +230,23 @@ module top_level(
             rgb_rasterize <= 0;
             rgb_shader <= 0;
             vertices_rasterize <= 0;
+            user[1] <= 15'd60;
+            user[0] <= 15'd60;
         end else begin
             vclock_count <= vclock_count + 1;
             rgb_rasterize <= next_triangle ? rgb_shader : rgb_rasterize;
             rgb_shader <= new_data_projection ? rgb_triangle_source : rgb_shader;
             vertices_rasterize <= next_triangle ? vertices_projection_out : vertices_rasterize;
+            user[1] <= user_reset ? 15'd60 : (user_right ? (user[0] + 1) : (user_left ? (user[0] - 1) : user[0]));
+            user[0] <= user_reset ? 15'd60 : (user_up ? (user[1] + 1) : (user_down ? (user[1] - 1) : user[1]));
         end
         
         last_vsync <= vsync;
+        last_btnu_clean <= btnu_clean;
+        last_btnd_clean <= btnd_clean;
+        last_btnl_clean <= btnl_clean;
+        last_btnr_clean <= btnr_clean;
+        
 
     end
 endmodule

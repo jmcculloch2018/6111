@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-| Date         : Sun Nov 10 15:32:13 2019
+| Date         : Wed Nov 13 10:27:48 2019
 | Host         : DESKTOP-982HE02 running 64-bit major release  (build 9200)
 | Command      : report_utilization -file frame_buffer_utilization_synth.rpt -pb frame_buffer_utilization_synth.pb
 | Design       : frame_buffer
@@ -30,11 +30,11 @@ Table of Contents
 +-------------------------+------+-------+-----------+-------+
 |        Site Type        | Used | Fixed | Available | Util% |
 +-------------------------+------+-------+-----------+-------+
-| Slice LUTs*             |  173 |     0 |     63400 |  0.27 |
-|   LUT as Logic          |  173 |     0 |     63400 |  0.27 |
+| Slice LUTs*             |  194 |     0 |     63400 |  0.31 |
+|   LUT as Logic          |  194 |     0 |     63400 |  0.31 |
 |   LUT as Memory         |    0 |     0 |     19000 |  0.00 |
-| Slice Registers         |   14 |     0 |    126800 |  0.01 |
-|   Register as Flip Flop |   14 |     0 |    126800 |  0.01 |
+| Slice Registers         |   10 |     0 |    126800 | <0.01 |
+|   Register as Flip Flop |   10 |     0 |    126800 | <0.01 |
 |   Register as Latch     |    0 |     0 |    126800 |  0.00 |
 | F7 Muxes                |   54 |     0 |     31700 |  0.17 |
 | F8 Muxes                |    0 |     0 |     15850 |  0.00 |
@@ -57,7 +57,7 @@ Table of Contents
 | 0     |          Yes |           - |          Set |
 | 0     |          Yes |           - |        Reset |
 | 0     |          Yes |         Set |            - |
-| 14    |          Yes |       Reset |            - |
+| 10    |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -67,11 +67,11 @@ Table of Contents
 +-------------------+------+-------+-----------+-------+
 |     Site Type     | Used | Fixed | Available | Util% |
 +-------------------+------+-------+-----------+-------+
-| Block RAM Tile    | 42.5 |     0 |       135 | 31.48 |
-|   RAMB36/FIFO*    |   41 |     0 |       135 | 30.37 |
-|     RAMB36E1 only |   41 |       |           |       |
-|   RAMB18          |    3 |     0 |       270 |  1.11 |
-|     RAMB18E1 only |    3 |       |           |       |
+| Block RAM Tile    | 56.5 |     0 |       135 | 41.85 |
+|   RAMB36/FIFO*    |   56 |     0 |       135 | 41.48 |
+|     RAMB36E1 only |   56 |       |           |       |
+|   RAMB18          |    1 |     0 |       270 |  0.37 |
+|     RAMB18E1 only |    1 |       |           |       |
 +-------------------+------+-------+-----------+-------+
 * Note: Each Block RAM Tile only has one FIFO logic available and therefore can accommodate only one FIFO36E1 or one FIFO18E1. However, if a FIFO18E1 occupies a Block RAM Tile, that tile can still accommodate a RAMB18E1
 
@@ -148,15 +148,15 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| LUT6     |  109 |                 LUT |
+| LUT6     |  153 |                 LUT |
+| RAMB36E1 |   56 |        Block Memory |
 | MUXF7    |   54 |               MuxFx |
-| RAMB36E1 |   41 |        Block Memory |
-| LUT5     |   40 |                 LUT |
-| LUT3     |   20 |                 LUT |
-| FDRE     |   14 |        Flop & Latch |
-| RAMB18E1 |    3 |        Block Memory |
-| LUT4     |    2 |                 LUT |
-| LUT2     |    1 |                 LUT |
+| LUT5     |   26 |                 LUT |
+| LUT4     |   19 |                 LUT |
+| FDRE     |   10 |        Flop & Latch |
+| LUT3     |    2 |                 LUT |
+| LUT2     |    2 |                 LUT |
+| RAMB18E1 |    1 |        Block Memory |
 | LUT1     |    1 |                 LUT |
 +----------+------+---------------------+
 

@@ -3,10 +3,10 @@
 module projection(
     input clk_in,
     input rst_in, 
-    input [8:0][15:0] vertices_in,
+    input signed [8:0][15:0] vertices_in,
     input signed [1:0][15:0] user_in, 
     input new_data_in, 
-    output logic [8:0][15:0] vertices_out,
+    output logic signed [8:0][15:0] vertices_out,
     output logic finished_out
 );
     project_vertex vertex1(
@@ -41,10 +41,10 @@ endmodule
 module project_vertex(
     input clk_in,
     input rst_in, 
-    input [2:0][15:0] vertex_in,
+    input signed [2:0][15:0] vertex_in,
     input signed [1:0][15:0] user_in, 
     input new_data_in, 
-    output logic [2:0][15:0] vertex_out
+    output logic signed [2:0][15:0] vertex_out
 );
     
     parameter CAMERA_PIXELS_PER_FT = 60;
@@ -59,8 +59,8 @@ module project_vertex(
         if (rst_in) begin
             vertex_out <= {16'b0, 16'b0, 16'b0};
         end else if (new_data_in) begin
-            vertex_out[2] <= vertex_in[2] - ((vertex_in[0] * USER_Z_M * user_in[0]) >> USER_Z_N);
-            vertex_out[1] <= vertex_in[1] - ((vertex_in[0] * USER_Z_M * user_in[1]) >> USER_Z_N);
+            vertex_out[2] <= $signed(vertex_in[2]) - (($signed(vertex_in[0]) * $signed(USER_Z_M) * $signed(user_in[1])) >>> USER_Z_N);
+            vertex_out[1] <= $signed(vertex_in[1]) - (($signed(vertex_in[0]) * $signed(USER_Z_M) * $signed(user_in[0])) >>> USER_Z_N);
             vertex_out[0] <= vertex_in[0];
         end
     end

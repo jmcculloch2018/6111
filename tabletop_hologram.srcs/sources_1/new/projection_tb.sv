@@ -26,10 +26,10 @@ module projection_tb;
    // inputs
    logic clk;
    logic reset;
-   logic [2:0][15:0] vertex_in;
-   logic [1:0][15:0] user_in;
+   logic signed [2:0][15:0] vertex_in;
+   logic signed [1:0][15:0] user_in;
    logic new_data_in;
-   logic [2:0][15:0] vertex_out;
+   logic signed [2:0][15:0] vertex_out;
    
    project_vertex uut(
     .clk_in(clk),
@@ -49,7 +49,7 @@ module projection_tb;
         clk = 0; //initialize clk (super important)
         reset = 0;
         vertex_in = {16'h6e, 16'haa, 16'h64};
-        user_in = {16'd60, 16'd60};
+        user_in = {16'd60, -16'd1};
         new_data_in = 0;
         #20;
         reset = 0;

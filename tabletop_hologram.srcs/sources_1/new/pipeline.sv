@@ -11,12 +11,12 @@ module pipeline(
     logic [(N_BITS * N_REGISTERS - 1):0] buffer ;
     always_ff @(posedge clk_in) begin
         if (rst_in) begin
-            data_out <= 0;
             buffer <= 0;
         end else begin 
             buffer <= {data_in, buffer[(N_BITS * N_REGISTERS - 1):N_BITS]};
-            data_out <= buffer[(N_BITS - 1):0];
         end
     
     end
+    assign data_out = buffer[(N_BITS - 1):0];
+
 endmodule
