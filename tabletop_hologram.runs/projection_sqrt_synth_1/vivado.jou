@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Wed Nov 13 13:09:19 2019
+# Process ID: 10592
+# Current directory: C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/projection_sqrt_synth_1
+# Command line: vivado.exe -log projection_sqrt.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source projection_sqrt.tcl
+# Log file: C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/projection_sqrt_synth_1/projection_sqrt.vds
+# Journal file: C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/projection_sqrt_synth_1\vivado.jou
+#-----------------------------------------------------------
+source projection_sqrt.tcl -notrace

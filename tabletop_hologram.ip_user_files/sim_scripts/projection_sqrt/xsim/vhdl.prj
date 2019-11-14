@@ -1,0 +1,4 @@
+vhdl xil_defaultlib  \
+"../../../../tabletop_hologram.srcs/sources_1/ip/projection_sqrt/sim/projection_sqrt.vhd" \
+
+nosort

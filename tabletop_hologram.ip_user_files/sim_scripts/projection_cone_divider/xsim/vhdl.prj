@@ -1,0 +1,4 @@
+vhdl xil_defaultlib  \
+"../../../../tabletop_hologram.srcs/sources_1/ip/projection_cone_divider/sim/projection_cone_divider.vhd" \
+
+nosort
