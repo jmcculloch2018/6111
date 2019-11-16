@@ -98,7 +98,13 @@ module project_vertex_cone(
     
     always_ff @(posedge clk_in) begin
         if (rst_in) begin
-            
+            ux <= 0;
+            uy <= 0;
+            uz <= 0;
+            vx <= 0;
+            vy <= 0;
+            vz <= 0;
+            vertex_out <= 0;
         end else if (new_data_in) begin 
             ux <= user_in[2];
             uy <= user_in[1];
