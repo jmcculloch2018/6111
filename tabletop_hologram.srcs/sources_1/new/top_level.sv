@@ -13,7 +13,7 @@ module top_level(
    output[7:0] an    // Display location 0-7
     );
     
-    logic signed [1:0][15:0] user;
+    logic signed [2:0][15:0] user;
 
     logic [1:0] vclock_count;
     logic vclock_enable;
@@ -34,6 +34,7 @@ module top_level(
 
     logic clk, reset;
     assign clk = clk_100mhz;
+    assign {cg, cf, ce, cd, cc, cb, ca} = segments;
     synchronize synchronize_reset(
         .clk(clk), 
         .in(sw[15]),
@@ -81,7 +82,7 @@ module top_level(
     graphics_subsystem my_graphics(
         .clk(clk),
         .reset(reset),
-        .user(user),
+        .user(user[2:1]),
         .vcount_in(vcount),
         .hcount_in(hcount),
         .hsync_in(hsync),
@@ -93,6 +94,8 @@ module top_level(
         .blank_out(b)
     );
     
+    
+    
    
     xvga my_vga(.vclock_in(clk),
             .rst_in(reset),
@@ -102,11 +105,14 @@ module top_level(
             .vsync_out(vsync),
             .hsync_out(hsync),
             .blank_out(blank));
-            
-   
-    
-    
-
+ 
+    display_height my_height_disp(
+        .clk_in(clk), .rst_in(reset),
+        .sw(sw), 
+        .height(user[0]), 
+        .seg_out(segments),
+        .dp(dp),
+        .strobe_out(an)); 
 
     
     assign vga_r = ~b ? rgb[11:8]: 0;
@@ -119,12 +125,12 @@ module top_level(
     always_ff @(posedge clk) begin 
         if (reset) begin
             vclock_count <= 0;
+            user[2] <= 15'd60;
             user[1] <= 15'd60;
-            user[0] <= 15'd60;
         end else begin
             vclock_count <= vclock_count + 1;
-            user[1] <= user_reset ? 15'd60 : (user_right ? (user[0] + 1) : (user_left ? (user[0] - 1) : user[0]));
-            user[0] <= user_reset ? 15'd60 : (user_up ? (user[1] + 1) : (user_down ? (user[1] - 1) : user[1]));
+            user[2] <= user_reset ? 15'd60 : (user_right ? (user[2] + 1) : (user_left ? (user[2] - 1) : user[2]));
+            user[1] <= user_reset ? 15'd60 : (user_up ? (user[1] + 1) : (user_down ? (user[1] - 1) : user[1]));
         end
         
         last_btnu_clean <= btnu_clean;
@@ -133,84 +139,4 @@ module top_level(
         last_btnr_clean <= btnr_clean;
         
     end
-endmodule
-
-module calculate_and_display_height(
-    input clk_in,
-    input rst_in, 
-    input [15:0] sw,
-    output logic signed [11:0] height,
-   output logic ca, cb, cc, cd, ce, cf, cg, dp, // segments a-g, dp
-   output logic [7:0] an);    // Display location
-   
-   parameter INCHES_PER_PIXEL
-   
-   localparam bits = 13;
-     
-    reg [bits:0] counter = 0;  // clear on power up
-     
-    wire [6:0] segments[15:0]; // 16 7 bit memorys
-    assign segments[0]  = 7'b100_0000;  // inverted logic
-    assign segments[1]  = 7'b111_1001;  // gfedcba
-    assign segments[2]  = 7'b010_0100;
-    assign segments[3]  = 7'b011_0000;
-    assign segments[4]  = 7'b001_1001;
-    assign segments[5]  = 7'b001_0010;
-    assign segments[6]  = 7'b000_0010;
-    assign segments[7]  = 7'b111_1000;
-    assign segments[8]  = 7'b000_0000;
-    assign segments[9]  = 7'b001_1000;
-    assign segments[10] = 7'b000_1000;
-    assign segments[11] = 7'b000_0011;
-    assign segments[12] = 7'b010_0111;
-    assign segments[13] = 7'b010_0001;
-    assign segments[14] = 7'b000_0110;
-    assign segments[15] = 7'b000_1110;
-     
-    always_ff @(posedge clk_in) begin
-      // Here I am using a counter and select 3 bits which provides
-      // a reasonable refresh rate starting the left most digit
-      // and moving left.
-      counter <= counter + 1;
-      case (counter[bits:bits-2])
-          3'b000: begin  // use the MSB 4 bits
-                  seg_out <= segments[data_in[31:28]];
-                  strobe_out <= 8'b0111_1111 ;
-                 end
-
-          3'b001: begin
-                  seg_out <= segments[data_in[27:24]];
-                  strobe_out <= 8'b1011_1111 ;
-                 end
-
-          3'b010: begin
-                   seg_out <= segments[data_in[23:20]];
-                   strobe_out <= 8'b1101_1111 ;
-                  end
-          3'b011: begin
-                  seg_out <= segments[data_in[19:16]];
-                  strobe_out <= 8'b1110_1111;        
-                 end
-          3'b100: begin
-                  seg_out <= segments[data_in[15:12]];
-                  strobe_out <= 8'b1111_0111;
-                 end
-
-          3'b101: begin
-                  seg_out <= segments[data_in[11:8]];
-                  strobe_out <= 8'b1111_1011;
-                 end
-
-          3'b110: begin
-                   seg_out <= segments[data_in[7:4]];
-                   strobe_out <= 8'b1111_1101;
-                  end
-          3'b111: begin
-                  seg_out <= 8'b1011101;
-                  strobe_out <= 8'b1111_1110;
-                 end
-
-       endcase
-      end
-   
 endmodule

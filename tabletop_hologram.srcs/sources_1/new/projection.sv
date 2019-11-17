@@ -76,21 +76,21 @@ module projection_with_height(
     output logic finished_out
 );
     parameter DIVIDER_LATENCY = 21;
-    project_vertex_with_user_height vertex1(
+    project_vertex_with_height vertex1(
         .clk_in(clk_in), .rst_in(rst_in),
         .vertex_in(vertices_in[8:6]),
         .user_in(user_in),
         .new_data_in(new_data_in),
         .vertex_out(vertices_out[8:6])
     );
-    project_vertex_with_user_height vertex2(
+    project_vertex_with_height vertex2(
         .clk_in(clk_in), .rst_in(rst_in),
         .vertex_in(vertices_in[5:3]),
         .user_in(user_in),
         .new_data_in(new_data_in),
         .vertex_out(vertices_out[5:3])
     );
-    project_vertex_with_user_height vertex3(
+    project_vertex_with_height vertex3(
         .clk_in(clk_in), .rst_in(rst_in),
         .vertex_in(vertices_in[2:0]),
         .user_in(user_in),
@@ -106,7 +106,7 @@ module projection_with_height(
     
 endmodule
 
-module project_vertex_with_user_height(
+module project_vertex_with_height(
     input clk_in,
     input rst_in, 
     input signed [2:0][7:0] vertex_in,
@@ -134,7 +134,7 @@ module project_vertex_with_user_height(
       .s_axis_dividend_tready(),  // output wire s_axis_dividend_tready
       .s_axis_dividend_tdata(numerator_x),    // input wire [23 : 0] s_axis_dividend_tdata
       .m_axis_dout_tvalid(divider_x_valid_out),          // output wire m_axis_dout_tvalid
-      .m_axis_dout_tdata(divider_x_out)            // output wire [23 : 0] m_axis_dout_tdata
+      .m_axis_dout_tdata(divider_out_x)            // output wire [23 : 0] m_axis_dout_tdata
     );
 
     projection_divider divider_y (
@@ -146,7 +146,7 @@ module project_vertex_with_user_height(
       .s_axis_dividend_tready(),  // output wire s_axis_dividend_tready
       .s_axis_dividend_tdata(numerator_y),    // input wire [23 : 0] s_axis_dividend_tdata
       .m_axis_dout_tvalid(divider_y_valid_out),          // output wire m_axis_dout_tvalid
-      .m_axis_dout_tdata(divider_y_out)            // output wire [23 : 0] m_axis_dout_tdata
+      .m_axis_dout_tdata(divider_out_y)            // output wire [23 : 0] m_axis_dout_tdata
     );
     
     always_ff @(posedge clk_in) begin
@@ -154,18 +154,18 @@ module project_vertex_with_user_height(
             vertex_out[2] <= 16'b0;
             vertex_out[1] <= 16'b0;
         end else if (new_data_in) begin
-            vx <= vertex_in[2];
-            vy <= vertex_in[1];
-            vz <= vertex_in[0];
-            ux <= user_in[2];
-            uy <= user_in[1];
-            uz <= user_in[0];
+            vx <= $signed(vertex_in[2]);
+            vy <= $signed(vertex_in[1]);
+            vz <= $signed(vertex_in[0]);
+            ux <= $signed(user_in[2]);
+            uy <= $signed(user_in[1]);
+            uz <= $signed(user_in[0]);
         end else begin
             numerator_x <= vz * ux - uz * vx;
             numerator_y <= vz * uy - uz * vy;
             denominator <= vz - uz;
-            vertex_out[2] <= divider_x_valid_out ? divider_x_out : vertex_out[2];
-            vertex_out[1] <= divider_y_valid_out ? divider_y_out : vertex_out[1];
+            vertex_out[2] <= divider_x_valid_out ? divider_out_x : vertex_out[2];
+            vertex_out[1] <= divider_y_valid_out ? divider_out_y : vertex_out[1];
             vertex_out[0] <= vz;
 
         end
