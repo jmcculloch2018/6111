@@ -24,6 +24,7 @@ module top_level(
     
     logic b,hs,vs;
     logic [11:0] rgb;
+    logic [6:0] segments;
     
     
     
@@ -33,6 +34,7 @@ module top_level(
     
 
     logic clk, reset;
+    
     assign clk = clk_100mhz;
     assign {cg, cf, ce, cd, cc, cb, ca} = segments;
     synchronize synchronize_reset(
