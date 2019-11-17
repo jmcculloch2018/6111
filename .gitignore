@@ -23,6 +23,7 @@
 #*.dcp(checkpoint files)
 !*.dcp
 !*.vds
+!*.pb
 #All bd comments and layout coordinates are stored within .ui
 !*.ui
 !*.ooc
@@ -49,12 +50,35 @@
 #Do NOT ignore *.xpr files
 !*.xpr
 #Include *.xml files for 2013.4 or earlier version
+!*.xml
 #########
 #Constraint files
 #########
 #Do NOT ignore *.xdc files
 !*.xdc
 #########
+#TCL - files
+#########
+!*.tcl
+#########
+#Journal - files
+#########
+!*.jou
+#########
+#Reports
+#########
+!*.rpt
+!*.txt
+!*.vdi
+#########
 #C-files
 #########
+!*.c
+!*.h
+!*.elf
+!*.bmm
+!*.xmp
 !*.md
+/tabletop_hologram.sim
+/tabletop_hologram.runs
+/tabletop_hologram.cache
