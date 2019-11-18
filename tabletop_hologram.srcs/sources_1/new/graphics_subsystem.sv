@@ -20,6 +20,7 @@ module graphics_subsystem(
     logic new_data_projection;
     logic projection_finish;
     logic rasterize_finish;
+    logic shader_finish;
     logic triangles_available;
     logic next_frame;
     logic next_triangle;
@@ -50,6 +51,7 @@ module graphics_subsystem(
         .rst_in(reset),
         .finish_rasterize(rasterize_finish),
         .finish_projection(projection_finish),
+        .finish_shader(shader_finish),
         .data_available_triangle_source(triangles_available),
         .next_frame(next_frame),
         .next_triangle(next_triangle),
@@ -67,7 +69,7 @@ module graphics_subsystem(
         .vertices_out(vertices_triangle_source)
     );
     
-    projection my_projection(
+    projection_with_height my_projection(
         .clk_in(clk),
         .rst_in(reset),
         .vertices_in(vertices_triangle_source),
@@ -75,7 +77,17 @@ module graphics_subsystem(
         .new_data_in(new_data_projection),
         .vertices_out(vertices_projection_out),
         .finished_out(projection_finish)
-    );      
+    );  
+    
+    shader my_shader(
+        .clk_in(clk),
+        .new_data(new_data_projection),
+        .rgb(rgb_triangle_source),
+        .triag(vertices_triangle_source), 
+        .user_pos(user),
+        .rgb_out(rgb_shader),
+        .finished(shader_finish)
+    );    
         
     rasterize my_rasterize(
         .clk_in(clk),
@@ -111,6 +123,7 @@ module graphics_subsystem(
         .rgb_active_frame(rgb_out)
     );
     
+    
     pipeline #(.N_BITS(1), .N_REGISTERS(2)) pipeline_vs (
         .clk_in(clk), .rst_in(reset), 
         .data_in(vsync_in), .data_out(vsync_out)
@@ -131,7 +144,6 @@ module graphics_subsystem(
             vertices_rasterize <= 0;
         end else begin
             rgb_rasterize <= next_triangle ? rgb_shader : rgb_rasterize;
-            rgb_shader <= new_data_projection ? rgb_triangle_source : rgb_shader;
             vertices_rasterize <= next_triangle ? vertices_projection_out : vertices_rasterize;
         end
         last_vsync_in <= vsync_in;

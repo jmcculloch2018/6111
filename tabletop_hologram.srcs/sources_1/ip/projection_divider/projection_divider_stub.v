@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Fri Nov 15 14:02:05 2019
-// Host        : DESKTOP-982HE02 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/projection_divider/projection_divider_stub.v
+// Date        : Sun Nov 17 22:12:43 2019
+// Host        : LAPTOP-9UO525CG running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode synth_stub -rename_top projection_divider -prefix
+//               projection_divider_ projection_divider_stub.v
 // Design      : projection_divider
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a100tcsg324-3

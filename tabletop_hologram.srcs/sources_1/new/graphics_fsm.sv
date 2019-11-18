@@ -13,12 +13,13 @@ module graphics_fsm(
 );
     logic has_finished_rasterize;
     logic has_finished_projection;
+    logic has_finished_shader;
     logic new_data;
     logic data_available_projection;
     logic data_available_rasterize;
     
     
-    assign next_triangle = has_finished_rasterize && has_finished_projection;
+    assign next_triangle = has_finished_rasterize && has_finished_projection && has_finished_shader;
     assign new_data_projection = new_data && data_available_projection;
     assign new_data_rasterize = new_data && data_available_rasterize;
     
@@ -32,21 +33,25 @@ module graphics_fsm(
         if (rst_in) begin
             has_finished_rasterize <= 0;
             has_finished_projection <= 0;
+            has_finished_shader <= 0;
             data_available_rasterize <= 0;
             data_available_projection <= 0;
         end else if (next_frame) begin
             has_finished_rasterize <= 1;
             has_finished_projection <= 0;
+            has_finished_shader <= 0;
             data_available_rasterize <= 0;
             data_available_projection <= 1;
         end else if (next_triangle) begin
             has_finished_rasterize <= ~data_available_projection;
             has_finished_projection <= ~data_available_triangle_source;
+            has_finished_shader <= ~data_available_triangle_source; 
             data_available_rasterize <= data_available_projection;
             data_available_projection <= data_available_triangle_source;
         end else begin 
             has_finished_rasterize <= has_finished_rasterize || finish_rasterize;
             has_finished_projection <= has_finished_projection || finish_projection;
+            has_finished_shader <= has_finished_shader || finish_projection;
         end
         
         

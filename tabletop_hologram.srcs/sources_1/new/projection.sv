@@ -4,7 +4,7 @@ module projection(
     input clk_in,
     input rst_in, 
     input signed [8:0][15:0] vertices_in,
-    input signed [1:0][15:0] user_in, 
+    input signed [2:0][11:0] user_in, 
     input new_data_in, 
     output logic signed [8:0][15:0] vertices_out,
     output logic finished_out
@@ -42,7 +42,7 @@ module project_vertex(
     input clk_in,
     input rst_in, 
     input signed [2:0][15:0] vertex_in,
-    input signed [1:0][15:0] user_in, 
+    input signed [2:0][11:0] user_in, 
     input new_data_in, 
     output logic signed [2:0][15:0] vertex_out
 );
@@ -69,7 +69,7 @@ endmodule
 module projection_with_height(
     input clk_in,
     input rst_in, 
-    input signed [8:0][7:0] vertices_in,
+    input signed [8:0][15:0] vertices_in,
     input signed [2:0][11:0] user_in, 
     input new_data_in, 
     output logic signed [8:0][15:0] vertices_out,
@@ -109,12 +109,12 @@ endmodule
 module project_vertex_with_height(
     input clk_in,
     input rst_in, 
-    input signed [2:0][7:0] vertex_in,
+    input signed [2:0][15:0] vertex_in,
     input signed [2:0][11:0] user_in, 
     input new_data_in, 
     output logic signed [2:0][15:0] vertex_out
 );
-    logic signed [11:0] vx, vy, vz, ux, uy, uz;
+    logic signed [15:0] vx, vy, vz, ux, uy, uz;
     logic signed [23:0] numerator_x, numerator_y;
     logic signed [15:0] denominator;
     logic signed [23:0] divider_out_x, divider_out_y;
