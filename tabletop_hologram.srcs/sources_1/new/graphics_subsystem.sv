@@ -3,7 +3,7 @@
 module graphics_subsystem(
    input clk,
    input reset,
-   input signed [1:0][15:0] user,
+   input signed [2:0][11:0] user,
    input [15:0] vcount_in,
    input [15:0] hcount_in,
    input hsync_in,

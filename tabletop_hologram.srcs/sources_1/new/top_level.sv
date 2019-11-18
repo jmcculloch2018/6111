@@ -13,7 +13,7 @@ module top_level(
    output[7:0] an    // Display location 0-7
     );
     
-    logic signed [2:0][15:0] user;
+    logic signed [2:0][11:0] user;
 
     logic [1:0] vclock_count;
     logic vclock_enable;
@@ -82,7 +82,7 @@ module top_level(
     graphics_subsystem my_graphics(
         .clk(clk),
         .reset(reset),
-        .user(user[2:1]),
+        .user(user),
         .vcount_in(vcount),
         .hcount_in(hcount),
         .hsync_in(hsync),
