@@ -5,7 +5,7 @@ module rasterize(
     input clk_in,
     input rst_in, 
     input [11:0] rgb_in,
-    input [8:0][15:0] vertices,
+    input signed [8:0][15:0] vertices,
     input new_data, 
     output logic finished,
     // RAM
@@ -21,16 +21,18 @@ module rasterize(
     logic busy;
 
     parameter DIVISION_LATENCY = 30;  
+    parameter SCREEN_WIDTH = 320;
+    parameter SCREEN_HEIGHT = 320;
     
     // Lag of 0
     logic [15:0] x_cur;
     logic [15:0] y_cur;
         
-    logic [15:0] x_min, x_max, y_min, y_max;
-    get_min get_min_x(.val1(vertices[8]), .val2(vertices[5]), .val3(vertices[2]), .min(x_min));
-    get_min get_min_y(.val1(vertices[7]), .val2(vertices[4]), .val3(vertices[1]), .min(y_min));
-    get_max get_max_x(.val1(vertices[8]), .val2(vertices[5]), .val3(vertices[2]), .max(x_max));
-    get_max get_max_y(.val1(vertices[7]), .val2(vertices[4]), .val3(vertices[1]), .max(y_max));
+    logic signed [15:0] x_min, x_max, y_min, y_max;
+    get_min #(.ABSOLUTE_MIN(0)) get_min_x(.val1(vertices[8]), .val2(vertices[5]), .val3(vertices[2]), .min(x_min));
+    get_min #(.ABSOLUTE_MIN(0)) get_min_y(.val1(vertices[7]), .val2(vertices[4]), .val3(vertices[1]), .min(y_min));
+    get_max #(.ABSOLUTE_MAX(SCREEN_WIDTH)) get_max_x(.val1(vertices[8]), .val2(vertices[5]), .val3(vertices[2]), .max(x_max));
+    get_max #(.ABSOLUTE_MAX(SCREEN_HEIGHT)) get_max_y(.val1(vertices[7]), .val2(vertices[4]), .val3(vertices[1]), .max(y_max));
     
     // Calculate Area (lag by 1)
     logic signed [23:0] area_total, area1, area2, area3, area_check; 
@@ -133,38 +135,46 @@ module rasterize(
     end
 endmodule   
 
-module get_max(input [15:0] val1, input [15:0] val2, input [15:0] val3, output logic [15:0] max);
-    always_comb begin 
-        if (val1 > val2 && val1 > val3) begin
-            max = val1;
-        end else if (val2 > val3) begin
-            max = val2;
-        end else begin
-            max = val3;
-        end
+module get_max(
+    input signed [15:0] val1, 
+    input signed [15:0] val2, 
+    input signed [15:0] val3, 
+    output logic signed [15:0] max
+);
+    parameter ABSOLUTE_MAX = 16'sd10000;
+    always_comb begin
+        max = val1;
+        if ($signed(val2) > $signed(max)) max = val2;
+        if ($signed(val3) > $signed(max)) max = val3; 
+        if ($signed(ABSOLUTE_MAX) < $signed(max)) max = ABSOLUTE_MAX;
+
     end
 endmodule
 
-module get_min(input [15:0] val1, input [15:0] val2, input [15:0] val3, output logic [15:0] min);
+module get_min(
+    input signed [15:0] val1, 
+    input signed [15:0] val2, 
+    input signed [15:0] val3, 
+    output logic signed [15:0] min
+);
+    parameter ABSOLUTE_MIN = 16'sb0;
     always_comb begin 
-        if (val1 < val2 && val1 < val3) begin
-            min = val1;
-        end else if (val2 < val3) begin
-            min = val2;
-        end else begin
-            min = val3;
-        end
+        min = val1;
+        if ($signed(val2) < $signed(min)) min = val2;
+        if ($signed(val3) < $signed(min)) min = val3;
+        if ($signed(ABSOLUTE_MIN) > $signed(min)) min = ABSOLUTE_MIN;
+
     end
 endmodule
 
 module get_area(
     input clk_in,
-    input [15:0] x1,
-    input [15:0] y1,
-    input [15:0] x2, 
-    input [15:0] y2,
-    input [15:0] x3,
-    input [15:0] y3,
+    input signed [15:0] x1,
+    input signed [15:0] y1,
+    input signed [15:0] x2, 
+    input signed [15:0] y2,
+    input signed [15:0] x3,
+    input signed [15:0] y3,
     output logic signed [23:0] area);
     
     logic signed [15:0] v1x;
