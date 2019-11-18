@@ -151,8 +151,14 @@ module project_vertex_with_height(
     
     always_ff @(posedge clk_in) begin
         if (rst_in) begin
-            vertex_out[2] <= 16'b0;
-            vertex_out[1] <= 16'b0;
+            vx <= 0;
+            vy <= 0;
+            vz <= 0;
+            ux <= 0;
+            uy <= 0;
+            uz <= 0;
+            vertex_out <= 0;
+            
         end else if (new_data_in) begin
             vx <= $signed(vertex_in[2]);
             vy <= $signed(vertex_in[1]);

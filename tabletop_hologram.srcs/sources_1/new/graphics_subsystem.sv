@@ -79,15 +79,15 @@ module graphics_subsystem(
         .finished_out(projection_finish)
     );  
     
-    shader my_shader(
-        .clk_in(clk),
-        .new_data(new_data_projection),
-        .rgb(rgb_triangle_source),
-        .triag(vertices_triangle_source), 
-        .user_pos(user),
-        .rgb_out(rgb_shader),
-        .finished(shader_finish)
-    );    
+//    shader my_shader(
+//        .clk_in(clk),
+//        .new_data(new_data_projection),
+//        .rgb(rgb_triangle_source),
+//        .triag(vertices_triangle_source), 
+//        .user_pos(user),
+//        .rgb_out(rgb_shader),
+//        .finished(shader_finish)
+//    );    
         
     rasterize my_rasterize(
         .clk_in(clk),
@@ -137,12 +137,15 @@ module graphics_subsystem(
         .data_in(blank_in), .data_out(blank_out)
     ); 
     
+    assign finish_shader = 1'b1;
+    
     always_ff @(posedge clk) begin 
         if (reset) begin
             rgb_rasterize <= 0;
-            rgb_shader <= 0;
             vertices_rasterize <= 0;
         end else begin
+            rgb_shader <= new_data_projection ? rgb_triangle_source : rgb_shader;
+
             rgb_rasterize <= next_triangle ? rgb_shader : rgb_rasterize;
             vertices_rasterize <= next_triangle ? vertices_projection_out : vertices_rasterize;
         end

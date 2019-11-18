@@ -51,8 +51,8 @@ eight_msb mod(.clk(clk_in), .in_top(top), .in_bot(bottom), .out_top(top_short), 
 //Sqrt of top and botom using 256 lookup table
 logic [3:0] div_top;
 logic [3:0] div_bottom;
-sqrt_rom my_sqrt_rom_top(.addra(top_short), .clka(clk_in), .douta(div_top), .ena(1)); //8bit in, 4 bit out
-sqrt_rom my_sqrt_rom_bottom(.addra(bottom_short), .clka(clk_in), .douta(div_bottom), .ena(1));
+sqrt_rom my_sqrt_rom_top(.addra(top_short), .clka(clk_in), .douta(div_top), .ena(1'b1)); //8bit in, 4 bit out
+sqrt_rom my_sqrt_rom_bottom(.addra(bottom_short), .clka(clk_in), .douta(div_bottom), .ena(1'b1));
 
 //Divide using lookup table
 logic [3:0] scale; //unsigned
@@ -79,7 +79,7 @@ always_ff @(posedge clk_in) begin
         finished <= 1;
         state <= 0;
         counter <= 0;
-        rgb_out <= {r>>4, g>>4, b>>4};
+        rgb_out <= {r[7:4], g[7:4], b[7:4]};
     end else if (state==1) begin
         counter <= counter +1;
     end else begin
@@ -113,12 +113,13 @@ endmodule
 
 //MSB Finder
 module msb(
-    input [49:0] number, 
+    input [59:0] number, 
     output logic [7:0] msb);
     
     logic counter [7:0];
     
     always_comb begin
+        msb = 0;
         for(integer i=0; i<60; i=i+1) begin
             if (number[i]==1) begin
                 msb = i;   

@@ -50,13 +50,13 @@ module display_height(
       counter <= counter + 1;
       case (counter[bits:bits-2])
           3'b000: begin  // use the MSB 4 bits
-                  seg_out <= 7'b1111_1111; // Unused
+                  seg_out <= 7'b111_1111; // Unused
                   strobe_out <= 8'b0111_1111 ;
                   dp <= 1;
                  end
 
           3'b001: begin
-                seg_out <= 7'b1111_1111; // Unused
+                seg_out <= 7'b111_1111; // Unused
                 strobe_out <= 8'b1011_1111 ;
                 dp <= 1;
                  end

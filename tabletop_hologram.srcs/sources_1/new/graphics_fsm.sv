@@ -3,6 +3,7 @@
 module graphics_fsm(
     input clk_in,
     input rst_in, 
+    input finish_shader,
     input finish_rasterize,
     input finish_projection,
     input data_available_triangle_source,
