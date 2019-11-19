@@ -140,8 +140,8 @@ module top_level(
             user[1] <= 15'd60;
         end else begin
             vclock_count <= vclock_count + 1;
-            user[2] <= user_reset ? 15'd60 : (user_right ? (user[2] + 1) : (user_left ? (user[2] - 1) : user[2]));
-            user[1] <= user_reset ? 15'd60 : (user_up ? (user[1] + 1) : (user_down ? (user[1] - 1) : user[1]));
+            user[2] <= user_reset ? 15'd60 : (user_right ? (user[2] + 10) : (user_left ? (user[2] - 10) : user[2]));
+            user[1] <= user_reset ? 15'd60 : (user_up ? (user[1] + 10) : (user_down ? (user[1] - 10) : user[1]));
         end
         
         last_btnu_clean <= btnu_clean;
