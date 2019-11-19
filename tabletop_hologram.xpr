@@ -219,10 +219,10 @@
     </FileSet>
     <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
       <Filter Type="Constrs"/>
-      <File Path="$PSRCDIR/constrs_1/imports/Downloads/nexys4_ddr_lab3.xdc">
+      <File Path="$PSRCDIR/constrs_1/imports/Downloads/Nexys-Video-Master.xdc">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../Downloads/nexys4_ddr_lab3.xdc"/>
-          <Attr Name="ImportTime" Val="1571358857"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../Downloads/Nexys-Video-Master.xdc"/>
+          <Attr Name="ImportTime" Val="1574112271"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
         </FileInfo>
@@ -395,7 +395,6 @@
     <FileSet Name="hdmi_render" Type="BlockSrcs" RelSrcDir="$PSRCDIR/hdmi_render">
       <File Path="$PSRCDIR/sources_1/ip/hdmi_render/hdmi_render.xci">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>

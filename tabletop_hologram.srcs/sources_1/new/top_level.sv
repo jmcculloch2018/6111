@@ -2,15 +2,13 @@
 
 module top_level(
    input clk_100mhz,
-   input[15:0] sw,
+   input[7:0] sw,
    input btnc, btnu, btnl, btnr, btnd,
-   output[3:0] vga_r,
-   output[3:0] vga_b,
-   output[3:0] vga_g,
-   output vga_hs,
-   output vga_vs,
-   output ca, cb, cc, cd, ce, cf, cg, dp,  // segments a-g, dp
-   output[7:0] an    // Display location 0-7
+   output logic hdmi_tx_clk_n,
+    output logic hdmi_tx_clk_p,
+    output logic [2:0] hdmi_tx_n,
+    output logic [2:0] hdmi_tx_p
+
     );
     
     logic signed [2:0][11:0] user;
@@ -33,17 +31,22 @@ module top_level(
     logic last_btnu_clean, last_btnd_clean, last_btnl_clean, last_btnr_clean;
     
 
-    logic clk, reset;
+    logic clk, pixel_clk, reset;
+    
+    logic [23:0] rgb24;
     
     assign clk = clk_100mhz;
-    assign {cg, cf, ce, cd, cc, cb, ca} = segments;
+    assign pixel_clk = clk && vclock_enable;
+//    assign {cg, cf, ce, cd, cc, cb, ca} = segments;
+    assign rgb24 = {rgb[11:8], 4'b0, rgb[7:4], 4'b0, rgb[3:0], 4'b0};
     synchronize synchronize_reset(
         .clk(clk), 
-        .in(sw[15]),
+        .in(sw[7]),
         .out(reset)
     );
     
     assign vclock_enable = (vclock_count == 0);
+    
     
     assign user_up = btnu_clean && ~last_btnu_clean;
     assign user_down = btnd_clean && ~last_btnd_clean;
@@ -107,22 +110,28 @@ module top_level(
             .vsync_out(vsync),
             .hsync_out(hsync),
             .blank_out(blank));
+            
+    hdmi_render hdmi (
+      .TMDS_Clk_p(hdmi_tx_clk_p),    // output wire TMDS_Clk_p
+      .TMDS_Clk_n(hdmi_tx_clk_n),    // output wire TMDS_Clk_n
+      .TMDS_Data_p(hdmi_tx_p),  // output wire [2 : 0] TMDS_Data_p
+      .TMDS_Data_n(hdmi_tx_n),  // output wire [2 : 0] TMDS_Data_n
+      .aRst(reset),                // input wire aRst
+      .vid_pData(rgb24),      // input wire [23 : 0] vid_pData
+      .vid_pVDE(~b),        // input wire vid_pVDE
+      .vid_pHSync(~hs),    // input wire vid_pHSync
+      .vid_pVSync(~vs),    // input wire vid_pVSync
+      .PixelClk(pixel_clk)        // input wire PixelClk
+);
  
     display_height my_height_disp(
         .clk_in(clk), .rst_in(reset),
         .sw(sw), 
         .height(user[0]), 
         .seg_out(segments),
-        .dp(dp),
-        .strobe_out(an)); 
+        .dp(),
+        .strobe_out()); 
 
-    
-    assign vga_r = ~b ? rgb[11:8]: 0;
-    assign vga_g = ~b ? rgb[7:4] : 0;
-    assign vga_b = ~b ? rgb[3:0] : 0;
-
-    assign vga_hs = ~hs;
-    assign vga_vs = ~vs;
     
     always_ff @(posedge clk) begin 
         if (reset) begin
