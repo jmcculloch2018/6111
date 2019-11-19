@@ -24,7 +24,7 @@ module graphics_fsm(
     assign new_data_projection = new_data && data_available_projection;
     assign new_data_rasterize = new_data && data_available_rasterize;
     
-    pipeline #(.N_BITS(1), .N_REGISTERS(2)) pipeline_next_tri( 
+    pipeline #(.N_BITS(1), .N_REGISTERS(3)) pipeline_next_tri( 
        .clk_in(clk_in), .rst_in(rst_in), 
        .data_in(next_triangle || next_frame), .data_out(new_data)
     );
@@ -32,9 +32,9 @@ module graphics_fsm(
     
     always_ff @(posedge clk_in) begin
         if (rst_in) begin
-            has_finished_rasterize <= 0;
-            has_finished_projection <= 0;
-            has_finished_shader <= 0;
+            has_finished_rasterize <= 1;
+            has_finished_projection <= 1;
+            has_finished_shader <= 1;
             data_available_rasterize <= 0;
             data_available_projection <= 0;
         end else if (next_frame) begin
@@ -52,7 +52,7 @@ module graphics_fsm(
         end else begin 
             has_finished_rasterize <= has_finished_rasterize || finish_rasterize;
             has_finished_projection <= has_finished_projection || finish_projection;
-            has_finished_shader <= has_finished_shader || finish_projection;
+            has_finished_shader <= has_finished_shader || finish_shader;
         end
         
         
