@@ -13,7 +13,7 @@ module rasterize_integration_test(
    output[7:0] an    // Display location 0-7
     );
     
-    parameter SCREEN_WIDTH = 320, SCREEN_HEIGHT = 240;
+    parameter SCREEN_WIDTH = 320, SCREEN_HEIGHT = 320;
     
     logic clk, reset;
     assign clk = clk_100mhz;
@@ -67,8 +67,8 @@ module rasterize_integration_test(
         .rgb_write_inactive_frame(rgb_write_inactive_frame),
         .z_write_inactive_frame(z_write_inactive_frame),
         .z_read_inactive_frame(z_read_inactive_frame),
-        .x_active_frame(hcount),
-        .y_active_frame(vcount),
+        .hcount_in(hcount),
+        .vcount_in(vcount),
         .rgb_active_frame(rgb_active_frame)
     );
     
@@ -78,7 +78,7 @@ module rasterize_integration_test(
     logic next_triangle; 
     logic rasterize_finished;
     assign rgb_triangle = 12'hF00;
-    assign triangle_vertices = {16'd100, 16'd100, 16'd0, 16'd200, 16'd50, 16'd0, 16'd250, 16'd150, 16'd0};
+    assign triangle_vertices = {-16'd40, 16'd200, 16'd0, 16'd80, 16'd400, 16'd0, 16'd160, 16'd160, 16'd0};
     assign next_triangle = next_frame;
     rasterize my_rasterize(
         .clk_in(clk),
