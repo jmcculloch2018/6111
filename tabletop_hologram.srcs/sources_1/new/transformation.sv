@@ -4,35 +4,39 @@ module transformation(
     input clk_in,
     input rst_in, 
     input signed [8:0][15:0] vertices_in,
+    input signed [2:0][15:0] model_translation,
     input signed [2:0][15:0] rpy,
-    input signed [2:0][15:0] translation,
+    input signed [2:0][15:0] world_translation,
     input new_data_in, 
     output logic signed [8:0][15:0] vertices_out,
     output logic finished_out
-    );
-    parameter ROTATION_LATENCY = 18;
-    parameter TOTAL_LATENCY = 3 * ROTATION_LATENCY + 4;
+);
+    parameter ROTATION_LATENCY = 23;
+    parameter TOTAL_LATENCY = 3 * ROTATION_LATENCY + 8;
     transformation_vertex vertex1(
         .clk_in(clk_in), .rst_in(rst_in),
         .vertex_in(vertices_in[8:6]),
+        .model_translation(model_translation),
         .rpy(rpy),
-        .translation(translation),
+        .world_translation(world_translation),
         .new_data_in(new_data_in), 
         .vertex_out(vertices_out[8:6])
     );
     transformation_vertex vertex2(
         .clk_in(clk_in), .rst_in(rst_in),
         .vertex_in(vertices_in[5:3]),
+        .model_translation(model_translation),
         .rpy(rpy),
-        .translation(translation),
+        .world_translation(world_translation),
         .new_data_in(new_data_in), 
         .vertex_out(vertices_out[5:3])
     );
     transformation_vertex vertex3(
         .clk_in(clk_in), .rst_in(rst_in),
         .vertex_in(vertices_in[2:0]),
+        .model_translation(model_translation),
         .rpy(rpy),
-        .translation(translation),
+        .world_translation(world_translation),
         .new_data_in(new_data_in), 
         .vertex_out(vertices_out[2:0])
     );
@@ -49,13 +53,14 @@ module transformation_vertex(
     input clk_in,
     input rst_in, 
     input signed [2:0][15:0] vertex_in,
+    input signed [2:0][15:0] model_translation,
     input signed [2:0][15:0] rpy,
-    input signed [2:0][15:0] translation,
+    input signed [2:0][15:0] world_translation,
     input new_data_in, 
     output logic signed [2:0][15:0] vertex_out
     );
-    parameter ROTATION_LATENCY = 18;
-    parameter TOTAL_LATENCY = 3 * ROTATION_LATENCY + 4;
+    parameter ROTATION_LATENCY = 23;
+    parameter TOTAL_LATENCY = 3 * ROTATION_LATENCY + 8;
         
     logic [1:0][15:0] cartesian_data;
     logic [15:0] phase_data;
@@ -76,33 +81,36 @@ module transformation_vertex(
     always_ff @(posedge clk_in) begin
         if (rst_in || new_data_in) begin
             count <= 0;
-            vertex_out <= vertex_in;
+            vertex_out[2] <= vertex_in[2] + model_translation[2];
+            vertex_out[1] <= vertex_in[1] + model_translation[1];
+            vertex_out[0] <= vertex_in[0] + model_translation[0];
+
         end else begin
-            count <= count < TOTAL_LATENCY ? count + 1 : count;
+            count <= count < (TOTAL_LATENCY - 1) ? count + 1 : count;
             // Inputs
             cartesian_data[1] <= (count == 0) ? vertex_out[1] : 
-                (count == ROTATION_LATENCY + 1) ? vertex_out[0] : 
-                (count == 2 * ROTATION_LATENCY + 2) ? vertex_out[2] : cartesian_data[1];
+                (count == ROTATION_LATENCY + 2) ? vertex_out[0] : 
+                (count == 2 * ROTATION_LATENCY + 4) ? vertex_out[2] : cartesian_data[1];
             cartesian_data[0] <= (count == 0) ? vertex_out[0] : 
-                (count == ROTATION_LATENCY + 1) ? vertex_out[2] : 
-                (count == 2 * ROTATION_LATENCY + 2) ? vertex_out[1] : cartesian_data[0];
+                (count == ROTATION_LATENCY + 2) ? vertex_out[2] : 
+                (count == 2 * ROTATION_LATENCY + 4) ? vertex_out[1] : cartesian_data[0];
             phase_data <= (count == 0) ? rpy[2] : 
-                (count == ROTATION_LATENCY + 1) ? rpy[1] : 
-                (count == 2 * ROTATION_LATENCY + 2) ? rpy[0] : phase_data;
-            valid_in <= (count == 0) || (count == ROTATION_LATENCY + 1) || (count == 2 * ROTATION_LATENCY + 2);
+                (count == ROTATION_LATENCY + 2) ? rpy[1] : 
+                (count == 2 * ROTATION_LATENCY + 4) ? rpy[0] : phase_data;
+            valid_in <= (count == 0) || (count == ROTATION_LATENCY + 2) || (count == 2 * ROTATION_LATENCY + 4);
             
             // Outputs
-            vertex_out[2] <= (count == 2 * ROTATION_LATENCY + 1) ? data_out[0] : 
-                (count == 3 * ROTATION_LATENCY + 2) ? data_out[1] : 
-                (count == 3 * ROTATION_LATENCY + 3) ? vertex_out[2] + translation[2] :
+            vertex_out[2] <= (count == 2 * ROTATION_LATENCY + 3) ? data_out[0] : 
+                (count == 3 * ROTATION_LATENCY + 5) ? data_out[1] : 
+                (count == 3 * ROTATION_LATENCY + 6) ? vertex_out[2] + world_translation[2] :
                 vertex_out[2];
-            vertex_out[1] <= (count == ROTATION_LATENCY) ? data_out[1] : 
-                (count == 3 * ROTATION_LATENCY + 2) ? data_out[0] : 
-                (count == 3 * ROTATION_LATENCY + 3) ? vertex_out[1] + translation[1] :
+            vertex_out[1] <= (count == ROTATION_LATENCY + 1) ? data_out[1] : 
+                (count == 3 * ROTATION_LATENCY + 5) ? data_out[0] : 
+                (count == 3 * ROTATION_LATENCY + 6) ? vertex_out[1] + world_translation[1] :
                 vertex_out[1];
-            vertex_out[0] <= (count == ROTATION_LATENCY) ? data_out[0] : 
-                (count == 2 * ROTATION_LATENCY + 1) ? data_out[1] : 
-                (count == 3 * ROTATION_LATENCY + 3) ? vertex_out[0] + translation[0] :
+            vertex_out[0] <= (count == ROTATION_LATENCY + 1) ? data_out[0] : 
+                (count == 2 * ROTATION_LATENCY + 3) ? data_out[1] : 
+                (count == 3 * ROTATION_LATENCY + 6) ? vertex_out[0] + world_translation[0] :
                 vertex_out[0];
         end
     end

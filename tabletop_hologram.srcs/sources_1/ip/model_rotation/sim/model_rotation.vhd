@@ -143,7 +143,7 @@ BEGIN
     GENERIC MAP (
       C_ARCHITECTURE => 2,
       C_CORDIC_FUNCTION => 0,
-      C_COARSE_ROTATE => 0,
+      C_COARSE_ROTATE => 1,
       C_DATA_FORMAT => 0,
       C_XDEVICEFAMILY => "artix7",
       C_HAS_ACLKEN => 0,
@@ -158,7 +158,7 @@ BEGIN
       C_PIPELINE_MODE => -2,
       C_PRECISION => 0,
       C_ROUND_MODE => 0,
-      C_SCALE_COMP => 0,
+      C_SCALE_COMP => 1,
       C_THROTTLE_SCHEME => 3,
       C_TLAST_RESOLUTION => 0,
       C_HAS_S_AXIS_PHASE_TUSER => 0,
