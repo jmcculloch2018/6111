@@ -1,2 +1,0 @@
-div_rom.v,verilog,xil_defaultlib,../../../../tabletop_hologram.srcs/sources_1/ip/div_rom/sim/div_rom.v,
-glbl.v,Verilog,xil_defaultlib,glbl.v

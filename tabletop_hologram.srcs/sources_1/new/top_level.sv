@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module top_level(
-   input clk_100mhz,
+   input clk,
    input[7:0] sw,
    input btnc, btnu, btnl, btnr, btnd,
    output logic hdmi_tx_clk_n,
@@ -35,8 +35,10 @@ module top_level(
     
     logic [23:0] rgb24;
     
-    assign clk = clk_100mhz;
-    assign pixel_clk = clk && vclock_enable;
+//    pipeline #(.N_BITS(1), .N_REGISTERS(2)) pipeline_pclk(
+//        .clk_in(clk), .rst_in(reset),
+//        .data_in((vclock_count == 1) || (vclock_count == 2)), .data_out(pixel_clk));
+    assign pixel_clk = (vclock_count == 0) || (vclock_count == 3);
 //    assign {cg, cf, ce, cd, cc, cb, ca} = segments;
     assign rgb24 = {rgb[11:8], 4'b0, rgb[7:4], 4'b0, rgb[3:0], 4'b0};
     synchronize synchronize_reset(

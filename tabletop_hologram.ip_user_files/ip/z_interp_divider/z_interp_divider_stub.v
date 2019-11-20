@@ -1,13 +1,13 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Tue Nov 12 21:35:02 2019
+// Date        : Tue Nov 19 18:09:27 2019
 // Host        : DESKTOP-982HE02 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
-//               c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/z_interp_divider/z_interp_divider_stub.v
+//               C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/z_interp_divider/z_interp_divider_stub.v
 // Design      : z_interp_divider
 // Purpose     : Stub declaration of top-level module interface
-// Device      : xc7a100tcsg324-3
+// Device      : xc7a200tsbg484-3
 // --------------------------------------------------------------------------------
 
 // This empty module with port declaration file causes synthesis tools to infer a black box for IP.

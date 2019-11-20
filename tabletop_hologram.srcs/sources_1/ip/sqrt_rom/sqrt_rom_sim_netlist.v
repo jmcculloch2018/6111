@@ -1,14 +1,14 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Mon Nov 18 15:18:53 2019
+// Date        : Tue Nov 19 18:09:03 2019
 // Host        : DESKTOP-982HE02 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/sqrt_rom/sqrt_rom_sim_netlist.v
 // Design      : sqrt_rom
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
-// Device      : xc7a100tcsg324-3
+// Device      : xc7a200tsbg484-3
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
