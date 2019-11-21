@@ -24,6 +24,7 @@ assign t3 [2] = $signed(triag[8]);
 logic signed [2:0] [31:0] T;
 logic signed [2:0] [19:0] V;
 //Top and bottom sum
+logic signed [63:0] magnitude_squared_T, magnitude_squared_V, T_dot_V;
 logic signed [63:0] top;
 logic signed [63:0] bottom;
 //Sqrt of 8 msb
@@ -65,7 +66,7 @@ always_ff @(posedge clk_in) begin
     if (new_data==1 && state==0) begin //Trigger starts process
         state <= 1; 
         finished <= 0;
-    end else if (counter>12) begin //Finished
+    end else if (counter>13) begin //Finished
         finished <= 1;
         state <= 0;
         counter <= 0;
@@ -77,7 +78,7 @@ always_ff @(posedge clk_in) begin
         counter <= 0;
     end
     
-    msb_new_data_in <= (counter == 3'b10);
+    msb_new_data_in <= (counter == 3'b11);
     
     case (counter) //Does a multiplication in steps
         3'b001: begin //Find Vectors
@@ -92,11 +93,14 @@ always_ff @(posedge clk_in) begin
             end
         3'b010: begin //Compute top and bottom
             //Dot product between the vectors, result squared (42)->84
-            top <= ($signed(T[0])*$signed(V[0]) + $signed(T[1])*$signed(V[1]) + $signed(T[2])*$signed(V[2]))
-            *($signed(T[0])*$signed(V[0]) + $signed(T[1])*$signed(V[1]) + $signed(T[2])*$signed(V[2]));
+            T_dot_V <= ($signed(T[0])*$signed(V[0]) + $signed(T[1])*$signed(V[1]) + $signed(T[2])*$signed(V[2]));
             //Magnitude of two vectors squared (84 bits)
-            bottom <= ($signed(T[0])*$signed(T[0])+$signed(T[1])*$signed(T[1])+$signed(T[2])*$signed(T[2]))
-            *($signed(V[0])*$signed(V[0])+$signed(V[1])*$signed(V[1])+$signed(V[2])*$signed(V[2]));
+            magnitude_squared_T <= ($signed(T[0])*$signed(T[0])+$signed(T[1])*$signed(T[1])+$signed(T[2])*$signed(T[2]));
+            magnitude_squared_V <= ($signed(V[0])*$signed(V[0])+$signed(V[1])*$signed(V[1])+$signed(V[2])*$signed(V[2]));
+            end
+        3'b011: begin //Compute top and bottom
+            top <= T_dot_V * T_dot_V;
+            bottom <= magnitude_squared_T * magnitude_squared_V;
             end
         // Eight MSB (6 clks)
         //Sqrt Rom (2 clk)
