@@ -14,8 +14,8 @@ module graphics_subsystem(
    output logic vsync_out,
    output logic blank_out
     );
-    parameter SCREEN_WIDTH = 320;
-    parameter SCREEN_HEIGHT = 320;
+    parameter SCREEN_WIDTH = 400;
+    parameter SCREEN_HEIGHT = 400;
     
     logic new_data_rasterize; 
     logic new_data_projection;

@@ -21,10 +21,10 @@ assign t3 [0] = $signed(triag[6]);
 assign t3 [1] = $signed(triag[7]);
 assign t3 [2] = $signed(triag[8]); 
 //Vectors for user and Triangle Normal
-logic signed [2:0] [31:0] T;
-logic signed [2:0] [19:0] V;
+logic signed [2:0] [15:0] T;
+logic signed [2:0] [15:0] V;
 //Top and bottom sum
-logic signed [63:0] magnitude_squared_T, magnitude_squared_V, T_dot_V;
+logic signed [31:0] magnitude_squared_T, magnitude_squared_V, T_dot_V;
 logic signed [63:0] top;
 logic signed [63:0] bottom;
 //Sqrt of 8 msb

@@ -24,10 +24,10 @@
 module xvga(input vclock_in,
 //            input vclock_enable, // used if input clock frequency does not match desired frequency (can still maintain one clock domain)
             input rst_in, 
-            output reg [11:0] hcount_out,    // pixel number on current line
-            output reg [11:0] vcount_out,     // line number
-            output reg vsync_out, hsync_out,
-            output reg blank_out);
+            output reg [11:0] hcount_out = 0,    // pixel number on current line
+            output reg [11:0] vcount_out = 0,     // line number
+            output reg vsync_out = 0, hsync_out = 0,
+            output reg blank_out = 0);
 
     parameter DISPLAY_WIDTH  = 640;      // display width
     parameter DISPLAY_HEIGHT = 480;       // number of lines
@@ -42,7 +42,7 @@ module xvga(input vclock_in,
     
     // horizontal: 1344 pixels total
     // display 1024 pixels per line
-    reg hblank,vblank;
+    reg hblank = 0,vblank = 0;
     wire hsyncon,hsyncoff,hreset,hblankon;
     assign hblankon = (hcount_out == (DISPLAY_WIDTH -1));    
     assign hsyncon = (hcount_out == (DISPLAY_WIDTH + H_FP - 1));  //1047

@@ -36,7 +36,7 @@ module triangle_source(
     triangles_rom my_rom (
       .clka(clk_in),    // input wire clka
       .addra(tri_count),  // input wire [3 : 0] addra
-      .douta(data_out)  // output wire [143 : 0] douta
+      .douta(data_out)  // output wire [119 : 0] douta
     );
     
     always_ff @(posedge clk_in) begin

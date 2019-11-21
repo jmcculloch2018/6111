@@ -53,7 +53,7 @@ module rasterize(
     // Interp z before division (lag by 2) and test in triangle
     logic signed [31:0] numerator;
     logic signed [23:0] denominator;
-    logic in_triangle;
+    logic in_triangle = 0;
     logic valid_in;
     assign valid_in = 1;
     
@@ -68,7 +68,7 @@ module rasterize(
       .m_axis_dout_tvalid(),          // output wire m_axis_dout_tvalid
       .m_axis_dout_tdata(divider_out)            // output wire [55 : 0] m_axis_dout_tdata
     );
-    assign z_write = divider_out[31:24];
+    assign z_write = divider_out[35:24];
     
     
     // Delay x, y, read (lag by DIVISION_LATENCY)

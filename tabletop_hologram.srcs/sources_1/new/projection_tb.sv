@@ -26,10 +26,10 @@ module projection_tb;
    // inputs
    logic clk;
    logic reset;
-   logic signed [2:0][7:0] vertex_in;
+   logic signed [2:0][11:0] vertex_in;
    logic signed [2:0][11:0] user_in;
    logic new_data_in;
-   logic signed [2:0][15:0] vertex_out;
+   logic signed [2:0][11:0] vertex_out;
    
    project_vertex_with_height uut(
     .clk_in(clk),
@@ -48,10 +48,12 @@ module projection_tb;
     initial begin
         clk = 0; //initialize clk (super important)
         reset = 0;
-        vertex_in = {8'h6e, -8'd20, 8'h64};
+        vertex_in = {12'h6e, -12'd20, 12'h64};
         user_in = {12'd600, -12'd600, 12'd1000};
         new_data_in = 0;
         #20;
+        reset = 1;
+        #10;
         reset = 0;
         #100;
         new_data_in = 1;

@@ -49,11 +49,11 @@ module project_vertex_with_height(
     output logic signed [2:0][11:0] vertex_out
 );
 
-    parameter SCREEN_WIDTH = 320;
-    parameter SCREEN_HEIGHT = 320;
+    parameter SCREEN_WIDTH = 400;
+    parameter SCREEN_HEIGHT = 400;
     logic signed [11:0] vx, vy, vz, ux, uy, uz;
     logic signed [23:0] numerator_x, numerator_y;
-    logic signed [11:0] denominator;
+    logic signed [15:0] denominator;
     logic signed [23:0] divider_out_x, divider_out_y;
     
     logic divider_valid_in, divider_x_valid_out, divider_y_valid_out;
@@ -65,10 +65,10 @@ module project_vertex_with_height(
     projection_divider divider_x (
       .aclk(clk_in),                                      // input wire aclk
       .s_axis_divisor_tvalid(divider_valid_in),    // input wire s_axis_divisor_tvalid
-      .s_axis_divisor_tready(),    // output wire s_axis_divisor_tready
+      .s_axis_divisor_tready(ready1),    // output wire s_axis_divisor_tready
       .s_axis_divisor_tdata(denominator),      // input wire [15 : 0] s_axis_divisor_tdata
       .s_axis_dividend_tvalid(divider_valid_in),  // input wire s_axis_dividend_tvalid
-      .s_axis_dividend_tready(),  // output wire s_axis_dividend_tready
+      .s_axis_dividend_tready(ready2),  // output wire s_axis_dividend_tready
       .s_axis_dividend_tdata(numerator_x),    // input wire [23 : 0] s_axis_dividend_tdata
       .m_axis_dout_tvalid(divider_x_valid_out),          // output wire m_axis_dout_tvalid
       .m_axis_dout_tdata(divider_out_x)            // output wire [23 : 0] m_axis_dout_tdata
@@ -77,10 +77,10 @@ module project_vertex_with_height(
     projection_divider divider_y (
       .aclk(clk_in),                                      // input wire aclk
       .s_axis_divisor_tvalid(divider_valid_in),    // input wire s_axis_divisor_tvalid
-      .s_axis_divisor_tready(),    // output wire s_axis_divisor_tready
+      .s_axis_divisor_tready(ready3),    // output wire s_axis_divisor_tready
       .s_axis_divisor_tdata(denominator),      // input wire [15 : 0] s_axis_divisor_tdata
       .s_axis_dividend_tvalid(divider_valid_in),  // input wire s_axis_dividend_tvalid
-      .s_axis_dividend_tready(),  // output wire s_axis_dividend_tready
+      .s_axis_dividend_tready(ready4),  // output wire s_axis_dividend_tready
       .s_axis_dividend_tdata(numerator_y),    // input wire [23 : 0] s_axis_dividend_tdata
       .m_axis_dout_tvalid(divider_y_valid_out),          // output wire m_axis_dout_tvalid
       .m_axis_dout_tdata(divider_out_y)            // output wire [23 : 0] m_axis_dout_tdata

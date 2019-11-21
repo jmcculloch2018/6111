@@ -33,7 +33,7 @@ module graphics_integration_tb;
         btnd = 0;  
         #20  //wait a little bit of time at beginning
         sw[7] = 1; //reset system
-        #20; //hold high for a few clock cycles
+        #10; //hold high for a few clock cycles
         sw[7]=0; //pull low
         
         
