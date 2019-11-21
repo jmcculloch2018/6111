@@ -27,11 +27,11 @@ module triangle_source(
         input next_frame,
         output logic triangles_available, 
         output logic [11:0] rgb_out,
-        output logic [8:0][15:0] vertices_out 
+        output logic [8:0][11:0] vertices_out 
     );
     parameter NUM_TRIANGLES = 12;
     logic [3:0] tri_count;
-    logic [155:0] data_out;
+    logic [119:0] data_out;
     
     triangles_rom my_rom (
       .clka(clk_in),    // input wire clka
@@ -50,6 +50,6 @@ module triangle_source(
     end
     
     assign triangles_available = tri_count < (NUM_TRIANGLES - 1);
-    assign rgb_out = data_out[155:144];
-    assign vertices_out = data_out[143:0];
+    assign rgb_out = data_out[119:108];
+    assign vertices_out = data_out[107:0];
 endmodule

@@ -3,10 +3,10 @@
 module projection_with_height(
     input clk_in,
     input rst_in, 
-    input signed [8:0][15:0] vertices_in,
+    input signed [8:0][11:0] vertices_in,
     input signed [2:0][11:0] user_in, 
     input new_data_in, 
-    output logic signed [8:0][15:0] vertices_out,
+    output logic signed [8:0][11:0] vertices_out,
     output logic finished_out
 );
     parameter DIVIDER_LATENCY = 21;
@@ -43,17 +43,17 @@ endmodule
 module project_vertex_with_height(
     input clk_in,
     input rst_in, 
-    input signed [2:0][15:0] vertex_in,
+    input signed [2:0][11:0] vertex_in,
     input signed [2:0][11:0] user_in, 
     input new_data_in, 
-    output logic signed [2:0][15:0] vertex_out
+    output logic signed [2:0][11:0] vertex_out
 );
 
     parameter SCREEN_WIDTH = 320;
     parameter SCREEN_HEIGHT = 320;
-    logic signed [15:0] vx, vy, vz, ux, uy, uz;
+    logic signed [11:0] vx, vy, vz, ux, uy, uz;
     logic signed [23:0] numerator_x, numerator_y;
-    logic signed [15:0] denominator;
+    logic signed [11:0] denominator;
     logic signed [23:0] divider_out_x, divider_out_y;
     
     logic divider_valid_in, divider_x_valid_out, divider_y_valid_out;
@@ -107,10 +107,10 @@ module project_vertex_with_height(
             numerator_x <= vz * ux - uz * vx;
             numerator_y <= vz * uy - uz * vy;
             denominator <= vz - uz;
-//            vertex_out[2] <= divider_x_valid_out ? (divider_out_x + SCREEN_WIDTH / 2) : vertex_out[2];
-//            vertex_out[1] <= divider_y_valid_out ? (divider_out_y + SCREEN_HEIGHT / 2) : vertex_out[1];
-            vertex_out[2] <= divider_x_valid_out ? divider_out_x : vertex_out[2];
-            vertex_out[1] <= divider_y_valid_out ? divider_out_y : vertex_out[1];
+            vertex_out[2] <= divider_x_valid_out ? (divider_out_x + SCREEN_WIDTH / 2) : vertex_out[2];
+            vertex_out[1] <= divider_y_valid_out ? (divider_out_y + SCREEN_HEIGHT / 2) : vertex_out[1];
+//            vertex_out[2] <= divider_x_valid_out ? divider_out_x : vertex_out[2];
+//            vertex_out[1] <= divider_y_valid_out ? divider_out_y : vertex_out[1];
             vertex_out[0] <= vz;
 
         end

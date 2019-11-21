@@ -1,31 +1,31 @@
 module shader(
 input clk_in,
 input [11:0] rgb,
-input [8:0] [15:0] triag, //pnts 1,2,3  1,2,3  1,2,3
+input [8:0] [11:0] triag, //pnts 1,2,3  1,2,3  1,2,3
 input [2:0] [11:0] user_pos,
 input new_data,
 output logic finished,
 output logic [11:0] rgb_out
     );
 //Assign values to user and traingle coords
-logic signed  [2:0] [15:0] t1;
-logic signed [2:0] [15:0] t2;
-logic signed [2:0] [15:0] t3;
-assign t1 [0] = triag[0];
-assign t1 [1] = triag[1]; 
-assign t1 [2] = triag[2];
-assign t2 [0] = triag[3];
-assign t2 [1] = triag[4];
-assign t2 [2] = triag[5];
-assign t3 [0] = triag[6];
-assign t3 [1] = triag[7];
-assign t3 [2] = triag[8]; 
+logic signed  [2:0] [11:0] t1;
+logic signed [2:0] [11:0] t2;
+logic signed [2:0] [11:0] t3;
+assign t1 [0] = $signed(triag[0]);
+assign t1 [1] = $signed(triag[1]); 
+assign t1 [2] = $signed(triag[2]);
+assign t2 [0] = $signed(triag[3]);
+assign t2 [1] = $signed(triag[4]);
+assign t2 [2] = $signed(triag[5]);
+assign t3 [0] = $signed(triag[6]);
+assign t3 [1] = $signed(triag[7]);
+assign t3 [2] = $signed(triag[8]); 
 //Vectors for user and Triangle Normal
 logic signed [2:0] [31:0] T;
 logic signed [2:0] [19:0] V;
 //Top and bottom sum
-logic signed [59:0] top;
-logic signed [59:0] bottom;
+logic signed [63:0] top;
+logic signed [63:0] bottom;
 //Sqrt of 8 msb
 logic [7:0] top_short;
 logic [7:0] bottom_short;
@@ -82,13 +82,13 @@ always_ff @(posedge clk_in) begin
     case (counter) //Does a multiplication in steps
         3'b001: begin //Find Vectors
             //Cross product of two triangles (27 bits) 
-            T[0] <= (t2[1]-t1[1])*(t3[2]-t1[2])-(t3[1]-t1[1])*(t2[2]-t1[2]);
-            T[1] <= -(t2[0]-t1[0])*(t3[2]-t1[2])+(t3[0]-t1[0])*(t2[2]-t1[2]);
-            T[2] <= (t2[0]-t1[0])*(t3[1]-t1[1])-(t3[0]-t1[0])*(t2[1]-t1[1]);
+            T[0] <= $signed(t2[1]-t1[1])*$signed(t3[2]-t1[2])-$signed(t3[1]-t1[1])*$signed(t2[2]-t1[2]);
+            T[1] <= -$signed(t2[0]-t1[0])*$signed(t3[2]-t1[2])+$signed(t3[0]-t1[0])*$signed(t2[2]-t1[2]);
+            T[2] <= $signed(t2[0]-t1[0])*$signed(t3[1]-t1[1])-$signed(t3[0]-t1[0])*$signed(t2[1]-t1[1]);
             //User perspective vector (13 bits)
-            V[0] <= ($signed(t1[0])-$signed(user_pos[0]));
-            V[1] <= ($signed(t1[1])-$signed(user_pos[1]));
-            V[2] <= ($signed(t1[2])-$signed(user_pos[2]));
+            V[0] <= $signed(user_pos[0]);
+            V[1] <= $signed(user_pos[1]);
+            V[2] <= $signed(user_pos[2]);
             end
         3'b010: begin //Compute top and bottom
             //Dot product between the vectors, result squared (42)->84
@@ -112,15 +112,15 @@ endmodule
 module eight_msb(
 input clk,
 input new_data_in,
-input signed [59:0] in_top,
-input signed [59:0] in_bot,
+input signed [63:0] in_top,
+input signed [63:0] in_bot,
 output logic [7:0] out_top,
 output logic [7:0] out_bot
 );
-logic [59:0] top;
-logic [59:0] bottom;
-assign top = in_top[59]==1 ? -in_top : in_top;
-assign bottom = in_bot[59]==1 ? -in_bot : in_bot;
+logic [63:0] top;
+logic [63:0] bottom;
+assign top = in_top[63]==1 ? -in_top : in_top;
+assign bottom = in_bot[63]==1 ? -in_bot : in_bot;
 logic [7:0] loc;
 logic data_out;
 msb my_msb(.clk(clk), .new_data_in(new_data_in), .number(bottom), .msb(loc));
@@ -141,14 +141,14 @@ endmodule
 module msb(
     input clk,
     input new_data_in,
-    input [59:0] number, 
+    input [63:0] number, 
     output logic [7:0] msb);
     logic [31:0] num;
     logic [3:0] count;
     always_ff @(posedge clk) begin
         if (new_data_in) begin
-            msb <= (number[59:32] > 0) ? 8'd32 : 8'd0;
-            num <= (number[59:32] > 0) ? {4'b0, number[59:32]} : number[31:0];
+            msb <= (number[63 :32] > 0) ? 8'd32 : 8'd0;
+            num <= (number[63:32] > 0) ? number[63:32] : number[31:0];
             count <= 1;
         end else if (count == 1) begin 
             msb[4] <= (num[31:16] > 0);

@@ -5,30 +5,30 @@ module rasterize(
     input clk_in,
     input rst_in, 
     input [11:0] rgb_in,
-    input signed [8:0][15:0] vertices,
+    input signed [8:0][11:0] vertices,
     input new_data, 
     output logic finished,
     // RAM
-    input signed [7:0] z_read,
+    input signed [11:0] z_read,
     output logic write_ram,
-    output logic [15:0] x_write,
-    output logic [15:0] y_write,
-    output logic [15:0] x_read,
-    output logic [15:0] y_read,
+    output logic [11:0] x_write,
+    output logic [11:0] y_write,
+    output logic [11:0] x_read,
+    output logic [11:0] y_read,
     output logic [11:0] rgb_write,
-    output logic signed [7:0] z_write
+    output logic signed [11:0] z_write
 );  
     logic busy;
 
     parameter DIVISION_LATENCY = 30;  
-    parameter SCREEN_WIDTH = 320;
-    parameter SCREEN_HEIGHT = 320;
+    parameter SCREEN_WIDTH = 0;
+    parameter SCREEN_HEIGHT = 0;
     
     // Lag of 0
-    logic [15:0] x_cur;
-    logic [15:0] y_cur;
+    logic [11:0] x_cur;
+    logic [11:0] y_cur;
         
-    logic signed [15:0] x_min, x_max, y_min, y_max;
+    logic signed [11:0] x_min, x_max, y_min, y_max;
     get_min #(.ABSOLUTE_MIN(0), .ABSOLUTE_MAX(SCREEN_WIDTH - 1)) 
         get_min_x(.val1(vertices[8]), .val2(vertices[5]), .val3(vertices[2]), .min(x_min));
     get_min #(.ABSOLUTE_MIN(0), .ABSOLUTE_MAX(SCREEN_HEIGHT - 1)) 
@@ -72,12 +72,12 @@ module rasterize(
     
     
     // Delay x, y, read (lag by DIVISION_LATENCY)
-    pipeline #(.N_BITS(16), .N_REGISTERS(DIVISION_LATENCY)) pipeline_x(
+    pipeline #(.N_BITS(12), .N_REGISTERS(DIVISION_LATENCY)) pipeline_x(
         .clk_in(clk_in), 
         .rst_in(rst_in),
         .data_in(x_cur),
         .data_out(x_read));
-    pipeline #(.N_BITS(16), .N_REGISTERS(DIVISION_LATENCY)) pipeline_y(
+    pipeline #(.N_BITS(12), .N_REGISTERS(DIVISION_LATENCY)) pipeline_y(
         .clk_in(clk_in), 
         .rst_in(rst_in),
         .data_in(y_cur),
@@ -95,12 +95,12 @@ module rasterize(
         .rst_in(rst_in),
         .data_in(busy),
         .data_out(busy_lag));
-     pipeline #(.N_BITS(16), .N_REGISTERS(2)) pipeline_x_write(
+     pipeline #(.N_BITS(12), .N_REGISTERS(2)) pipeline_x_write(
         .clk_in(clk_in), 
         .rst_in(rst_in),
         .data_in(x_read),
         .data_out(x_write));
-    pipeline #(.N_BITS(16), .N_REGISTERS(2)) pipeline_y_write(
+    pipeline #(.N_BITS(12), .N_REGISTERS(2)) pipeline_y_write(
         .clk_in(clk_in), 
         .rst_in(rst_in),
         .data_in(y_read),
@@ -113,9 +113,8 @@ module rasterize(
         .data_in(rgb_in),
         .data_out(rgb_write));
      
-
-    assign finished = ~busy && last_busy;
     logic last_busy;
+    assign finished = ~busy && last_busy;
     always_ff @(posedge clk_in) begin
         if (rst_in) begin
             busy <= 0;
@@ -140,13 +139,13 @@ module rasterize(
 endmodule   
 
 module get_max(
-    input signed [15:0] val1, 
-    input signed [15:0] val2, 
-    input signed [15:0] val3, 
-    output logic signed [15:0] max
+    input signed [11:0] val1, 
+    input signed [11:0] val2, 
+    input signed [11:0] val3, 
+    output logic signed [11:0] max
 );
-    parameter ABSOLUTE_MIN = 16'sb0;
-    parameter ABSOLUTE_MAX = 16'sd10000;
+    parameter ABSOLUTE_MIN = 12'sb0;
+    parameter ABSOLUTE_MAX = 12'sd1000;
     always_comb begin
         max = val1;
         if ($signed(val2) > $signed(max)) max = val2;
@@ -159,13 +158,13 @@ module get_max(
 endmodule
 
 module get_min(
-    input signed [15:0] val1, 
-    input signed [15:0] val2, 
-    input signed [15:0] val3, 
-    output logic signed [15:0] min
+    input signed [11:0] val1, 
+    input signed [11:0] val2, 
+    input signed [11:0] val3, 
+    output logic signed [11:0] min
 );
-    parameter ABSOLUTE_MIN = 16'sb0;
-    parameter ABSOLUTE_MAX = 16'sd10000;
+    parameter ABSOLUTE_MIN = 12'sb0;
+    parameter ABSOLUTE_MAX = 12'sd1000;
     always_comb begin 
         min = val1;
         if ($signed(val2) < $signed(min)) min = val2;
@@ -178,18 +177,18 @@ endmodule
 
 module get_area(
     input clk_in,
-    input signed [15:0] x1,
-    input signed [15:0] y1,
-    input signed [15:0] x2, 
-    input signed [15:0] y2,
-    input signed [15:0] x3,
-    input signed [15:0] y3,
+    input signed [11:0] x1,
+    input signed [11:0] y1,
+    input signed [11:0] x2, 
+    input signed [11:0] y2,
+    input signed [11:0] x3,
+    input signed [11:0] y3,
     output logic signed [23:0] area);
     
-    logic signed [15:0] v1x;
-    logic signed [15:0] v1y;
-    logic signed [15:0] v2x;
-    logic signed [15:0] v2y;
+    logic signed [11:0] v1x;
+    logic signed [11:0] v1y;
+    logic signed [11:0] v2x;
+    logic signed [11:0] v2y;
     assign v1x = x2 - x1;
     assign v1y = y2 - y1;
     assign v2x = x3 - x1;

@@ -6,45 +6,46 @@ module frame_buffer_manager(
     input next_frame,
     // Inactive
     input write_inactive_frame,
-    input [15:0] x_read_inactive_frame,
-    input [15:0] y_read_inactive_frame,
-    input [15:0] x_write_inactive_frame,
-    input [15:0] y_write_inactive_frame,
+    input [11:0] x_read_inactive_frame,
+    input [11:0] y_read_inactive_frame,
+    input [11:0] x_write_inactive_frame,
+    input [11:0] y_write_inactive_frame,
     input [11:0] rgb_write_inactive_frame,
-    input signed [7:0] z_write_inactive_frame,
-    output logic signed [7:0] z_read_inactive_frame,
+    input signed [11:0] z_write_inactive_frame,
+    output logic signed [11:0] z_read_inactive_frame,
     // Active
-    input [15:0] hcount_in,
-    input [15:0] vcount_in,
+    input [11:0] hcount_in,
+    input [11:0] vcount_in,
     output logic [11:0] rgb_active_frame
 
     );
-    parameter SCREEN_WIDTH = 320;
-    parameter SCREEN_HEIGHT = 320;
+    parameter SCREEN_WIDTH = 0;
+    parameter SCREEN_HEIGHT = 0;
     
     parameter VGA_WIDTH = 640;
     parameter VGA_HEIGHT = 480;
     
-    assign x_active_frame = hcount_in - VGA_WIDTH / 2 + SCREEN_WIDTH / 2;
-    assign y_active_frame = vcount_in - VGA_HEIGHT / 2 + SCREEN_HEIGHT / 2;
-    logic signed [15:0] x_active_frame;
-    logic signed [15:0] y_active_frame;
-    logic signed [15:0] last_x_active_frame;
-    logic signed [15:0] last_y_active_frame;
-    logic [16:0] address_write_active, address_write_inactive;
-    logic [16:0] address_read_active, address_read_inactive;
-    logic [19:0] data_write_active, data_write_inactive;
-    logic [19:0] data_read [1:0];
+    logic signed [11:0] x_active_frame;
+    logic signed [11:0] y_active_frame;
+    logic signed [11:0] last_x_active_frame;
+    logic signed [11:0] last_y_active_frame;
+    logic [17:0] address_write_active, address_write_inactive;
+    logic [17:0] address_read_active, address_read_inactive;
+    logic [23:0] data_write_active, data_write_inactive;
+    logic [23:0] data_read [1:0];
     logic write_active_frame;
     logic active_frame;
     logic pixel_in_frame;
     
-    pipeline #(.N_BITS(16), .N_REGISTERS(4)) pipeline_x_active(
+    assign x_active_frame = hcount_in - VGA_WIDTH / 2 + SCREEN_WIDTH / 2;
+    assign y_active_frame = vcount_in - VGA_HEIGHT / 2 + SCREEN_HEIGHT / 2;
+    
+    pipeline #(.N_BITS(12), .N_REGISTERS(4)) pipeline_x_active(
         .clk_in(clk_in), 
         .rst_in(rst_in), 
         .data_in(x_active_frame),
         .data_out(last_x_active_frame));
-    pipeline #(.N_BITS(16), .N_REGISTERS(4)) pipeline_y_active(
+    pipeline #(.N_BITS(12), .N_REGISTERS(4)) pipeline_y_active(
         .clk_in(clk_in), 
         .rst_in(rst_in), 
         .data_in(y_active_frame),
@@ -73,14 +74,14 @@ module frame_buffer_manager(
     assign address_write_active = last_x_active_frame + last_y_active_frame * SCREEN_WIDTH;
     assign address_read_active = x_active_frame + y_active_frame * SCREEN_WIDTH;
     assign data_write_active = 20'h00080;
-    assign rgb_active_frame = pixel_in_frame ? data_read[active_frame][19:8] : 12'h000; // Black if outside screen
+    assign rgb_active_frame = pixel_in_frame ? data_read[active_frame][23:12] : 12'h000; // Black if outside screen
     
     assign address_write_inactive = x_write_inactive_frame + 
         y_write_inactive_frame * SCREEN_WIDTH;
     assign address_read_inactive = x_read_inactive_frame + 
         y_read_inactive_frame * SCREEN_WIDTH;
     assign data_write_inactive = {rgb_write_inactive_frame, z_write_inactive_frame};
-    assign z_read_inactive_frame = data_read[~active_frame][7:0];
+    assign z_read_inactive_frame = data_read[~active_frame][11:0];
      
     assign write_active_frame = (last_x_active_frame < SCREEN_WIDTH) && (last_x_active_frame >= 0) &&
         (last_y_active_frame >= 0) && (last_y_active_frame < SCREEN_HEIGHT);

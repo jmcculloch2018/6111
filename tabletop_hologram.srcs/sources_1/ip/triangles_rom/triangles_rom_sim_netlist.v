@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Tue Nov 19 18:11:20 2019
+// Date        : Wed Nov 20 20:17:44 2019
 // Host        : DESKTOP-982HE02 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim -rename_top triangles_rom -prefix
-//               triangles_rom_ triangles_rom_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim
+//               C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/triangles_rom/triangles_rom_sim_netlist.v
 // Design      : triangles_rom
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -20,11 +20,11 @@ module triangles_rom
     douta);
   (* x_interface_info = "xilinx.com:interface:bram:1.0 BRAM_PORTA CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME BRAM_PORTA, MEM_SIZE 8192, MEM_WIDTH 32, MEM_ECC NONE, MASTER_TYPE OTHER, READ_LATENCY 1" *) input clka;
   (* x_interface_info = "xilinx.com:interface:bram:1.0 BRAM_PORTA ADDR" *) input [3:0]addra;
-  (* x_interface_info = "xilinx.com:interface:bram:1.0 BRAM_PORTA DOUT" *) output [155:0]douta;
+  (* x_interface_info = "xilinx.com:interface:bram:1.0 BRAM_PORTA DOUT" *) output [119:0]douta;
 
   wire [3:0]addra;
   wire clka;
-  wire [155:0]douta;
+  wire [119:0]douta;
   wire NLW_U0_dbiterr_UNCONNECTED;
   wire NLW_U0_rsta_busy_UNCONNECTED;
   wire NLW_U0_rstb_busy_UNCONNECTED;
@@ -37,12 +37,12 @@ module triangles_rom
   wire NLW_U0_s_axi_sbiterr_UNCONNECTED;
   wire NLW_U0_s_axi_wready_UNCONNECTED;
   wire NLW_U0_sbiterr_UNCONNECTED;
-  wire [155:0]NLW_U0_doutb_UNCONNECTED;
+  wire [119:0]NLW_U0_doutb_UNCONNECTED;
   wire [3:0]NLW_U0_rdaddrecc_UNCONNECTED;
   wire [3:0]NLW_U0_s_axi_bid_UNCONNECTED;
   wire [1:0]NLW_U0_s_axi_bresp_UNCONNECTED;
   wire [3:0]NLW_U0_s_axi_rdaddrecc_UNCONNECTED;
-  wire [155:0]NLW_U0_s_axi_rdata_UNCONNECTED;
+  wire [119:0]NLW_U0_s_axi_rdata_UNCONNECTED;
   wire [3:0]NLW_U0_s_axi_rid_UNCONNECTED;
   wire [1:0]NLW_U0_s_axi_rresp_UNCONNECTED;
 
@@ -54,7 +54,7 @@ module triangles_rom
   (* C_AXI_TYPE = "1" *) 
   (* C_BYTE_SIZE = "9" *) 
   (* C_COMMON_CLK = "0" *) 
-  (* C_COUNT_18K_BRAM = "1" *) 
+  (* C_COUNT_18K_BRAM = "0" *) 
   (* C_COUNT_36K_BRAM = "2" *) 
   (* C_CTRL_ECC_ALGO = "NONE" *) 
   (* C_DEFAULT_DATA = "0" *) 
@@ -69,7 +69,7 @@ module triangles_rom
   (* C_EN_SAFETY_CKT = "0" *) 
   (* C_EN_SHUTDOWN_PIN = "0" *) 
   (* C_EN_SLEEP_PIN = "0" *) 
-  (* C_EST_POWER_SUMMARY = "Estimated Power for IP     :     16.0008 mW" *) 
+  (* C_EST_POWER_SUMMARY = "Estimated Power for IP     :     12.4592 mW" *) 
   (* C_FAMILY = "artix7" *) 
   (* C_HAS_AXI_ID = "0" *) 
   (* C_HAS_ENA = "0" *) 
@@ -98,8 +98,8 @@ module triangles_rom
   (* C_READ_DEPTH_B = "12" *) 
   (* C_READ_LATENCY_A = "1" *) 
   (* C_READ_LATENCY_B = "1" *) 
-  (* C_READ_WIDTH_A = "156" *) 
-  (* C_READ_WIDTH_B = "156" *) 
+  (* C_READ_WIDTH_A = "120" *) 
+  (* C_READ_WIDTH_B = "120" *) 
   (* C_RSTRAM_A = "0" *) 
   (* C_RSTRAM_B = "0" *) 
   (* C_RST_PRIORITY_A = "CE" *) 
@@ -118,8 +118,8 @@ module triangles_rom
   (* C_WRITE_DEPTH_B = "12" *) 
   (* C_WRITE_MODE_A = "WRITE_FIRST" *) 
   (* C_WRITE_MODE_B = "WRITE_FIRST" *) 
-  (* C_WRITE_WIDTH_A = "156" *) 
-  (* C_WRITE_WIDTH_B = "156" *) 
+  (* C_WRITE_WIDTH_A = "120" *) 
+  (* C_WRITE_WIDTH_B = "120" *) 
   (* C_XDEVICEFAMILY = "artix7" *) 
   (* downgradeipidentifiedwarnings = "yes" *) 
   triangles_rom_blk_mem_gen_v8_4_3 U0
@@ -129,10 +129,10 @@ module triangles_rom
         .clkb(1'b0),
         .dbiterr(NLW_U0_dbiterr_UNCONNECTED),
         .deepsleep(1'b0),
-        .dina({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .dinb({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .dina({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .dinb({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .douta(douta),
-        .doutb(NLW_U0_doutb_UNCONNECTED[155:0]),
+        .doutb(NLW_U0_doutb_UNCONNECTED[119:0]),
         .eccpipece(1'b0),
         .ena(1'b0),
         .enb(1'b0),
@@ -169,14 +169,14 @@ module triangles_rom
         .s_axi_injectdbiterr(1'b0),
         .s_axi_injectsbiterr(1'b0),
         .s_axi_rdaddrecc(NLW_U0_s_axi_rdaddrecc_UNCONNECTED[3:0]),
-        .s_axi_rdata(NLW_U0_s_axi_rdata_UNCONNECTED[155:0]),
+        .s_axi_rdata(NLW_U0_s_axi_rdata_UNCONNECTED[119:0]),
         .s_axi_rid(NLW_U0_s_axi_rid_UNCONNECTED[3:0]),
         .s_axi_rlast(NLW_U0_s_axi_rlast_UNCONNECTED),
         .s_axi_rready(1'b0),
         .s_axi_rresp(NLW_U0_s_axi_rresp_UNCONNECTED[1:0]),
         .s_axi_rvalid(NLW_U0_s_axi_rvalid_UNCONNECTED),
         .s_axi_sbiterr(NLW_U0_s_axi_sbiterr_UNCONNECTED),
-        .s_axi_wdata({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .s_axi_wdata({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .s_axi_wlast(1'b0),
         .s_axi_wready(NLW_U0_s_axi_wready_UNCONNECTED),
         .s_axi_wstrb(1'b0),
@@ -188,43 +188,41 @@ module triangles_rom
         .web(1'b0));
 endmodule
 
+(* ORIG_REF_NAME = "blk_mem_gen_generic_cstr" *) 
 module triangles_rom_blk_mem_gen_generic_cstr
    (douta,
     clka,
     addra);
-  output [155:0]douta;
+  output [119:0]douta;
   input clka;
   input [3:0]addra;
 
   wire [3:0]addra;
   wire clka;
-  wire [155:0]douta;
+  wire [119:0]douta;
 
   triangles_rom_blk_mem_gen_prim_width \ramloop[0].ram.r 
        (.addra(addra),
         .clka(clka),
-        .douta(douta[35:0]));
+        .douta(douta[71:0]));
   triangles_rom_blk_mem_gen_prim_width__parameterized0 \ramloop[1].ram.r 
        (.addra(addra),
         .clka(clka),
-        .douta(douta[107:36]));
-  triangles_rom_blk_mem_gen_prim_width__parameterized1 \ramloop[2].ram.r 
-       (.addra(addra),
-        .clka(clka),
-        .douta(douta[155:108]));
+        .douta(douta[119:72]));
 endmodule
 
+(* ORIG_REF_NAME = "blk_mem_gen_prim_width" *) 
 module triangles_rom_blk_mem_gen_prim_width
    (douta,
     clka,
     addra);
-  output [35:0]douta;
+  output [71:0]douta;
   input clka;
   input [3:0]addra;
 
   wire [3:0]addra;
   wire clka;
-  wire [35:0]douta;
+  wire [71:0]douta;
 
   triangles_rom_blk_mem_gen_prim_wrapper_init \prim_init.ram 
        (.addra(addra),
@@ -237,25 +235,6 @@ module triangles_rom_blk_mem_gen_prim_width__parameterized0
    (douta,
     clka,
     addra);
-  output [71:0]douta;
-  input clka;
-  input [3:0]addra;
-
-  wire [3:0]addra;
-  wire clka;
-  wire [71:0]douta;
-
-  triangles_rom_blk_mem_gen_prim_wrapper_init__parameterized0 \prim_init.ram 
-       (.addra(addra),
-        .clka(clka),
-        .douta(douta));
-endmodule
-
-(* ORIG_REF_NAME = "blk_mem_gen_prim_width" *) 
-module triangles_rom_blk_mem_gen_prim_width__parameterized1
-   (douta,
-    clka,
-    addra);
   output [47:0]douta;
   input clka;
   input [3:0]addra;
@@ -264,152 +243,14 @@ module triangles_rom_blk_mem_gen_prim_width__parameterized1
   wire clka;
   wire [47:0]douta;
 
-  triangles_rom_blk_mem_gen_prim_wrapper_init__parameterized1 \prim_init.ram 
+  triangles_rom_blk_mem_gen_prim_wrapper_init__parameterized0 \prim_init.ram 
        (.addra(addra),
         .clka(clka),
         .douta(douta));
 endmodule
 
-module triangles_rom_blk_mem_gen_prim_wrapper_init
-   (douta,
-    clka,
-    addra);
-  output [35:0]douta;
-  input clka;
-  input [3:0]addra;
-
-  wire [3:0]addra;
-  wire clka;
-  wire [35:0]douta;
-
-  (* box_type = "PRIMITIVE" *) 
-  RAMB18E1 #(
-    .DOA_REG(1),
-    .DOB_REG(1),
-    .INITP_00(256'h0000000000000000000000000000000000000000000000000000222A2AAAA2A2),
-    .INITP_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_00(256'h40110064C02A0064C02A0000C0110064C011006440110000C02A000040110000),
-    .INIT_01(256'h0000000000000000000000000000000040110064402A0000402A0000C02A0064),
-    .INIT_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_10(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_11(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_12(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_13(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_14(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_15(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_16(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_17(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_18(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_19(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_20(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_21(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_22(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_23(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_24(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_25(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_26(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_27(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_28(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_29(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_30(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_31(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_32(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_33(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_34(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_35(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_36(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_37(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_38(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_39(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_A(18'h00000),
-    .INIT_B(18'h00000),
-    .INIT_FILE("NONE"),
-    .IS_CLKARDCLK_INVERTED(1'b0),
-    .IS_CLKBWRCLK_INVERTED(1'b0),
-    .IS_ENARDEN_INVERTED(1'b0),
-    .IS_ENBWREN_INVERTED(1'b0),
-    .IS_RSTRAMARSTRAM_INVERTED(1'b0),
-    .IS_RSTRAMB_INVERTED(1'b0),
-    .IS_RSTREGARSTREG_INVERTED(1'b0),
-    .IS_RSTREGB_INVERTED(1'b0),
-    .RAM_MODE("TDP"),
-    .RDADDR_COLLISION_HWCONFIG("PERFORMANCE"),
-    .READ_WIDTH_A(18),
-    .READ_WIDTH_B(18),
-    .RSTREG_PRIORITY_A("REGCE"),
-    .RSTREG_PRIORITY_B("REGCE"),
-    .SIM_COLLISION_CHECK("ALL"),
-    .SIM_DEVICE("7SERIES"),
-    .SRVAL_A(18'h00000),
-    .SRVAL_B(18'h00000),
-    .WRITE_MODE_A("WRITE_FIRST"),
-    .WRITE_MODE_B("WRITE_FIRST"),
-    .WRITE_WIDTH_A(18),
-    .WRITE_WIDTH_B(18)) 
-    \DEVICE_7SERIES.NO_BMM_INFO.SP.WIDE_PRIM18.ram 
-       (.ADDRARDADDR({1'b0,1'b0,1'b0,1'b0,1'b0,addra,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .ADDRBWRADDR({1'b0,1'b0,1'b0,1'b0,1'b0,addra,1'b1,1'b0,1'b0,1'b0,1'b0}),
-        .CLKARDCLK(clka),
-        .CLKBWRCLK(clka),
-        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .DIBDI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .DIPADIP({1'b0,1'b0}),
-        .DIPBDIP({1'b0,1'b0}),
-        .DOADO({douta[16:9],douta[7:0]}),
-        .DOBDO({douta[34:27],douta[25:18]}),
-        .DOPADOP({douta[17],douta[8]}),
-        .DOPBDOP({douta[35],douta[26]}),
-        .ENARDEN(1'b1),
-        .ENBWREN(1'b1),
-        .REGCEAREGCE(1'b1),
-        .REGCEB(1'b1),
-        .RSTRAMARSTRAM(1'b0),
-        .RSTRAMB(1'b0),
-        .RSTREGARSTREG(1'b0),
-        .RSTREGB(1'b0),
-        .WEA({1'b0,1'b0}),
-        .WEBWE({1'b0,1'b0,1'b0,1'b0}));
-endmodule
-
 (* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper_init" *) 
-module triangles_rom_blk_mem_gen_prim_wrapper_init__parameterized0
+module triangles_rom_blk_mem_gen_prim_wrapper_init
    (douta,
     clka,
     addra);
@@ -433,7 +274,7 @@ module triangles_rom_blk_mem_gen_prim_wrapper_init__parameterized0
     .DOB_REG(1),
     .EN_ECC_READ("FALSE"),
     .EN_ECC_WRITE("FALSE"),
-    .INITP_00(256'h00000000000000000000000000000000000000004040484842420A0A02020808),
+    .INITP_00(256'h00000000000000000000000000000000000000001013F3FEC0CEEFEC0C013F31),
     .INITP_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
@@ -449,9 +290,9 @@ module triangles_rom_blk_mem_gen_prim_wrapper_init__parameterized0
     .INITP_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_00(256'h000069008C012006000069008C01200D0000690054000006000069005400000D),
-    .INIT_01(256'h0C0037008C01200D0C0037008C01200600003700540120060000370054012006),
-    .INIT_02(256'h0C0069008C00000D0C0069008C00000D0C0037005400000D0C00370054000006),
+    .INIT_00(256'h06BF6832F97F683206BF683206BF6FCD068097CDF94097CD068097CD06BF6FCD),
+    .INIT_01(256'hF97F683206BF6832F97F6832F9409032F9409032F94097CDF9409032F97F6832),
+    .INIT_02(256'h06BF6FCD06BF683206BF6FCD068097CDF94097CD068097CDF94097CDF9409032),
     .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
@@ -640,7 +481,7 @@ module triangles_rom_blk_mem_gen_prim_wrapper_init__parameterized0
 endmodule
 
 (* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper_init" *) 
-module triangles_rom_blk_mem_gen_prim_wrapper_init__parameterized1
+module triangles_rom_blk_mem_gen_prim_wrapper_init__parameterized0
    (douta,
     clka,
     addra);
@@ -704,9 +545,9 @@ module triangles_rom_blk_mem_gen_prim_wrapper_init__parameterized1
     .INITP_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INITP_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_00(256'h3F3F0006380011203F3F0006380011203C000006380011203C00000638001120),
-    .INIT_01(256'h3E00000D08002A203E00000D08002A20000F000638001120000F000638001120),
-    .INIT_02(256'h0330000D08002A200330000D08002A203F30000D08002A203F30000D08002A20),
+    .INIT_00(256'h3F3F3F0D3F0D3F0D3F3F3F0D3F0D3F0D3C003F0D3F0D3F0D3C003F0D3F0D3F0D),
+    .INIT_01(256'h3E000032003200323E00003200320032000F3F0D3F0D3F0D000F3F0D3F0D3F0D),
+    .INIT_02(256'h033000320032003203300032003200323F300032003200323F30003200320032),
     .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
     .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
@@ -894,17 +735,18 @@ module triangles_rom_blk_mem_gen_prim_wrapper_init__parameterized1
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
 endmodule
 
+(* ORIG_REF_NAME = "blk_mem_gen_top" *) 
 module triangles_rom_blk_mem_gen_top
    (douta,
     clka,
     addra);
-  output [155:0]douta;
+  output [119:0]douta;
   input clka;
   input [3:0]addra;
 
   wire [3:0]addra;
   wire clka;
-  wire [155:0]douta;
+  wire [119:0]douta;
 
   triangles_rom_blk_mem_gen_generic_cstr \valid.cstr 
        (.addra(addra),
@@ -914,12 +756,12 @@ endmodule
 
 (* C_ADDRA_WIDTH = "4" *) (* C_ADDRB_WIDTH = "4" *) (* C_ALGORITHM = "1" *) 
 (* C_AXI_ID_WIDTH = "4" *) (* C_AXI_SLAVE_TYPE = "0" *) (* C_AXI_TYPE = "1" *) 
-(* C_BYTE_SIZE = "9" *) (* C_COMMON_CLK = "0" *) (* C_COUNT_18K_BRAM = "1" *) 
+(* C_BYTE_SIZE = "9" *) (* C_COMMON_CLK = "0" *) (* C_COUNT_18K_BRAM = "0" *) 
 (* C_COUNT_36K_BRAM = "2" *) (* C_CTRL_ECC_ALGO = "NONE" *) (* C_DEFAULT_DATA = "0" *) 
 (* C_DISABLE_WARN_BHV_COLL = "0" *) (* C_DISABLE_WARN_BHV_RANGE = "0" *) (* C_ELABORATION_DIR = "./" *) 
 (* C_ENABLE_32BIT_ADDRESS = "0" *) (* C_EN_DEEPSLEEP_PIN = "0" *) (* C_EN_ECC_PIPE = "0" *) 
 (* C_EN_RDADDRA_CHG = "0" *) (* C_EN_RDADDRB_CHG = "0" *) (* C_EN_SAFETY_CKT = "0" *) 
-(* C_EN_SHUTDOWN_PIN = "0" *) (* C_EN_SLEEP_PIN = "0" *) (* C_EST_POWER_SUMMARY = "Estimated Power for IP     :     16.0008 mW" *) 
+(* C_EN_SHUTDOWN_PIN = "0" *) (* C_EN_SLEEP_PIN = "0" *) (* C_EST_POWER_SUMMARY = "Estimated Power for IP     :     12.4592 mW" *) 
 (* C_FAMILY = "artix7" *) (* C_HAS_AXI_ID = "0" *) (* C_HAS_ENA = "0" *) 
 (* C_HAS_ENB = "0" *) (* C_HAS_INJECTERR = "0" *) (* C_HAS_MEM_OUTPUT_REGS_A = "1" *) 
 (* C_HAS_MEM_OUTPUT_REGS_B = "0" *) (* C_HAS_MUX_OUTPUT_REGS_A = "0" *) (* C_HAS_MUX_OUTPUT_REGS_B = "0" *) 
@@ -929,15 +771,15 @@ endmodule
 (* C_INIT_FILE_NAME = "triangles_rom.mif" *) (* C_INTERFACE_TYPE = "0" *) (* C_LOAD_INIT_FILE = "1" *) 
 (* C_MEM_TYPE = "3" *) (* C_MUX_PIPELINE_STAGES = "0" *) (* C_PRIM_TYPE = "1" *) 
 (* C_READ_DEPTH_A = "12" *) (* C_READ_DEPTH_B = "12" *) (* C_READ_LATENCY_A = "1" *) 
-(* C_READ_LATENCY_B = "1" *) (* C_READ_WIDTH_A = "156" *) (* C_READ_WIDTH_B = "156" *) 
+(* C_READ_LATENCY_B = "1" *) (* C_READ_WIDTH_A = "120" *) (* C_READ_WIDTH_B = "120" *) 
 (* C_RSTRAM_A = "0" *) (* C_RSTRAM_B = "0" *) (* C_RST_PRIORITY_A = "CE" *) 
 (* C_RST_PRIORITY_B = "CE" *) (* C_SIM_COLLISION_CHECK = "ALL" *) (* C_USE_BRAM_BLOCK = "0" *) 
 (* C_USE_BYTE_WEA = "0" *) (* C_USE_BYTE_WEB = "0" *) (* C_USE_DEFAULT_DATA = "0" *) 
 (* C_USE_ECC = "0" *) (* C_USE_SOFTECC = "0" *) (* C_USE_URAM = "0" *) 
 (* C_WEA_WIDTH = "1" *) (* C_WEB_WIDTH = "1" *) (* C_WRITE_DEPTH_A = "12" *) 
 (* C_WRITE_DEPTH_B = "12" *) (* C_WRITE_MODE_A = "WRITE_FIRST" *) (* C_WRITE_MODE_B = "WRITE_FIRST" *) 
-(* C_WRITE_WIDTH_A = "156" *) (* C_WRITE_WIDTH_B = "156" *) (* C_XDEVICEFAMILY = "artix7" *) 
-(* downgradeipidentifiedwarnings = "yes" *) 
+(* C_WRITE_WIDTH_A = "120" *) (* C_WRITE_WIDTH_B = "120" *) (* C_XDEVICEFAMILY = "artix7" *) 
+(* ORIG_REF_NAME = "blk_mem_gen_v8_4_3" *) (* downgradeipidentifiedwarnings = "yes" *) 
 module triangles_rom_blk_mem_gen_v8_4_3
    (clka,
     rsta,
@@ -1008,16 +850,16 @@ module triangles_rom_blk_mem_gen_v8_4_3
   input regcea;
   input [0:0]wea;
   input [3:0]addra;
-  input [155:0]dina;
-  output [155:0]douta;
+  input [119:0]dina;
+  output [119:0]douta;
   input clkb;
   input rstb;
   input enb;
   input regceb;
   input [0:0]web;
   input [3:0]addrb;
-  input [155:0]dinb;
-  output [155:0]doutb;
+  input [119:0]dinb;
+  output [119:0]doutb;
   input injectsbiterr;
   input injectdbiterr;
   input eccpipece;
@@ -1038,7 +880,7 @@ module triangles_rom_blk_mem_gen_v8_4_3
   input [1:0]s_axi_awburst;
   input s_axi_awvalid;
   output s_axi_awready;
-  input [155:0]s_axi_wdata;
+  input [119:0]s_axi_wdata;
   input [0:0]s_axi_wstrb;
   input s_axi_wlast;
   input s_axi_wvalid;
@@ -1055,7 +897,7 @@ module triangles_rom_blk_mem_gen_v8_4_3
   input s_axi_arvalid;
   output s_axi_arready;
   output [3:0]s_axi_rid;
-  output [155:0]s_axi_rdata;
+  output [119:0]s_axi_rdata;
   output [1:0]s_axi_rresp;
   output s_axi_rlast;
   output s_axi_rvalid;
@@ -1069,45 +911,9 @@ module triangles_rom_blk_mem_gen_v8_4_3
   wire \<const0> ;
   wire [3:0]addra;
   wire clka;
-  wire [155:0]douta;
+  wire [119:0]douta;
 
   assign dbiterr = \<const0> ;
-  assign doutb[155] = \<const0> ;
-  assign doutb[154] = \<const0> ;
-  assign doutb[153] = \<const0> ;
-  assign doutb[152] = \<const0> ;
-  assign doutb[151] = \<const0> ;
-  assign doutb[150] = \<const0> ;
-  assign doutb[149] = \<const0> ;
-  assign doutb[148] = \<const0> ;
-  assign doutb[147] = \<const0> ;
-  assign doutb[146] = \<const0> ;
-  assign doutb[145] = \<const0> ;
-  assign doutb[144] = \<const0> ;
-  assign doutb[143] = \<const0> ;
-  assign doutb[142] = \<const0> ;
-  assign doutb[141] = \<const0> ;
-  assign doutb[140] = \<const0> ;
-  assign doutb[139] = \<const0> ;
-  assign doutb[138] = \<const0> ;
-  assign doutb[137] = \<const0> ;
-  assign doutb[136] = \<const0> ;
-  assign doutb[135] = \<const0> ;
-  assign doutb[134] = \<const0> ;
-  assign doutb[133] = \<const0> ;
-  assign doutb[132] = \<const0> ;
-  assign doutb[131] = \<const0> ;
-  assign doutb[130] = \<const0> ;
-  assign doutb[129] = \<const0> ;
-  assign doutb[128] = \<const0> ;
-  assign doutb[127] = \<const0> ;
-  assign doutb[126] = \<const0> ;
-  assign doutb[125] = \<const0> ;
-  assign doutb[124] = \<const0> ;
-  assign doutb[123] = \<const0> ;
-  assign doutb[122] = \<const0> ;
-  assign doutb[121] = \<const0> ;
-  assign doutb[120] = \<const0> ;
   assign doutb[119] = \<const0> ;
   assign doutb[118] = \<const0> ;
   assign doutb[117] = \<const0> ;
@@ -1248,42 +1054,6 @@ module triangles_rom_blk_mem_gen_v8_4_3
   assign s_axi_rdaddrecc[2] = \<const0> ;
   assign s_axi_rdaddrecc[1] = \<const0> ;
   assign s_axi_rdaddrecc[0] = \<const0> ;
-  assign s_axi_rdata[155] = \<const0> ;
-  assign s_axi_rdata[154] = \<const0> ;
-  assign s_axi_rdata[153] = \<const0> ;
-  assign s_axi_rdata[152] = \<const0> ;
-  assign s_axi_rdata[151] = \<const0> ;
-  assign s_axi_rdata[150] = \<const0> ;
-  assign s_axi_rdata[149] = \<const0> ;
-  assign s_axi_rdata[148] = \<const0> ;
-  assign s_axi_rdata[147] = \<const0> ;
-  assign s_axi_rdata[146] = \<const0> ;
-  assign s_axi_rdata[145] = \<const0> ;
-  assign s_axi_rdata[144] = \<const0> ;
-  assign s_axi_rdata[143] = \<const0> ;
-  assign s_axi_rdata[142] = \<const0> ;
-  assign s_axi_rdata[141] = \<const0> ;
-  assign s_axi_rdata[140] = \<const0> ;
-  assign s_axi_rdata[139] = \<const0> ;
-  assign s_axi_rdata[138] = \<const0> ;
-  assign s_axi_rdata[137] = \<const0> ;
-  assign s_axi_rdata[136] = \<const0> ;
-  assign s_axi_rdata[135] = \<const0> ;
-  assign s_axi_rdata[134] = \<const0> ;
-  assign s_axi_rdata[133] = \<const0> ;
-  assign s_axi_rdata[132] = \<const0> ;
-  assign s_axi_rdata[131] = \<const0> ;
-  assign s_axi_rdata[130] = \<const0> ;
-  assign s_axi_rdata[129] = \<const0> ;
-  assign s_axi_rdata[128] = \<const0> ;
-  assign s_axi_rdata[127] = \<const0> ;
-  assign s_axi_rdata[126] = \<const0> ;
-  assign s_axi_rdata[125] = \<const0> ;
-  assign s_axi_rdata[124] = \<const0> ;
-  assign s_axi_rdata[123] = \<const0> ;
-  assign s_axi_rdata[122] = \<const0> ;
-  assign s_axi_rdata[121] = \<const0> ;
-  assign s_axi_rdata[120] = \<const0> ;
   assign s_axi_rdata[119] = \<const0> ;
   assign s_axi_rdata[118] = \<const0> ;
   assign s_axi_rdata[117] = \<const0> ;
@@ -1423,17 +1193,18 @@ module triangles_rom_blk_mem_gen_v8_4_3
         .douta(douta));
 endmodule
 
+(* ORIG_REF_NAME = "blk_mem_gen_v8_4_3_synth" *) 
 module triangles_rom_blk_mem_gen_v8_4_3_synth
    (douta,
     clka,
     addra);
-  output [155:0]douta;
+  output [119:0]douta;
   input clka;
   input [3:0]addra;
 
   wire [3:0]addra;
   wire clka;
-  wire [155:0]douta;
+  wire [119:0]douta;
 
   triangles_rom_blk_mem_gen_top \gnbram.gnativebmg.native_blk_mem_gen 
        (.addra(addra),

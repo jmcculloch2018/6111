@@ -12,13 +12,14 @@ module top_level(
 
     );
     
+    assign led = 0;
+    
     logic signed [2:0][11:0] user;
 
     logic [1:0] vclock_count;
-    logic vclock_enable;
     
-    logic [15:0] vcount;
-    logic [15:0] hcount;
+    logic [11:0] vcount;
+    logic [11:0] hcount;
     logic vsync, hsync, blank;
     
     logic b,hs,vs;
@@ -36,23 +37,14 @@ module top_level(
     
     logic [23:0] rgb24;
     
-//    pipeline #(.N_BITS(1), .N_REGISTERS(2)) pipeline_pclk(
-//        .clk_in(clk), .rst_in(reset),
-//        .data_in((vclock_count == 1) || (vclock_count == 2)), .data_out(pixel_clk));
     assign pixel_clk = vclock_count[1];
 //    assign {cg, cf, ce, cd, cc, cb, ca} = segments;
-//    pipeline #(.N_BITS(24), .N_REGISTERS(2)) pipe (
-//        .clk_in(clk), .rst_in(reset), 
-//        .data_in({24{hcount + vcount > 100}}), .data_out(rgb24)
-//        );
+
     synchronize synchronize_reset(
         .clk(clk), 
         .in(sw[7]),
         .out(reset)
-    );
-    
-    assign vclock_enable = (vclock_count == 0);
-    
+    );    
     
     assign user_up = btnu_clean && ~last_btnu_clean;
     assign user_down = btnd_clean && ~last_btnd_clean;
@@ -62,7 +54,7 @@ module top_level(
     
     pipeline #(.N_BITS(24), .N_REGISTERS(3)) pipeline_rgb(
         .clk_in(pixel_clk), .rst_in(reset),
-        .data_in({rgb[11:8], 4'b0, rgb[3:0], 4'b0, rgb[7:4], 4'b0}),
+        .data_in({rgb[11:8], 4'hF, rgb[3:0], 4'hF, rgb[7:4], 4'hF}),
         .data_out(rgb24));
     pipeline #(.N_BITS(1), .N_REGISTERS(3)) pipeline_b(
         .clk_in(pixel_clk), .rst_in(reset),
@@ -123,17 +115,6 @@ module top_level(
         .vsync_out(vs),
         .blank_out(b)
     );
-    
-//   ila_0 myila (
-//	.clk(clk), // input wire clk
-
-
-//	.probe0(pixel_clk), // input wire [0:0]  probe0  
-//	.probe1(vga_vs), // input wire [0:0]  probe1 
-//	.probe2(vga_hs), // input wire [0:0]  probe2 
-//	.probe3(vga_b), // input wire [0:0]  probe3 
-//	.probe4(rgb24) // input wire [23:0]  probe4
-//);
    
     xvga my_vga(
             .vclock_in(pixel_clk),
@@ -173,10 +154,7 @@ module top_level(
             vclock_count <= 0;
             user[2] <= 15'd60;
             user[1] <= 15'd60;
-             led <=0;
-
         end else begin
-            led <= led | rgb24[7:0];
             vclock_count <= vclock_count + 1;
             user[2] <= user_reset ? 15'd60 : (user_right ? (user[2] + 10) : (user_left ? (user[2] - 10) : user[2]));
             user[1] <= user_reset ? 15'd60 : (user_up ? (user[1] + 10) : (user_down ? (user[1] - 10) : user[1]));

@@ -4,8 +4,8 @@ module graphics_subsystem(
    input clk,
    input reset,
    input signed [2:0][11:0] user,
-   input [15:0] vcount_in,
-   input [15:0] hcount_in,
+   input [11:0] vcount_in,
+   input [11:0] hcount_in,
    input hsync_in,
    input vsync_in,
    input blank_in,
@@ -14,6 +14,8 @@ module graphics_subsystem(
    output logic vsync_out,
    output logic blank_out
     );
+    parameter SCREEN_WIDTH = 320;
+    parameter SCREEN_HEIGHT = 320;
     
     logic new_data_rasterize; 
     logic new_data_projection;
@@ -30,16 +32,16 @@ module graphics_subsystem(
     logic [11:0] rgb_shader;  
     logic [11:0] rgb_rasterize;
   
-    logic signed [8:0][15:0] vertices_triangle_source;
-    logic signed [8:0][15:0] vertices_projection_out;
-    logic signed [8:0][15:0] vertices_rasterize;
+    logic signed [8:0][11:0] vertices_triangle_source;
+    logic signed [8:0][11:0] vertices_projection_out;
+    logic signed [8:0][11:0] vertices_rasterize;
     
-    logic [15:0] x_read_inactive_frame;
-    logic [15:0] y_read_inactive_frame;
-    logic [15:0] x_write_inactive_frame;
-    logic [15:0] y_write_inactive_frame;
-    logic signed [7:0] z_write_inactive_frame;
-    logic signed [7:0] z_read_inactive_frame;
+    logic [11:0] x_read_inactive_frame;
+    logic [11:0] y_read_inactive_frame;
+    logic [11:0] x_write_inactive_frame;
+    logic [11:0] y_write_inactive_frame;
+    logic signed [11:0] z_write_inactive_frame;
+    logic signed [11:0] z_read_inactive_frame;
     logic write_inactive_frame;
     logic [11:0] rgb_write_inactive_frame;
     
@@ -88,7 +90,7 @@ module graphics_subsystem(
         .finished(shader_finish)
     );    
         
-    rasterize my_rasterize(
+    rasterize #(.SCREEN_WIDTH(SCREEN_WIDTH), .SCREEN_HEIGHT(SCREEN_HEIGHT)) my_rasterize(
         .clk_in(clk),
         .rst_in(reset),
         .rgb_in(rgb_rasterize), 
@@ -105,7 +107,7 @@ module graphics_subsystem(
         .z_write(z_write_inactive_frame)
     );  
         
-    frame_buffer_manager my_manager(
+    frame_buffer_manager #(.SCREEN_WIDTH(SCREEN_WIDTH), .SCREEN_HEIGHT(SCREEN_HEIGHT)) my_manager(
         .clk_in(clk),
         .rst_in(reset),
         .next_frame(next_frame), 
@@ -135,15 +137,12 @@ module graphics_subsystem(
         .clk_in(clk), .rst_in(reset), 
         .data_in(blank_in), .data_out(blank_out)
     ); 
-    
-//    assign finish_shader = 1'b1;
-    
+        
     always_ff @(posedge clk) begin 
         if (reset) begin
             rgb_rasterize <= 0;
             vertices_rasterize <= 0;
         end else begin
-//            rgb_shader <= new_data_projection ? rgb_triangle_source : rgb_shader;
             rgb_rasterize <= next_triangle ? rgb_shader : rgb_rasterize;
             vertices_rasterize <= next_triangle ? vertices_projection_out : vertices_rasterize;
         end
