@@ -84,14 +84,19 @@ module frame_buffer_manager(
      
     assign write_active_frame = (last_x_active_frame < SCREEN_WIDTH) && (last_x_active_frame >= 0) &&
         (last_y_active_frame >= 0) && (last_y_active_frame < SCREEN_HEIGHT);
+    
+    pipeline #(.N_BITS(1), .N_REGISTERS(2)) pipeline_pix_in_frame (
+        .clk_in(clk_in), .rst_in(rst_in), 
+        .data_in((x_active_frame < SCREEN_WIDTH) && (x_active_frame >= 0) &&
+                    (y_active_frame >= 0) && (y_active_frame < SCREEN_HEIGHT)),
+        .data_out(pixel_in_frame)
+    );
+    
     always_ff @(posedge clk_in) begin
         if (rst_in) begin 
             active_frame <= 0;
-            pixel_in_frame <= 0;
         end else begin 
             active_frame <= next_frame ? ~active_frame : active_frame;
-            pixel_in_frame <= (x_active_frame < SCREEN_WIDTH) && (x_active_frame >= 0) &&
-                (y_active_frame >= 0) && (y_active_frame < SCREEN_HEIGHT);
         end
         
     end

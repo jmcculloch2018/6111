@@ -22,7 +22,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 module xvga(input vclock_in,
-            input vclock_enable, // used if input clock frequency does not match desired frequency (can still maintain one clock domain)
+//            input vclock_enable, // used if input clock frequency does not match desired frequency (can still maintain one clock domain)
             input rst_in, 
             output reg [15:0] hcount_out,    // pixel number on current line
             output reg [15:0] vcount_out,     // line number
@@ -71,7 +71,7 @@ module xvga(input vclock_in,
             vblank <= 0;
             vsync_out <= 1;
             blank_out <= 0;
-        end else if (vclock_enable) begin
+        end else begin
             hcount_out <= hreset ? 0 : hcount_out + 1;
             hblank <= next_hblank;
             hsync_out <= hsyncon ? 0 : hsyncoff ? 1 : hsync_out;  // active low
@@ -85,4 +85,6 @@ module xvga(input vclock_in,
     end
    
 endmodule
+
+
 

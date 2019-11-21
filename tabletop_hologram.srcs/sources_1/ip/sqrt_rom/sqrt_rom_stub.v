@@ -3,8 +3,8 @@
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
 // Date        : Tue Nov 19 18:09:03 2019
 // Host        : DESKTOP-982HE02 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/sqrt_rom/sqrt_rom_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top sqrt_rom -prefix
+//               sqrt_rom_ sqrt_rom_stub.v
 // Design      : sqrt_rom
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a200tsbg484-3

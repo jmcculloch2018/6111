@@ -125,7 +125,7 @@ logic [7:0] loc;
 logic data_out;
 msb my_msb(.clk(clk), .new_data_in(new_data_in), .number(bottom), .msb(loc));
 pipeline #(.N_BITS(1), .N_REGISTERS(5)) pipeline_data_in(
-.clk_in(clk), .rst_in(rst),
+.clk_in(clk), .rst_in(1'b0),
 .data_in(new_data_in), .data_out(data_out)
 );
 always_ff @(posedge clk) begin

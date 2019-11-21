@@ -3,7 +3,7 @@
 module display_height(
     input clk_in,
     input rst_in, 
-    input [15:0] sw,
+    input [7:0] sw,
     output logic signed [11:0] height,
    output reg [6:0] seg_out,     // seven segment display output
    output logic dp,

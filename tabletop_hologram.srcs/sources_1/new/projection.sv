@@ -1,71 +1,5 @@
 `timescale 1ns / 1ps
 
-module projection(
-    input clk_in,
-    input rst_in, 
-    input signed [8:0][15:0] vertices_in,
-    input signed [2:0][11:0] user_in, 
-    input new_data_in, 
-    output logic signed [8:0][15:0] vertices_out,
-    output logic finished_out
-);
-    project_vertex vertex1(
-        .clk_in(clk_in), .rst_in(rst_in),
-        .vertex_in(vertices_in[8:6]),
-        .user_in(user_in),
-        .new_data_in(new_data_in),
-        .vertex_out(vertices_out[8:6])
-    );
-    project_vertex vertex2(
-        .clk_in(clk_in), .rst_in(rst_in),
-        .vertex_in(vertices_in[5:3]),
-        .user_in(user_in),
-        .new_data_in(new_data_in),
-        .vertex_out(vertices_out[5:3])
-    );
-    project_vertex vertex3(
-        .clk_in(clk_in), .rst_in(rst_in),
-        .vertex_in(vertices_in[2:0]),
-        .user_in(user_in),
-        .new_data_in(new_data_in),
-        .vertex_out(vertices_out[2:0])
-    );
-    
-    always_ff @(posedge clk_in) begin
-        finished_out <= new_data_in;
-    end
-    
-endmodule
-
-
-module project_vertex(
-    input clk_in,
-    input rst_in, 
-    input signed [2:0][15:0] vertex_in,
-    input signed [2:0][11:0] user_in, 
-    input new_data_in, 
-    output logic signed [2:0][15:0] vertex_out
-);
-    
-    parameter CAMERA_PIXELS_PER_FT = 60;
-    parameter USER_EYE_HEIGHT_INCHES = 5 * 12 + 6;
-    parameter TABLE_HEIGHT_INCHES = 3 * 12;
-    
-    // Represent user_z_pixels = 2^user_z_n / user_z_m;
-    parameter USER_Z_N = 12;
-    parameter USER_Z_M = (2**USER_Z_N * 12) / (CAMERA_PIXELS_PER_FT * (USER_EYE_HEIGHT_INCHES - TABLE_HEIGHT_INCHES));
-    
-    always_ff @(posedge clk_in) begin
-        if (rst_in) begin
-            vertex_out <= {16'b0, 16'b0, 16'b0};
-        end else if (new_data_in) begin
-            vertex_out[2] <= $signed(vertex_in[2]) - (($signed(vertex_in[0]) * $signed(USER_Z_M) * $signed(user_in[1])) >>> USER_Z_N);
-            vertex_out[1] <= $signed(vertex_in[1]) - (($signed(vertex_in[0]) * $signed(USER_Z_M) * $signed(user_in[0])) >>> USER_Z_N);
-            vertex_out[0] <= vertex_in[0];
-        end
-    end
-endmodule
-
 module projection_with_height(
     input clk_in,
     input rst_in, 
@@ -114,6 +48,9 @@ module project_vertex_with_height(
     input new_data_in, 
     output logic signed [2:0][15:0] vertex_out
 );
+
+    parameter SCREEN_WIDTH = 320;
+    parameter SCREEN_HEIGHT = 320;
     logic signed [15:0] vx, vy, vz, ux, uy, uz;
     logic signed [23:0] numerator_x, numerator_y;
     logic signed [15:0] denominator;
@@ -170,6 +107,8 @@ module project_vertex_with_height(
             numerator_x <= vz * ux - uz * vx;
             numerator_y <= vz * uy - uz * vy;
             denominator <= vz - uz;
+//            vertex_out[2] <= divider_x_valid_out ? (divider_out_x + SCREEN_WIDTH / 2) : vertex_out[2];
+//            vertex_out[1] <= divider_y_valid_out ? (divider_out_y + SCREEN_HEIGHT / 2) : vertex_out[1];
             vertex_out[2] <= divider_x_valid_out ? divider_out_x : vertex_out[2];
             vertex_out[1] <= divider_y_valid_out ? divider_out_y : vertex_out[1];
             vertex_out[0] <= vz;

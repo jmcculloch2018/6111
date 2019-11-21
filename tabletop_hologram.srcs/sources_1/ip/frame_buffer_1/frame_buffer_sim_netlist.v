@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Tue Nov 19 18:15:40 2019
+// Date        : Tue Nov 19 18:15:38 2019
 // Host        : DESKTOP-982HE02 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/frame_buffer_1/frame_buffer_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top frame_buffer -prefix
+//               frame_buffer_ frame_buffer_sim_netlist.v
 // Design      : frame_buffer
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -200,7 +200,6 @@ module frame_buffer
         .web(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "bindec" *) 
 module frame_buffer_bindec
    (ena_array,
     addra,
@@ -673,7 +672,6 @@ module frame_buffer_bindec_0
         .O(enb_array[10]));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_generic_cstr" *) 
 module frame_buffer_blk_mem_gen_generic_cstr
    (doutb,
     clka,
@@ -4102,7 +4100,6 @@ module frame_buffer_blk_mem_gen_mux__parameterized0
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_width" *) 
 module frame_buffer_blk_mem_gen_prim_width
    (DOUTB,
     clka,
@@ -6231,7 +6228,6 @@ module frame_buffer_blk_mem_gen_prim_width__parameterized9
         .enb_array(enb_array));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper_init" *) 
 module frame_buffer_blk_mem_gen_prim_wrapper_init
    (DOUTB,
     clka,
@@ -20365,7 +20361,6 @@ module frame_buffer_blk_mem_gen_prim_wrapper_init__parameterized9
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_top" *) 
 module frame_buffer_blk_mem_gen_top
    (doutb,
     clka,
@@ -20421,7 +20416,7 @@ endmodule
 (* C_WEA_WIDTH = "1" *) (* C_WEB_WIDTH = "1" *) (* C_WRITE_DEPTH_A = "102400" *) 
 (* C_WRITE_DEPTH_B = "102400" *) (* C_WRITE_MODE_A = "READ_FIRST" *) (* C_WRITE_MODE_B = "READ_FIRST" *) 
 (* C_WRITE_WIDTH_A = "20" *) (* C_WRITE_WIDTH_B = "20" *) (* C_XDEVICEFAMILY = "artix7" *) 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_3" *) (* downgradeipidentifiedwarnings = "yes" *) 
+(* downgradeipidentifiedwarnings = "yes" *) 
 module frame_buffer_blk_mem_gen_v8_4_3
    (clka,
     rsta,
@@ -20667,7 +20662,6 @@ module frame_buffer_blk_mem_gen_v8_4_3
         .wea(wea));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_3_synth" *) 
 module frame_buffer_blk_mem_gen_v8_4_3_synth
    (doutb,
     clka,
