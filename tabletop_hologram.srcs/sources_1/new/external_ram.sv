@@ -73,7 +73,7 @@ module frame_buffer_manager(
     
     assign address_write_active = last_x_active_frame + last_y_active_frame * SCREEN_WIDTH;
     assign address_read_active = x_active_frame + y_active_frame * SCREEN_WIDTH;
-    assign data_write_active = 20'h00080;
+    assign data_write_active = 24'h000800;
     assign rgb_active_frame = pixel_in_frame ? data_read[active_frame][23:12] : 12'h000; // Black if outside screen
     
     assign address_write_inactive = x_write_inactive_frame + 
