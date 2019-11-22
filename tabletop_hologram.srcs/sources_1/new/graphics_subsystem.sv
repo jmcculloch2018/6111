@@ -4,9 +4,9 @@ module graphics_subsystem(
    input clk,
    input reset,
    input signed [2:0][11:0] user,
-   input signed [2:0][11:0] model_translation,
+   input signed [2:0][11:0] model_trans,
    input signed [2:0][11:0] rpy,
-   input signed [2:0][11:0] world_translation,
+   input signed [2:0][11:0] world_trans,
    input [11:0] vcount_in,
    input [11:0] hcount_in,
    input hsync_in,
@@ -15,7 +15,8 @@ module graphics_subsystem(
    output logic [11:0] rgb_out,
    output logic hsync_out,
    output logic vsync_out,
-   output logic blank_out
+   output logic blank_out,
+   output logic next_frame
     );
     parameter SCREEN_WIDTH = 400;
     parameter SCREEN_HEIGHT = 400;
@@ -28,10 +29,10 @@ module graphics_subsystem(
     logic shader_finish;
     logic transform_finish;
     logic triangles_available;
-    logic next_frame;
     logic next_triangle;
     logic last_vsync_in;
 
+    
     logic [11:0] rgb_triangle_source; 
     logic [11:0] rgb_transform;
     logic [11:0] rgb_shader;  
@@ -67,7 +68,7 @@ module graphics_subsystem(
         .new_data_rasterize(new_data_rasterize),
         .new_data_transform(new_data_transform)
     );
-    
+   
     triangle_source my_tri_source(
         .clk_in(clk),
         .rst_in(reset),
@@ -82,12 +83,12 @@ module graphics_subsystem(
         .clk_in(clk),
         .rst_in(reset),
         .vertices_in(vertices_triangle_source),
-        .model_translation(model_translation),
+        .model_translation(model_trans),
         .rpy(rpy),
-        .world_translation(world_translation),
+        .world_translation(world_trans),
         .new_data_in(new_data_transform),
         .vertices_out(vertices_transform),
-        .finished_out(transform_finish) 
+        .finished_out(transform_finish)
     );
     
     projection_with_height my_projection(
@@ -160,14 +161,13 @@ module graphics_subsystem(
         
     always_ff @(posedge clk) begin 
         if (reset) begin
-            rgb_rasterize <= 0;
+            rgb_rasterize <= 12'h0;
             vertices_rasterize <= 0;
-            rgb_transform <= 0;
+            rgb_transform <= 12'h0;
         end else begin
             rgb_transform <= new_data_transform ? rgb_triangle_source : rgb_transform;
             rgb_rasterize <= next_triangle ? rgb_shader : rgb_rasterize;
             vertices_rasterize <= next_triangle ? vertices_projection_out : vertices_rasterize;
-
         end
         last_vsync_in <= vsync_in;
     end

@@ -14,9 +14,8 @@ From the shell prompt in the current directory, issue the following command:-
 
 ./triangles_rom.sh
 
-This command will launch the 'compile', 'elaborate' and 'simulate' functions
-implemented in the script file for the 3-step flow. These functions are called
-from the main 'run' function in the script file.
+This command will launch the 'execute' function for the single-step flow. This
+function is called from the main 'run' function in the script file.
 
 The 'run' function first executes the 'setup' function, the purpose of which is to
 create simulator specific setup files, create design library mappings and library

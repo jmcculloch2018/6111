@@ -97,9 +97,9 @@ module transformation_vertex(
             cartesian_data[0] <= (count == 0) ? vertex_out[0] : 
                 (count == ROTATION_LATENCY + 2) ? vertex_out[2] : 
                 (count == 2 * ROTATION_LATENCY + 4) ? vertex_out[1] : cartesian_data[0];
-            phase_data <= (count == 0) ? rpy[2] : 
-                (count == ROTATION_LATENCY + 2) ? rpy[1] : 
-                (count == 2 * ROTATION_LATENCY + 4) ? rpy[0] : phase_data;
+            phase_data <= (count == 0) ? ($signed(rpy[2])>>>2) : 
+                (count == ROTATION_LATENCY + 2) ? ($signed(rpy[1])>>>2) : 
+                (count == 2 * ROTATION_LATENCY + 4) ? ($signed(rpy[0])>>>2) : phase_data;
             valid_in <= (count == 0) || (count == ROTATION_LATENCY + 2) || (count == 2 * ROTATION_LATENCY + 4);
             
             // Outputs
