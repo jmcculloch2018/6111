@@ -4,6 +4,9 @@ module graphics_subsystem(
    input clk,
    input reset,
    input signed [2:0][11:0] user,
+   input signed [2:0][11:0] model_translation,
+   input signed [2:0][11:0] rpy,
+   input signed [2:0][11:0] world_translation,
    input [11:0] vcount_in,
    input [11:0] hcount_in,
    input hsync_in,
@@ -19,20 +22,23 @@ module graphics_subsystem(
     
     logic new_data_rasterize; 
     logic new_data_projection;
+    logic new_data_transform;
     logic projection_finish;
     logic rasterize_finish;
     logic shader_finish;
+    logic transform_finish;
     logic triangles_available;
     logic next_frame;
     logic next_triangle;
     logic last_vsync_in;
 
-    
     logic [11:0] rgb_triangle_source; 
+    logic [11:0] rgb_transform;
     logic [11:0] rgb_shader;  
     logic [11:0] rgb_rasterize;
   
     logic signed [8:0][11:0] vertices_triangle_source;
+    logic signed [8:0][11:0] vertices_transform;
     logic signed [8:0][11:0] vertices_projection_out;
     logic signed [8:0][11:0] vertices_rasterize;
     
@@ -53,11 +59,13 @@ module graphics_subsystem(
         .finish_rasterize(rasterize_finish),
         .finish_projection(projection_finish),
         .finish_shader(shader_finish),
+        .finish_transform(transform_finish),
         .data_available_triangle_source(triangles_available),
         .next_frame(next_frame),
         .next_triangle(next_triangle),
         .new_data_projection(new_data_projection),
-        .new_data_rasterize(new_data_rasterize)
+        .new_data_rasterize(new_data_rasterize),
+        .new_data_transform(new_data_transform)
     );
     
     triangle_source my_tri_source(
@@ -70,10 +78,22 @@ module graphics_subsystem(
         .vertices_out(vertices_triangle_source)
     );
     
-    projection_with_height my_projection(
+    transformation my_trans(
         .clk_in(clk),
         .rst_in(reset),
         .vertices_in(vertices_triangle_source),
+        .model_translation(model_translation),
+        .rpy(rpy),
+        .world_translation(world_translation),
+        .new_data_in(new_data_transform),
+        .vertices_out(vertices_transform),
+        .finished_out(transform_finish) 
+    );
+    
+    projection_with_height my_projection(
+        .clk_in(clk),
+        .rst_in(reset),
+        .vertices_in(vertices_transform),
         .user_in(user),
         .new_data_in(new_data_projection),
         .vertices_out(vertices_projection_out),
@@ -83,8 +103,8 @@ module graphics_subsystem(
     shader my_shader(
         .clk_in(clk),
         .new_data(new_data_projection),
-        .rgb(rgb_triangle_source),
-        .triag(vertices_triangle_source), 
+        .rgb_in(rgb_transform),
+        .triag(vertices_transform), 
         .user_pos(user),
         .rgb_out(rgb_shader),
         .finished(shader_finish)
@@ -142,9 +162,12 @@ module graphics_subsystem(
         if (reset) begin
             rgb_rasterize <= 0;
             vertices_rasterize <= 0;
+            rgb_transform <= 0;
         end else begin
+            rgb_transform <= new_data_transform ? rgb_triangle_source : rgb_transform;
             rgb_rasterize <= next_triangle ? rgb_shader : rgb_rasterize;
             vertices_rasterize <= next_triangle ? vertices_projection_out : vertices_rasterize;
+
         end
         last_vsync_in <= vsync_in;
     end

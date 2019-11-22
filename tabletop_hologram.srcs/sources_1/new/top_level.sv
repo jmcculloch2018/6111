@@ -28,7 +28,7 @@ module top_level(
     
     
     
-    logic user_up, user_down, user_left, user_right, user_reset;
+    logic user_up, user_down, user_left, user_right, translate;
     logic btnu_clean, btnd_clean, btnl_clean, btnr_clean;
     logic last_btnu_clean, last_btnd_clean, last_btnl_clean, last_btnr_clean;
     
@@ -36,6 +36,16 @@ module top_level(
     logic pixel_clk, reset;
     
     logic [23:0] rgb24;
+    
+    logic signed [2:0][11:0] model_translation;
+   logic signed [2:0][11:0] rpy;
+   logic signed [2:0][11:0] world_translation;
+   logic increasing;
+   logic next_frame;
+   assign next_frame = vsync && ~last_vsync;
+   assign model_translation = {12'd50, 12'd0, 12'd0};
+//   assign rpy = {12'h0, 12'h0, 12'h080}; // pi / 4 radians
+//   assign world_translation = {12'd0, 12'd50, 12'd0};
     
     assign pixel_clk = vclock_count[1];
 //    assign {cg, cf, ce, cd, cc, cb, ca} = segments;
@@ -51,6 +61,7 @@ module top_level(
     assign user_right = btnr_clean && ~last_btnr_clean;
     assign user_left = btnl_clean && ~last_btnl_clean;
     logic vga_b, vga_hs, vga_vs;
+    logic last_vsync;
     
     pipeline #(.N_BITS(24), .N_REGISTERS(3)) pipeline_rgb(
         .clk_in(pixel_clk), .rst_in(reset),
@@ -98,13 +109,16 @@ module top_level(
         .reset_in(reset),
         .noisy_in(btnc),
         .clock_in(clk),
-        .clean_out(user_reset)
+        .clean_out(translate)
     );
     
     graphics_subsystem my_graphics(
         .clk(clk),
         .reset(reset),
         .user(user),
+        .model_translation(model_translation),
+        .rpy(rpy),
+        .world_translation(world_translation),
         .vcount_in(vcount),
         .hcount_in(hcount),
         .hsync_in(hsync),
@@ -154,11 +168,23 @@ module top_level(
             vclock_count <= 0;
             user[2] <= 15'd60;
             user[1] <= 15'd60;
+            rpy <= 0;
+            world_translation <= {12'd0, 12'd50, 12'd0};
+            increasing <= 0;
         end else begin
+            if (next_frame) begin
+                rpy[0][9:0] <= sw[6] ? (rpy[0][9:0] + 10'h08) : rpy[0][9:0];
+                increasing <= $signed(world_translation[1]) > 12'd120 ? 1'b0 :
+                    ($signed(world_translation[1]) < -12'hd120 ? 1'b1 : increasing);
+                world_translation[1] <= ~btnc ? world_translation[1] :
+                    (increasing ? (world_translation + 12'b1) : (world_translation - 12'b1));
+            end
             vclock_count <= vclock_count + 1;
-            user[2] <= user_reset ? 15'd60 : (user_right ? (user[2] + 10) : (user_left ? (user[2] - 10) : user[2]));
-            user[1] <= user_reset ? 15'd60 : (user_up ? (user[1] + 10) : (user_down ? (user[1] - 10) : user[1]));
+            user[2] <= (user_right ? (user[2] + 10) : (user_left ? (user[2] - 10) : user[2]));
+            user[1] <= (user_up ? (user[1] + 10) : (user_down ? (user[1] - 10) : user[1]));
         end
+        
+        last_vsync <= vsync;
         
         last_btnu_clean <= btnu_clean;
         last_btnd_clean <= btnd_clean;
