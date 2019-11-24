@@ -42,10 +42,12 @@ module top_level(
     
     logic [23:0] rgb24;
     
+    logic increasing;
+    
     assign pixel_clk = vclock_count[1];
     assign model_trans = {12'd50, 12'h0, 12'h0};
-    assign rpy = {12'h0, 12'h0, 12'h200};
-    assign world_trans = {12'h0, 12'h0, 12'h0};
+//    assign rpy = {12'h0, 12'h0, 12'h200};
+//    assign world_trans = {12'h0, 12'h0, 12'h0};
 
 //    assign {cg, cf, ce, cd, cc, cb, ca} = segments;
 
@@ -125,7 +127,8 @@ module top_level(
         .rgb_out(rgb),
         .hsync_out(hs),
         .vsync_out(vs),
-        .blank_out(b)
+        .blank_out(b),
+        .next_frame(next_frame)
     );
    
     xvga my_vga(
@@ -166,16 +169,18 @@ module top_level(
             vclock_count <= 0;
             user[2] <= 15'd60;
             user[1] <= 15'd60;
-//            rpy <= {12'h0, 12'h0, 12'h0};
+            rpy <= {12'h0, 12'h0, 12'h0};
+            world_trans <= {12'h0, 12'h0, 12'h0};
         end else begin
             vclock_count <= vclock_count + 1;
             user[2] <= user_reset ? 15'd60 : (user_right ? (user[2] + 10) : (user_left ? (user[2] - 10) : user[2]));
             user[1] <= user_reset ? 15'd60 : (user_up ? (user[1] + 10) : (user_down ? (user[1] - 10) : user[1]));
-//            rpy[0] <= (next_frame && sw[6]) ? (rpy[0] + 12'020): rpy[0];
-//            increasing <= $signed(world_translation[1]) > 12'd120 ? 1'b0 :
-// ($signed(world_translation[1]) < -12'hd120 ? 1'b1 : increasing);
-//                world_translation[1] <= (next_frame && sw[6]) ? world_translation[1] :
-//                    (increasing ? ($signed(world_translation[1]) + 12'b1) : ($signed(world_translation[1]) - 12'b1));
+            increasing <= ($signed(world_trans[1]) > 12'sd120) ? 1'b0 : ($signed(world_trans[1]) < -12'sd120 ? 1'b1 : increasing);
+            world_trans[1] <= (next_frame && sw[6]) ? 
+                    (increasing ? ($signed(world_trans[1]) + 12'b1) : ($signed(world_trans[1]) - 12'b1)) :
+                    world_trans[1];
+            rpy[0] <= (next_frame && sw[6]) ? (rpy[0] + 12'h020): rpy[0];
+
 
         end
         
