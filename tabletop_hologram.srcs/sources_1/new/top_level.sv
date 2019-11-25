@@ -2,8 +2,11 @@
 
 module top_level(
    input clk,
-   input[7:0] sw,
+   input [7:0] sw,
    input btnc, btnu, btnl, btnr, btnd,
+   input [7:0] jb,
+   input [2:0] jc,
+   input jcclk,
    output logic [7:0] led,
    output logic hdmi_tx_clk_n,
     output logic hdmi_tx_clk_p,
@@ -15,6 +18,10 @@ module top_level(
     assign led = 0;
     
     logic signed [2:0][11:0] user;
+    logic signed [11:0] user_z; 
+    
+    logic [10:0] centroid_x;
+    logic [9:0] centroid_y;
 
     logic [1:0] vclock_count;
     
@@ -26,7 +33,7 @@ module top_level(
     logic [11:0] rgb;
     logic [6:0] segments;
     
-    
+    logic next_frame;
     
     logic user_up, user_down, user_left, user_right, user_reset;
     logic btnu_clean, btnd_clean, btnl_clean, btnr_clean;
@@ -113,7 +120,27 @@ module top_level(
         .rgb_out(rgb),
         .hsync_out(hs),
         .vsync_out(vs),
-        .blank_out(b)
+        .blank_out(b),
+        .next_frame(next_frame)
+    );
+    
+    computer_vision my_cv(
+        .clk_100mhz(clk),
+        .btnc(reset), 
+        .ja(jb),
+        .jb(jc),
+        .jbclk(jcclk),
+        .centroid_x(centroid_x),
+        .centroid_y(centroid_y)
+    );
+    
+    cv2render my_converter(
+        .blob_x(centroid_x),
+        .blob_y(centroid_y),
+        .next_frame(next_frame),
+        .user_z(user_z),
+        .clk_in(clk),
+        .user(user)
     );
    
     xvga my_vga(
@@ -141,7 +168,7 @@ module top_level(
     display_height my_height_disp(
         .clk_in(clk), .rst_in(reset),
         .sw(sw), 
-        .height(user[0]), 
+        .height(user_z), 
         .seg_out(segments),
         .dp(),
         .strobe_out()); 

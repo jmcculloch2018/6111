@@ -12,7 +12,8 @@ module graphics_subsystem(
    output logic [11:0] rgb_out,
    output logic hsync_out,
    output logic vsync_out,
-   output logic blank_out
+   output logic blank_out,
+   output logic next_frame
     );
     parameter SCREEN_WIDTH = 400;
     parameter SCREEN_HEIGHT = 400;
@@ -23,7 +24,6 @@ module graphics_subsystem(
     logic rasterize_finish;
     logic shader_finish;
     logic triangles_available;
-    logic next_frame;
     logic next_triangle;
     logic last_vsync_in;
 

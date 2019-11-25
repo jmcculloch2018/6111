@@ -1,6 +1,6 @@
 module cv2render(
-    input [8:0] blob_x,
-    input [7:0] blob_y,
+    input [10:0] blob_x,
+    input [9:0] blob_y,
     input next_frame,
     input signed [11:0] user_z,
     input clk_in,
@@ -20,7 +20,7 @@ parameter fov_ratio_n = 4;
 logic signed [11:0] blob_x_shifted;
 logic signed [11:0] blob_y_shifted; 
 assign blob_x_shifted = $signed(blob_x) - $signed(cam_x/2);
-assign blob_x_shifted = $signed(blob_y) - $signed(cam_y/2);
+assign blob_y_shifted = $signed(blob_y) - $signed(cam_y/2);
 //Fill Buffer with X, Y, Z
 logic signed [2:0] [11:0] buffer;
 assign buffer [0] = (fov_ratio_m * blob_x_shifted) >>> fov_ratio_n;

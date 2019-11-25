@@ -65,8 +65,7 @@ module transform_tb;
         new_data_in = 1;
         #10;
         new_data_in = 0;
-        
-    
+         
   
     end
     
