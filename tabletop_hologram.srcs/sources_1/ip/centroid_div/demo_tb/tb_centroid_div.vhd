@@ -106,14 +106,14 @@ architecture tb of tb_centroid_div is
   signal dividend : std_logic_vector(26 downto 0) := (others => '0');
   signal divisor  : std_logic_vector(16 downto 0) := (others => '0');
   signal quotient : std_logic_vector(26 downto 0) := (others => '0');
-  signal fractional : std_logic_vector(16 downto 0) := (others => '0');
+  signal remainder : std_logic_vector(16 downto 0) := (others => '0');
   -----------------------------------------------------------------------
   -- DUT output signals
   -----------------------------------------------------------------------
 
   -- Master channel DOUT outputs
   signal m_axis_dout_tvalid : std_logic := '0';  -- TVALID for channel DOUT
-  signal m_axis_dout_tdata  : std_logic_vector(47 downto 0) := (others => '0');  -- TDATA for channel DOUT
+  signal m_axis_dout_tdata  : std_logic_vector(55 downto 0) := (others => '0');  -- TDATA for channel DOUT
 
   -----------------------------------------------------------------------
   -- Testbench signals
@@ -341,8 +341,8 @@ begin
 
   divisor  <= s_axis_divisor_tdata(16 downto 0);
   dividend <= s_axis_dividend_tdata(26 downto 0);
-  fractional <= m_axis_dout_tdata(16 downto 0);
-  quotient <= m_axis_dout_tdata(43 downto 17);
+  remainder <= m_axis_dout_tdata(16 downto 0);
+  quotient  <= m_axis_dout_tdata(50 downto 24);
 
 end tb;
 

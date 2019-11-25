@@ -3,8 +3,8 @@
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
 // Date        : Wed Nov 20 23:12:09 2019
 // Host        : DESKTOP-982HE02 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/triangles_rom/triangles_rom_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top triangles_rom -prefix
+//               triangles_rom_ triangles_rom_sim_netlist.v
 // Design      : triangles_rom
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -188,7 +188,6 @@ module triangles_rom
         .web(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_generic_cstr" *) 
 module triangles_rom_blk_mem_gen_generic_cstr
    (douta,
     clka,
@@ -211,7 +210,6 @@ module triangles_rom_blk_mem_gen_generic_cstr
         .douta(douta[119:72]));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_width" *) 
 module triangles_rom_blk_mem_gen_prim_width
    (douta,
     clka,
@@ -249,7 +247,6 @@ module triangles_rom_blk_mem_gen_prim_width__parameterized0
         .douta(douta));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper_init" *) 
 module triangles_rom_blk_mem_gen_prim_wrapper_init
    (douta,
     clka,
@@ -735,7 +732,6 @@ module triangles_rom_blk_mem_gen_prim_wrapper_init__parameterized0
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_top" *) 
 module triangles_rom_blk_mem_gen_top
    (douta,
     clka,
@@ -779,7 +775,7 @@ endmodule
 (* C_WEA_WIDTH = "1" *) (* C_WEB_WIDTH = "1" *) (* C_WRITE_DEPTH_A = "12" *) 
 (* C_WRITE_DEPTH_B = "12" *) (* C_WRITE_MODE_A = "WRITE_FIRST" *) (* C_WRITE_MODE_B = "WRITE_FIRST" *) 
 (* C_WRITE_WIDTH_A = "120" *) (* C_WRITE_WIDTH_B = "120" *) (* C_XDEVICEFAMILY = "artix7" *) 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_3" *) (* downgradeipidentifiedwarnings = "yes" *) 
+(* downgradeipidentifiedwarnings = "yes" *) 
 module triangles_rom_blk_mem_gen_v8_4_3
    (clka,
     rsta,
@@ -1193,7 +1189,6 @@ module triangles_rom_blk_mem_gen_v8_4_3
         .douta(douta));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_3_synth" *) 
 module triangles_rom_blk_mem_gen_v8_4_3_synth
    (douta,
     clka,

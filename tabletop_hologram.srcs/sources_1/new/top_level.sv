@@ -6,7 +6,7 @@ module top_level(
    input btnc, btnu, btnl, btnr, btnd,
    input [7:0] jb,
    input [2:0] jc,
-   input jcclk,
+   output jcclk,
    output logic [7:0] led,
    output logic hdmi_tx_clk_n,
     output logic hdmi_tx_clk_p,
@@ -173,18 +173,32 @@ module top_level(
         .dp(),
         .strobe_out()); 
         
+        
+//    ila_0 your_instance_name (
+//	.clk(clk), // input wire clk
+
+
+//	.probe0(jb), // input wire [7:0]  probe0  
+//	.probe1(jc), // input wire [2:0]  probe1 
+//	.probe2(jcclk), // input wire [0:0]  probe2 
+//	.probe3(centroid_x), // input wire [10:0]  probe3 
+//	.probe4(centroid_y), // input wire [9:0]  probe4 
+//	.probe5(user) // input wire [35:0]  probe5
+//);
+
+        
     
 
     
     always_ff @(posedge clk) begin 
         if (reset) begin
             vclock_count <= 0;
-            user[2] <= 15'd60;
-            user[1] <= 15'd60;
+//            user[2] <= 15'd60;
+//            user[1] <= 15'd60;
         end else begin
             vclock_count <= vclock_count + 1;
-            user[2] <= user_reset ? 15'd60 : (user_right ? (user[2] + 10) : (user_left ? (user[2] - 10) : user[2]));
-            user[1] <= user_reset ? 15'd60 : (user_up ? (user[1] + 10) : (user_down ? (user[1] - 10) : user[1]));
+//            user[2] <= user_reset ? 15'd60 : (user_right ? (user[2] + 10) : (user_left ? (user[2] - 10) : user[2]));
+//            user[1] <= user_reset ? 15'd60 : (user_up ? (user[1] + 10) : (user_down ? (user[1] - 10) : user[1]));
         end
         
         last_btnu_clean <= btnu_clean;

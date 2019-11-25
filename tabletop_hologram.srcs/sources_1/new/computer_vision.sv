@@ -10,9 +10,10 @@ module computer_vision(
     );
 
     logic clk_65mhz;
+    assign clk_65mhz = clk_100mhz;
     // create 65mhz system clock, happens to match 1024 x 768 XVGA timing
     //clk_wiz_0 clkdivider(.clk_in1(clk_100mhz), .clk_out1(clk_65mhz));
-    clk_wiz_lab3 clkdivider(.clk_in1(clk_100mhz), .clk_out1(clk_65mhz));
+//    clk_wiz_lab3 clkdivider(.clk_in1(clk_100mhz), .clk_out1(clk_65mhz));
 
     wire [31:0] data;      //  instantiate 7-segment display; display (8) 4-bit hex
     //wire [6:0] segments;
@@ -186,61 +187,8 @@ module computer_vision(
    
 
 
-   
-  
-    
-
 endmodule
 
-////////////////////////////////////////////////////////////////////////////////
-//
-// pong_game: the game itself!
-//
-////////////////////////////////////////////////////////////////////////////////
-
-
-
-module synchronize #(parameter NSYNC = 3)  // number of sync flops.  must be >= 2
-                   (input clk,in,
-                    output reg out);
-
-  reg [NSYNC-2:0] sync;
-
-  always_ff @ (posedge clk)
-  begin
-    {out,sync} <= {sync[NSYNC-2:0],in};
-  end
-endmodule
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// Pushbutton Debounce Module (video version - 24 bits)  
-//
-///////////////////////////////////////////////////////////////////////////////
-
-module debounce (input reset_in, clock_in, noisy_in,
-                 output reg clean_out);
-
-   reg [19:0] count;
-   reg new_input;
-
-//   always_ff @(posedge clock_in)
-//     if (reset_in) begin new <= noisy_in; clean_out <= noisy_in; count <= 0; end
-//     else if (noisy_in != new) begin new <= noisy_in; count <= 0; end
-//     else if (count == 650000) clean_out <= new;
-//     else count <= count+1;
-
-   always_ff @(posedge clock_in)
-     if (reset_in) begin 
-        new_input <= noisy_in; 
-        clean_out <= noisy_in; 
-        count <= 0; end
-     else if (noisy_in != new_input) begin new_input<=noisy_in; count <= 0; end
-     else if (count == 650000) clean_out <= new_input;
-     else count <= count+1;
-
-
-endmodule
 
 //////////////////////////////////////////////////////////////////////////////////
 // Engineer:   g.p.hom
