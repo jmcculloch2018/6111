@@ -43,8 +43,6 @@ module top_level(
     logic signed [2:0][11:0] rpy;
     logic signed [2:0][11:0] world_trans;
     
-    logic next_frame;
-
     logic pixel_clk, reset;
     
     logic [23:0] rgb24;
