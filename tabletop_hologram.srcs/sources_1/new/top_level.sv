@@ -2,8 +2,11 @@
 
 module top_level(
    input clk,
-   input[7:0] sw,
+   input [7:0] sw,
    input btnc, btnu, btnl, btnr, btnd,
+   input [7:0] jb,
+   input [2:0] jc,
+   output jcclk,
    output logic [7:0] led,
    output logic hdmi_tx_clk_n,
     output logic hdmi_tx_clk_p,
@@ -15,6 +18,10 @@ module top_level(
     assign led = 0;
     
     logic signed [2:0][11:0] user;
+    logic signed [11:0] user_z; 
+    
+    logic [10:0] centroid_x;
+    logic [9:0] centroid_y;
 
     logic [1:0] vclock_count;
     
@@ -26,7 +33,7 @@ module top_level(
     logic [11:0] rgb;
     logic [6:0] segments;
     
-    
+    logic next_frame;
     
     logic user_up, user_down, user_left, user_right, user_reset;
     logic btnu_clean, btnd_clean, btnl_clean, btnr_clean;
@@ -130,6 +137,25 @@ module top_level(
         .blank_out(b),
         .next_frame(next_frame)
     );
+    
+    computer_vision my_cv(
+        .clk_100mhz(clk),
+        .btnc(reset), 
+        .ja(jb),
+        .jb(jc),
+        .jbclk(jcclk),
+        .centroid_x(centroid_x),
+        .centroid_y(centroid_y)
+    );
+    
+    cv2render my_converter(
+        .blob_x(centroid_x),
+        .blob_y(centroid_y),
+        .next_frame(next_frame),
+        .user_z(user_z),
+        .clk_in(clk),
+        .user(user)
+    );
    
     xvga my_vga(
             .vclock_in(pixel_clk),
@@ -156,10 +182,24 @@ module top_level(
     display_height my_height_disp(
         .clk_in(clk), .rst_in(reset),
         .sw(sw), 
-        .height(user[0]), 
+        .height(user_z), 
         .seg_out(segments),
         .dp(),
         .strobe_out()); 
+        
+        
+//    ila_0 your_instance_name (
+//	.clk(clk), // input wire clk
+
+
+//	.probe0(jb), // input wire [7:0]  probe0  
+//	.probe1(jc), // input wire [2:0]  probe1 
+//	.probe2(jcclk), // input wire [0:0]  probe2 
+//	.probe3(centroid_x), // input wire [10:0]  probe3 
+//	.probe4(centroid_y), // input wire [9:0]  probe4 
+//	.probe5(user) // input wire [35:0]  probe5
+//);
+
         
     
 
@@ -167,21 +207,15 @@ module top_level(
     always_ff @(posedge clk) begin 
         if (reset) begin
             vclock_count <= 0;
-            user[2] <= 15'd60;
-            user[1] <= 15'd60;
             rpy <= {12'h0, 12'h0, 12'h0};
             world_trans <= {12'h0, 12'h0, 12'h0};
         end else begin
             vclock_count <= vclock_count + 1;
-            user[2] <= user_reset ? 15'd60 : (user_right ? (user[2] + 10) : (user_left ? (user[2] - 10) : user[2]));
-            user[1] <= user_reset ? 15'd60 : (user_up ? (user[1] + 10) : (user_down ? (user[1] - 10) : user[1]));
             increasing <= ($signed(world_trans[1]) > 12'sd120) ? 1'b0 : ($signed(world_trans[1]) < -12'sd120 ? 1'b1 : increasing);
             world_trans[1] <= (next_frame && sw[6]) ? 
                     (increasing ? ($signed(world_trans[1]) + 12'b1) : ($signed(world_trans[1]) - 12'b1)) :
                     world_trans[1];
             rpy[0] <= (next_frame && sw[6]) ? (rpy[0] + 12'h020): rpy[0];
-
-
         end
         
         last_btnu_clean <= btnu_clean;

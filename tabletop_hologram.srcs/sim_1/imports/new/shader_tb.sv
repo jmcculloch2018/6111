@@ -23,7 +23,6 @@ module shader_tb;
     
     //initial block...this is our test simulation
     initial begin
-        $display("Starting Sim"); //print nice message
         clk = 0; //initialize clk (super important)
         data_in = 0;
         //RGB init
@@ -50,9 +49,5 @@ module shader_tb;
             user_pos[1]=i;   //shift around x coord
             #14;
         end
-
-        $finish;
-    
-  
     end
 endmodule //counter_tb
