@@ -39,12 +39,21 @@ module top_level(
     logic btnu_clean, btnd_clean, btnl_clean, btnr_clean;
     logic last_btnu_clean, last_btnd_clean, last_btnl_clean, last_btnr_clean;
     
-
+    logic signed [2:0][11:0] model_trans;
+    logic signed [2:0][11:0] rpy;
+    logic signed [2:0][11:0] world_trans;
+    
     logic pixel_clk, reset;
     
     logic [23:0] rgb24;
     
+    logic increasing;
+    
     assign pixel_clk = vclock_count[1];
+    assign model_trans = {12'd50, 12'h0, 12'h0};
+//    assign rpy = {12'h0, 12'h0, 12'h200};
+//    assign world_trans = {12'h0, 12'h0, 12'h0};
+
 //    assign {cg, cf, ce, cd, cc, cb, ca} = segments;
 
     synchronize synchronize_reset(
@@ -112,6 +121,9 @@ module top_level(
         .clk(clk),
         .reset(reset),
         .user(user),
+        .model_trans(model_trans),
+        .rpy(rpy),
+        .world_trans(world_trans),
         .vcount_in(vcount),
         .hcount_in(hcount),
         .hsync_in(hsync),
@@ -193,12 +205,15 @@ module top_level(
     always_ff @(posedge clk) begin 
         if (reset) begin
             vclock_count <= 0;
-//            user[2] <= 15'd60;
-//            user[1] <= 15'd60;
+            rpy <= {12'h0, 12'h0, 12'h0};
+            world_trans <= {12'h0, 12'h0, 12'h0};
         end else begin
             vclock_count <= vclock_count + 1;
-//            user[2] <= user_reset ? 15'd60 : (user_right ? (user[2] + 10) : (user_left ? (user[2] - 10) : user[2]));
-//            user[1] <= user_reset ? 15'd60 : (user_up ? (user[1] + 10) : (user_down ? (user[1] - 10) : user[1]));
+            increasing <= ($signed(world_trans[1]) > 12'sd120) ? 1'b0 : ($signed(world_trans[1]) < -12'sd120 ? 1'b1 : increasing);
+            world_trans[1] <= (next_frame && sw[6]) ? 
+                    (increasing ? ($signed(world_trans[1]) + 12'b1) : ($signed(world_trans[1]) - 12'b1)) :
+                    world_trans[1];
+            rpy[0] <= (next_frame && sw[6]) ? (rpy[0] + 12'h020): rpy[0];
         end
         
         last_btnu_clean <= btnu_clean;

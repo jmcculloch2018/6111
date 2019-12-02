@@ -1,25 +1,17 @@
 module shader(
 input clk_in,
-input [11:0] rgb,
+input [11:0] rgb_in,
 input [8:0] [11:0] triag, //pnts 1,2,3  1,2,3  1,2,3
 input [2:0] [11:0] user_pos,
 input new_data,
 output logic finished,
 output logic [11:0] rgb_out
     );
+    logic [11:0] rgb;
 //Assign values to user and traingle coords
 logic signed  [2:0] [11:0] t1;
 logic signed [2:0] [11:0] t2;
 logic signed [2:0] [11:0] t3;
-assign t1 [0] = $signed(triag[0]);
-assign t1 [1] = $signed(triag[1]); 
-assign t1 [2] = $signed(triag[2]);
-assign t2 [0] = $signed(triag[3]);
-assign t2 [1] = $signed(triag[4]);
-assign t2 [2] = $signed(triag[5]);
-assign t3 [0] = $signed(triag[6]);
-assign t3 [1] = $signed(triag[7]);
-assign t3 [2] = $signed(triag[8]); 
 //Vectors for user and Triangle Normal
 logic signed [2:0] [15:0] T;
 logic signed [2:0] [15:0] V;
@@ -66,6 +58,16 @@ always_ff @(posedge clk_in) begin
     if (new_data==1 && state==0) begin //Trigger starts process
         state <= 1; 
         finished <= 0;
+        rgb <= rgb_in;
+        t1 [0] <= $signed(triag[0]);
+        t1 [1] <= $signed(triag[1]); 
+        t1 [2] <= $signed(triag[2]);
+        t2 [0] <= $signed(triag[3]);
+        t2 [1] <= $signed(triag[4]);
+        t2 [2] <= $signed(triag[5]);
+        t3 [0] <= $signed(triag[6]);
+        t3 [1] <= $signed(triag[7]);
+        t3 [2] <= $signed(triag[8]); 
     end else if (counter>13) begin //Finished
         finished <= 1;
         state <= 0;
