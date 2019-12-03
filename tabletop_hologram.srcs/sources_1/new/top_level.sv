@@ -15,13 +15,16 @@ module top_level(
 
     );
     
-    assign led = 0;
+    assign led = sw;
     
     logic signed [2:0][11:0] user;
     logic signed [11:0] user_z; 
     
     logic [10:0] centroid_x;
     logic [9:0] centroid_y;
+    logic [10:0] centroid_x_saber;
+    logic [9:0] centroid_y_saber;
+    logic saber_detected;
 
     logic [1:0] vclock_count;
     
@@ -39,9 +42,9 @@ module top_level(
     logic btnu_clean, btnd_clean, btnl_clean, btnr_clean;
     logic last_btnu_clean, last_btnd_clean, last_btnl_clean, last_btnr_clean;
     
-    logic signed [2:0][11:0] model_trans;
-    logic signed [2:0][11:0] rpy;
-    logic signed [2:0][11:0] world_trans;
+    logic signed [2:0][11:0] model_trans1, model_trans2;
+    logic signed [2:0][11:0] rpy1, rpy2;
+    logic signed [2:0][11:0] world_trans1, world_trans2;
     
     logic pixel_clk, reset;
     
@@ -121,9 +124,12 @@ module top_level(
         .clk(clk),
         .reset(reset),
         .user(user),
-        .model_trans(model_trans),
-        .rpy(rpy),
-        .world_trans(world_trans),
+        .model_trans1(model_trans1),
+        .rpy1(rpy1),
+        .world_trans1(world_trans1),
+        .model_trans2(model_trans2),
+        .rpy2(rpy2),
+        .world_trans2(world_trans2),
         .vcount_in(vcount),
         .hcount_in(hcount),
         .hsync_in(hsync),
@@ -179,11 +185,30 @@ module top_level(
 
     display_height my_height_disp(
         .clk_in(clk), .rst_in(reset),
-        .sw(sw), 
+        .sw(0), 
         .height(user_z), 
         .seg_out(segments),
         .dp(),
         .strobe_out()); 
+        
+    assign centroid_x_saber = sw[5:0];
+    assign centroid_y_saber = sw[5:0];
+    assign saber_detected = sw[6];
+
+    game_logic my_game(
+        .clk_in(clk),
+        .rst_in(reset),
+        .centroid_x(centroid_x_saber),  
+        .centroid_y(centroid_y_saber),
+        .saber_detected(saber_detected),
+        .next_frame(next_frame),
+        .model_trans1(model_trans1),
+        .rpy1(rpy1),
+        .world_trans1(world_trans1),
+        .model_trans2(model_trans2),
+        .rpy2(rpy2),
+        .world_trans2(world_trans2)
+    );
         
         
 //    ila_0 your_instance_name (
@@ -205,15 +230,15 @@ module top_level(
     always_ff @(posedge clk) begin 
         if (reset) begin
             vclock_count <= 0;
-            rpy <= {12'h0, 12'h0, 12'h0};
-            world_trans <= {12'h0, 12'h0, 12'h0};
+//            rpy <= {12'h0, 12'h0, 12'h0};
+//            world_trans <= {12'h0, 12'h0, 12'h0};
         end else begin
             vclock_count <= vclock_count + 1;
-            increasing <= ($signed(world_trans[1]) > 12'sd120) ? 1'b0 : ($signed(world_trans[1]) < -12'sd120 ? 1'b1 : increasing);
-            world_trans[1] <= (next_frame && sw[6]) ? 
-                    (increasing ? ($signed(world_trans[1]) + 12'b1) : ($signed(world_trans[1]) - 12'b1)) :
-                    world_trans[1];
-            rpy[0] <= (next_frame && sw[6]) ? (rpy[0] + 12'h020): rpy[0];
+//            increasing <= ($signed(world_trans[1]) > 12'sd120) ? 1'b0 : ($signed(world_trans[1]) < -12'sd120 ? 1'b1 : increasing);
+//            world_trans[1] <= (next_frame && sw[6]) ? 
+//                    (increasing ? ($signed(world_trans[1]) + 12'b1) : ($signed(world_trans[1]) - 12'b1)) :
+//                    world_trans[1];
+//            rpy[0] <= (next_frame && sw[6]) ? (rpy[0] + 12'h020): rpy[0];
         end
         
         last_btnu_clean <= btnu_clean;
