@@ -5,8 +5,12 @@ module computer_vision(
    input [7:0] ja,
    input [2:0] jb,
    output jbclk,
-   output [10:0] centroid_x,
-   output [9:0] centroid_y
+   output logic [10:0] centroid_x_green,
+   output logic [9:0] centroid_y_green,
+   output logic detected_green,
+   output logic [10:0] centroid_x_red,
+   output logic [9:0] centroid_y_red,
+   output logic detected_red
     );
 
     logic clk_65mhz;
@@ -64,15 +68,18 @@ module computer_vision(
     logic [16:0] pixel_addr_out;
     
     wire green;
+    wire red;
     logic frame_done;
     
     logic [15:0] averaging;
     assign averaging = 16'b0;
     
-    logic [6:0] h_upper;
-    logic [6:0] h_lower;
+    logic [7:0] h_upper_green;
+    logic [7:0] h_lower_green;
+    logic [7:0] h_upper_red;
+    logic [7:0] h_lower_red;
     logic [7:0] v_upper;
-    logic [5:0] v_lower;
+    logic [7:0] v_lower;
     
     logic [10:0] hcount_camera;
     logic [9:0] vcount_camera;
@@ -145,14 +152,12 @@ module computer_vision(
     
     logic [7:0] h;
     logic [7:0] out_v;
-    assign h_upper = 96;
-    assign h_lower = 30;
-//    assign h_upper = sw[15:9]; //96
-//    assign h_lower = sw[6:0]; //48
-    assign v_upper = 255;
-    assign v_lower = 240;
-//    assign v_upper = sw[15:8];
-//    assign v_lower = sw[7:0];
+    assign h_upper_green = 96;
+    assign h_lower_green = 30;
+    assign h_upper_red = 10;
+    assign h_lower_red = 0;
+    assign v_upper = 224;
+    assign v_lower = 127;
 
     logic empty_p;
     
@@ -164,13 +169,25 @@ module computer_vision(
 
     assign cam = frame_buff_out;
     
-    rgb2hsv rgb2hsv1 (.clock(clk_65mhz), .reset(reset), .r(cam[11:8]<<4), .g(cam[7:4]<<4), .b(cam[3:0]<<4), .green(green), .h_upper(h_upper), .h_lower(h_lower), .v_upper(v_upper), .v_lower(v_lower), .out_v(out_v));
     
-    logic [16:0] count;
-    logic [26:0] x_acc;
+    rgb2hsv rgb2hsv_red (.clock(clk_65mhz), .reset(reset), .r(cam[11:8]<<4), .g(cam[7:4]<<4), 
+        .b(cam[3:0]<<4), .color(red), .h_upper(h_upper_red), .h_lower(h_lower_red), 
+            .v_upper(v_upper), .v_lower(v_lower));
+
+    rgb2hsv rgb2hsv_green (.clock(clk_65mhz), .reset(reset), .r(cam[11:8]<<4), .g(cam[7:4]<<4), 
+        .b(cam[3:0]<<4), .color(green), .h_upper(h_upper_green), .h_lower(h_lower_green), 
+            .v_upper(v_upper), .v_lower(v_lower));
+
+
+    logic [16:0] count_green, count_red;
     
-    centroid centroid1 (.x_acc(x_acc),.clock(clk_65mhz), .reset(reset), .x(hcount_fifo), .y(vcount_fifo), .green(!empty_p ? green : 0), .frame_done(frame_done), .centroid_x(centroid_x), .centroid_y(centroid_y), .count(count), .averaging(averaging));
- 
+   centroid centroid_red (.clock(clk_65mhz), .reset(reset), .x(hcount_fifo), .y(vcount_fifo), 
+        .color(!empty_p ? red : 0), .frame_done(frame_done), .centroid_x(centroid_x_red), 
+            .centroid_y(centroid_y_red), .count(count_red), .detected(red_detected));
+    centroid centroid_green (.clock(clk_65mhz), .reset(reset), .x(hcount_fifo), .y(vcount_fifo),
+         .color(!empty_p ? green : 0), .frame_done(frame_done), .centroid_x(centroid_x_green), 
+            .centroid_y(centroid_y_green), .count(count_green), .detected(green_detected));
+  
 
 //    display_8hex display(.clk_in(clk_65mhz),.data_in(x_acc), .seg_out(segments), .strobe_out(an));
     
