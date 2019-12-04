@@ -7,10 +7,10 @@ module computer_vision(
    output jbclk,
    output logic [10:0] centroid_x_green,
    output logic [9:0] centroid_y_green,
-   output logic detected_green,
+   output logic green_detected,
    output logic [10:0] centroid_x_red,
    output logic [9:0] centroid_y_red,
-   output logic detected_red
+   output logic red_detected
     );
 
     logic clk_65mhz;
@@ -172,20 +172,20 @@ module computer_vision(
     
     rgb2hsv rgb2hsv_red (.clock(clk_65mhz), .reset(reset), .r(cam[11:8]<<4), .g(cam[7:4]<<4), 
         .b(cam[3:0]<<4), .color(red), .h_upper(h_upper_red), .h_lower(h_lower_red), 
-            .v_upper(v_upper), .v_lower(v_lower));
+            .v_upper(v_upper), .v_lower(v_lower), .out_h());
 
     rgb2hsv rgb2hsv_green (.clock(clk_65mhz), .reset(reset), .r(cam[11:8]<<4), .g(cam[7:4]<<4), 
         .b(cam[3:0]<<4), .color(green), .h_upper(h_upper_green), .h_lower(h_lower_green), 
-            .v_upper(v_upper), .v_lower(v_lower));
+            .v_upper(v_upper), .v_lower(v_lower), .out_h());
 
 
     logic [16:0] count_green, count_red;
     
    centroid centroid_red (.clock(clk_65mhz), .reset(reset), .x(hcount_fifo), .y(vcount_fifo), 
-        .color(!empty_p ? red : 0), .frame_done(frame_done), .centroid_x(centroid_x_red), 
+        .color(!empty_p ? red : 1'b0), .frame_done(frame_done), .centroid_x(centroid_x_red), 
             .centroid_y(centroid_y_red), .count(count_red), .detected(red_detected));
     centroid centroid_green (.clock(clk_65mhz), .reset(reset), .x(hcount_fifo), .y(vcount_fifo),
-         .color(!empty_p ? green : 0), .frame_done(frame_done), .centroid_x(centroid_x_green), 
+         .color(!empty_p ? green : 1'b0), .frame_done(frame_done), .centroid_x(centroid_x_green), 
             .centroid_y(centroid_y_green), .count(count_green), .detected(green_detected));
   
 

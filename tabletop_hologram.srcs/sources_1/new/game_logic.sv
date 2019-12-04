@@ -32,8 +32,11 @@ module game_logic(
     output logic signed [2:0][11:0] world_trans1,
     output logic signed [2:0][11:0] model_trans2,
     output logic signed [2:0][11:0] rpy2,
-    output logic signed [2:0][11:0] world_trans2
+    output logic signed [2:0][11:0] world_trans2,
+    output logic [7:0] led
     );
+    
+    
     
     parameter Z_MIN = -12'sd500;
     parameter Z_MAX = 12'sd100;
@@ -47,6 +50,21 @@ module game_logic(
     logic [9:0] frame_count;
     
     logic saber_moving;
+    logic signed [19:0] cur_time;
+    logic signed [11:0] z_model;
+    logic signed [11:0] separation;
+    logic did_swipe_fruit;
+    logic signed [2:0][11:0] rpy;
+    logic signed [63:0]delta_z;
+    
+    assign led[0] = saber_moving;
+    assign led[1] = did_swipe_fruit;
+
+    assign rpy2 = rpy;
+    assign rpy1 = rpy;
+
+    assign delta_z = ($signed(cur_time) * $signed(cur_time) * $signed(Z_MIN - Z_MAX)) >>> (2 * TOF_N);
+    
     detect_motion detect(
         .clk_in(clk_in),
         .rst_in(rst_in),
@@ -55,18 +73,6 @@ module game_logic(
         .saber_detected(saber_detected),
         .saber_moving(saber_moving)
     );
-    
-    logic signed [19:0] cur_time;
-    logic signed [11:0] z_model;
-    logic signed [11:0] separation;
-    logic did_swipe_fruit;
-    logic signed [2:0][11:0] rpy;
-    logic signed [63:0]delta_z;
-
-    assign rpy2 = rpy;
-    assign rpy1 = rpy;
-
-    assign delta_z = ($signed(cur_time) * $signed(cur_time) * $signed(Z_MIN - Z_MAX)) >>> (2 * TOF_N);
     always_ff @(posedge clk_in) begin
         cur_time <= (16'sd2 * $signed(frame_count) - TIME_OF_FLIGHT_FRAMES) * TOF_M;
         z_model <= delta_z + Z_MAX;

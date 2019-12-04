@@ -70,7 +70,7 @@ module rgb2hsv(clock, reset, r, g, b, color, h_upper, h_lower, v_upper, v_lower,
           .s_axis_divisor_tdata(s_bottom),      // input wire [15 : 0] s_axis_divisor_tdata
           .s_axis_dividend_tvalid(1),  // input wire s_axis_dividend_tvalid
           .s_axis_dividend_tdata(s_top),    // input wire [15 : 0] s_axis_dividend_tdata
-          .m_axis_dout_tvalid(1),          // output wire m_axis_dout_tvalid
+          .m_axis_dout_tvalid(),          // output wire m_axis_dout_tvalid
           .m_axis_dout_tdata(s_quotient_temp)            // output wire [31 : 0] m_axis_dout_tdata
         );
         
@@ -81,7 +81,7 @@ module rgb2hsv(clock, reset, r, g, b, color, h_upper, h_lower, v_upper, v_lower,
           .s_axis_divisor_tdata(h_bottom),      // input wire [15 : 0] s_axis_divisor_tdata
           .s_axis_dividend_tvalid(1),  // input wire s_axis_dividend_tvalid
           .s_axis_dividend_tdata(h_top),    // input wire [15 : 0] s_axis_dividend_tdata
-          .m_axis_dout_tvalid(1),          // output wire m_axis_dout_tvalid
+          .m_axis_dout_tvalid(),          // output wire m_axis_dout_tvalid
           .m_axis_dout_tdata(h_quotient_temp)            // output wire [31 : 0] m_axis_dout_tdata
         );
 

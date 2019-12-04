@@ -15,13 +15,12 @@ module top_level(
 
     );
     
-    assign led = sw;
     
     logic signed [2:0][11:0] user;
     logic signed [11:0] user_z; 
     
-    logic [10:0] centroid_x;
-    logic [9:0] centroid_y;
+    logic [10:0] centroid_x_user;
+    logic [9:0] centroid_y_user;
     logic [10:0] centroid_x_saber;
     logic [9:0] centroid_y_saber;
     logic saber_detected;
@@ -148,13 +147,17 @@ module top_level(
         .ja(jb),
         .jb(jc),
         .jbclk(jcclk),
-        .centroid_x(centroid_x),
-        .centroid_y(centroid_y)
+        .centroid_x_green(centroid_x_user),
+        .centroid_y_green(centroid_y_user),
+        .green_detected(),
+        .centroid_x_red(centroid_x_saber),
+        .centroid_y_red(centroid_y_saber),
+        .red_detected(saber_detected)
     );
     
     cv2render my_converter(
-        .blob_x(centroid_x),
-        .blob_y(centroid_y),
+        .blob_x(centroid_x_user),
+        .blob_y(centroid_y_user),
         .next_frame(next_frame),
         .user_z(user_z),
         .clk_in(clk),
@@ -191,9 +194,6 @@ module top_level(
         .dp(),
         .strobe_out()); 
         
-    assign centroid_x_saber = sw[5:0];
-    assign centroid_y_saber = sw[5:0];
-    assign saber_detected = sw[6];
 
     game_logic my_game(
         .clk_in(clk),
@@ -207,7 +207,9 @@ module top_level(
         .world_trans1(world_trans1),
         .model_trans2(model_trans2),
         .rpy2(rpy2),
-        .world_trans2(world_trans2)
+        .world_trans2(world_trans2),
+        .led(led)
+        
     );
         
         
