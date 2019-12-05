@@ -6,16 +6,12 @@ module cv2render(
     input clk_in,
     output logic signed [2:0][11:0] user 
     );
-parameter proj_x = 400;
-parameter proj_y = 400;
 parameter cam_x = 320;
 parameter cam_y = 240;
-parameter measure_cam = 72;
-parameter measure_proj = 30;
 //fov_ratio = M/2^N
 //(proj_x*measure_cam)/(cam_x*measure_proj)
-parameter fov_ratio_m = 12'sd15;
-parameter fov_ratio_n = 2;
+parameter fov_ratio_m = 12'sd9;
+parameter fov_ratio_n = 1;
 
 logic [10:0] blob_x_synced;
 logic [9:0] blob_y_synced;

@@ -19,7 +19,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module rgb2hsv(clock, reset, r, g, b, color, h_upper, h_lower, v_upper, v_lower, out_h);
+module rgb2hsv(clock, reset, r, g, b, color, h_upper, h_lower, v_upper, v_lower, s_upper, s_lower, out_h);
 		input wire clock;
 		input wire reset;
 		input wire [7:0] r;
@@ -30,6 +30,9 @@ module rgb2hsv(clock, reset, r, g, b, color, h_upper, h_lower, v_upper, v_lower,
 		input logic [7:0] h_lower;
 		input logic [7:0] v_upper;
 		input logic [7:0] v_lower;
+		
+		input logic [7:0] s_upper;
+		input logic [7:0] s_lower;
 		
 		
 		reg [7:0] h;
@@ -64,26 +67,50 @@ module rgb2hsv(clock, reset, r, g, b, color, h_upper, h_lower, v_upper, v_lower,
 		//the s_divider (16/16) has delay 18
 		//the hue_div (16/16) has delay 18
 
-        div_16 hue_div1 (
-          .aclk(clock),                                      // input wire aclk
-          .s_axis_divisor_tvalid(1),    // input wire s_axis_divisor_tvalid
-          .s_axis_divisor_tdata(s_bottom),      // input wire [15 : 0] s_axis_divisor_tdata
-          .s_axis_dividend_tvalid(1),  // input wire s_axis_dividend_tvalid
-          .s_axis_dividend_tdata(s_top),    // input wire [15 : 0] s_axis_dividend_tdata
-          .m_axis_dout_tvalid(),          // output wire m_axis_dout_tvalid
-          .m_axis_dout_tdata(s_quotient_temp)            // output wire [31 : 0] m_axis_dout_tdata
-        );
-        
-                
-            div_16 hue_div2 (
-          .aclk(clock),                                      // input wire aclk
-          .s_axis_divisor_tvalid(1),    // input wire s_axis_divisor_tvalid
-          .s_axis_divisor_tdata(h_bottom),      // input wire [15 : 0] s_axis_divisor_tdata
-          .s_axis_dividend_tvalid(1),  // input wire s_axis_dividend_tvalid
-          .s_axis_dividend_tdata(h_top),    // input wire [15 : 0] s_axis_dividend_tdata
-          .m_axis_dout_tvalid(),          // output wire m_axis_dout_tvalid
-          .m_axis_dout_tdata(h_quotient_temp)            // output wire [31 : 0] m_axis_dout_tdata
-        );
+div_16 hue_div1 (
+  .aclk(clock),                                      // input wire aclk
+  .s_axis_divisor_tvalid(1'b1),    // input wire s_axis_divisor_tvalid
+  .s_axis_divisor_tdata(s_bottom),      // input wire [15 : 0] s_axis_divisor_tdata
+  .s_axis_dividend_tvalid(1'b1),  // input wire s_axis_dividend_tvalid
+  .s_axis_dividend_tdata(s_top),    // input wire [15 : 0] s_axis_dividend_tdata
+  .m_axis_dout_tvalid(),          // output wire m_axis_dout_tvalid
+  .m_axis_dout_tdata(s_quotient_temp)            // output wire [31 : 0] m_axis_dout_tdata
+);
+
+
+/*		divider hue_div1(
+		.clk(clock),
+		.dividend(s_top),
+		.divisor(s_bottom),
+		.quotient(s_quotient),
+	        // note: the "fractional" output was originally named "remainder" in this
+		// file -- it seems coregen will name this output "fractional" even if
+		// you didn't select the remainder type as fractional.
+		.remainder(s_remainder),
+		.ready(s_ready),
+		.start(1),
+		.sign(0)
+		);*/
+		
+	div_16 hue_div2 (
+  .aclk(clock),                                      // input wire aclk
+  .s_axis_divisor_tvalid(1'b1),    // input wire s_axis_divisor_tvalid
+  .s_axis_divisor_tdata(h_bottom),      // input wire [15 : 0] s_axis_divisor_tdata
+  .s_axis_dividend_tvalid(1'b1),  // input wire s_axis_dividend_tvalid
+  .s_axis_dividend_tdata(h_top),    // input wire [15 : 0] s_axis_dividend_tdata
+  .m_axis_dout_tvalid(),          // output wire m_axis_dout_tvalid
+  .m_axis_dout_tdata(h_quotient_temp)            // output wire [31 : 0] m_axis_dout_tdata
+);
+/*		divider hue_div2(
+		.clk(clock),
+		.dividend(h_top),
+		.divisor(h_bottom),
+		.quotient(h_quotient),
+		.remainder(h_remainder),
+		.ready(h_ready),
+		.start(1),
+		.sign(0)
+		);*/
 
     assign s_quotient = s_quotient_temp[31:16];
     assign h_quotient = h_quotient_temp[31:16];
@@ -164,7 +191,7 @@ module rgb2hsv(clock, reset, r, g, b, color, h_upper, h_lower, v_upper, v_lower,
 			
 		end
 		
-		assign color = ((h< h_upper || h==h_upper) && (h>h_lower || h==h_lower) && (v<v_upper) && (v>v_lower)) ? 1 : 0;
+		assign color = ((h <= h_upper) && (h >= h_lower) && (v <= v_upper) && (v >= v_lower) && (s <= s_upper) && (s >= s_lower));
 		assign out_v = v;
 		assign out_h=h;
 			/*if ((h< 90) && (h>30) && (v<255) && (v>80)) begin

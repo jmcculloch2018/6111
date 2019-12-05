@@ -14,9 +14,9 @@ module display_height(
    assign height_ft = (sw[5:1] > 24) ? 4'd6 : (sw[5:1] > 12) ? 4'd5 : 4'd4;
    assign height_inches_ones = (height_inches[4:1] > 9) ? (height_inches[4:1] - 10) : height_inches[4:1];
    assign height_inches = sw[5:0] - 24 * (height_ft - 4);
-   parameter TABLE_HEIGHT_INCHES = 24;
+   parameter TABLE_HEIGHT_INCHES = 26;
    parameter MIN_USER_HEIGHT_INCHES = 48;
-   parameter PIXELS_PER_INCH = 320 / 24;
+   parameter PIXELS_PER_INCH = 640 / 28;
    
    
    localparam bits = 13;

@@ -14,6 +14,7 @@ module top_level(
     output logic [2:0] hdmi_tx_p
 
     );
+    assign led = sw;
     
     
     logic signed [2:0][11:0] user;
@@ -24,6 +25,9 @@ module top_level(
     logic [10:0] centroid_x_saber;
     logic [9:0] centroid_y_saber;
     logic saber_detected;
+    
+    logic [16:0] count_green, count_red;
+    logic saber_moving, did_swipe_fruit;
 
     logic [1:0] vclock_count;
     
@@ -152,7 +156,9 @@ module top_level(
         .green_detected(),
         .centroid_x_red(centroid_x_saber),
         .centroid_y_red(centroid_y_saber),
-        .red_detected(saber_detected)
+        .red_detected(saber_detected),
+        .count_green(count_green),
+        .count_red(count_red)
     );
     
     cv2render my_converter(
@@ -188,7 +194,7 @@ module top_level(
 
     display_height my_height_disp(
         .clk_in(clk), .rst_in(reset),
-        .sw(0), 
+        .sw(8'd36), 
         .height(user_z), 
         .seg_out(segments),
         .dp(),
@@ -208,9 +214,22 @@ module top_level(
         .model_trans2(model_trans2),
         .rpy2(rpy2),
         .world_trans2(world_trans2),
-        .led(led)
+        .saber_moving(saber_moving),
+        .did_swipe_fruit(did_swipe_fruit)
         
     );
+    
+    ila_0 ila (
+	.clk(clk), // input wire clk
+
+
+	.probe0(count_green), // input wire [16:0]  probe0  
+	.probe1(count_red), // input wire [16:0]  probe1 
+	.probe2(centroid_x_saber), // input wire [10:0]  probe2 
+	.probe3(centroid_y_saber), // input wire [9:0]  probe3 
+	.probe4(saber_moving), // input wire [0:0]  probe4 
+	.probe5(did_swipe_fruit) // input wire [0:0]  probe5
+);
         
         
 //    ila_0 your_instance_name (

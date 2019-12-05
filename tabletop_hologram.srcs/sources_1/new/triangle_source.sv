@@ -30,7 +30,7 @@ module triangle_source(
         output logic [8:0][11:0] vertices_out 
     );
     parameter NUM_TRIANGLES = 12;
-    logic [3:0] tri_count;
+    logic [15:0] tri_count;
     logic [119:0] data_out;
     
     triangles_rom my_rom (

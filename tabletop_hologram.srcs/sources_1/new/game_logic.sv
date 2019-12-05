@@ -33,7 +33,8 @@ module game_logic(
     output logic signed [2:0][11:0] model_trans2,
     output logic signed [2:0][11:0] rpy2,
     output logic signed [2:0][11:0] world_trans2,
-    output logic [7:0] led
+    output logic saber_moving,
+    output logic did_swipe_fruit
     );
     
     
@@ -49,16 +50,13 @@ module game_logic(
     
     logic [9:0] frame_count;
     
-    logic saber_moving;
+//    logic saber_moving;
     logic signed [19:0] cur_time;
     logic signed [11:0] z_model;
     logic signed [11:0] separation;
-    logic did_swipe_fruit;
+//    logic did_swipe_fruit;
     logic signed [2:0][11:0] rpy;
     logic signed [63:0]delta_z;
-    
-    assign led[0] = saber_moving;
-    assign led[1] = did_swipe_fruit;
 
     assign rpy2 = rpy;
     assign rpy1 = rpy;

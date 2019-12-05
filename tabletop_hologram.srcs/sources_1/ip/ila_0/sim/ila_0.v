@@ -61,12 +61,12 @@ probe5
 input clk;
 
 
-input [7 : 0] probe0;
-input [2 : 0] probe1;
-input [0 : 0] probe2;
-input [10 : 0] probe3;
-input [9 : 0] probe4;
-input [35 : 0] probe5;
+input [16 : 0] probe0;
+input [16 : 0] probe1;
+input [10 : 0] probe2;
+input [9 : 0] probe3;
+input [0 : 0] probe4;
+input [0 : 0] probe5;
 
 
 endmodule
