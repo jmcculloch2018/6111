@@ -84,8 +84,8 @@ module computer_vision(
     logic [7:0] h_lower_red;
     logic [7:0] v_upper;
     logic [7:0] v_lower;
-    logic [7:0] s_upper;
-    logic [7:0] s_lower;
+    logic [7:0] s_upper_red, s_upper_green;
+    logic [7:0] s_lower_red, s_lower_green;
     logic [16:0] count_threshold_red, count_threshold_green;
     
     logic [10:0] hcount_camera;
@@ -165,10 +165,12 @@ module computer_vision(
     assign h_lower_red = 0;
     assign v_upper = 255;
     assign v_lower = 127;
-    assign s_upper = 255;
-    assign s_lower = 100;
+    assign s_upper_green = 255;
+    assign s_lower_green = 0;
+    assign s_upper_red = 255;
+    assign s_lower_red = 100;
     assign count_threshold_red = 20;
-    assign count_threshold_green = 50;
+    assign count_threshold_green = 100;
     logic empty_p;
     
      pipeline #(.N_BITS(1), .N_REGISTERS(22)) pipeline_x(
@@ -182,11 +184,11 @@ module computer_vision(
     
     rgb2hsv rgb2hsv_red (.clock(clk_65mhz), .reset(reset), .r(cam[11:8]<<4), .g(cam[7:4]<<4), 
         .b(cam[3:0]<<4), .color(red), .h_upper(h_upper_red), .h_lower(h_lower_red), 
-            .v_upper(v_upper), .v_lower(v_lower), .s_upper(s_upper), .s_lower(s_lower), .out_h());
+            .v_upper(v_upper), .v_lower(v_lower), .s_upper(s_upper_red), .s_lower(s_lower_red), .out_h());
 
     rgb2hsv rgb2hsv_green (.clock(clk_65mhz), .reset(reset), .r(cam[11:8]<<4), .g(cam[7:4]<<4), 
         .b(cam[3:0]<<4), .color(green), .h_upper(h_upper_green), .h_lower(h_lower_green), 
-            .v_upper(v_upper), .v_lower(v_lower), .s_upper(s_upper), .s_lower(s_lower), .out_h());
+            .v_upper(v_upper), .v_lower(v_lower), .s_upper(s_upper_green), .s_lower(s_lower_green), .out_h());
 
 
 //    logic [16:0] count_green, count_red;

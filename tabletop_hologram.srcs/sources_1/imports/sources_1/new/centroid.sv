@@ -42,7 +42,6 @@ module centroid(clock, reset, x, y, color, centroid_x, centroid_y, frame_done, c
     logic [16:0] count;
     output logic [16:0] count_out;
     logic last_frame_done;
-    logic ready;
     
     always_ff @(posedge clock) begin
         if (reset) begin
@@ -51,27 +50,9 @@ module centroid(clock, reset, x, y, color, centroid_x, centroid_y, frame_done, c
             count <= 0;
             centroid_x <= 0;
             centroid_y <= 0;
-            ready <= 0;
         end
         else if (frame_done) begin
-            /*if (count >25000) begin 
-                centroid_x <= x_acc>>15;
-                centroid_y <= y_acc>>15;
-            end else if (count >12000) begin
-                centroid_x <= x_acc>>14;
-                centroid_y <= y_acc>>14;
-            end else if (count >6000) begin
-                centroid_x <= x_acc>>13;
-                centroid_y <= y_acc>>13;
-            end else if (count < 100) begin
-                centroid_x <= x_acc>>6;
-                centroid_y <= y_acc>>6;
-            end else begin
-                centroid_x <= x_acc>>13;
-                centroid_y <= y_acc>>13;
-            end*/
-            //ready <= 1;
-            count_out <= count;
+           count_out <= count;
             if (count > count_threshold) begin
                 centroid_x <= centroid_x_temp[33:24];  //d or e (13 or 14) seems good
                 centroid_y <= centroid_y_temp[32:24];
@@ -85,7 +66,6 @@ module centroid(clock, reset, x, y, color, centroid_x, centroid_y, frame_done, c
             x_acc <= 0;
             y_acc <= 0;
             count <= 0;
-            ready <= 0;
          end
          else begin
             if (color) begin
