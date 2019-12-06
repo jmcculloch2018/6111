@@ -1,15 +1,12 @@
 `timescale 1ns / 1ps
 
-module graphics_subsystem(
+ module graphics_subsystem(
    input clk,
    input reset,
    input signed [2:0][11:0] user,
-   input signed [2:0][11:0] model_trans1,
-   input signed [2:0][11:0] rpy1,
-   input signed [2:0][11:0] world_trans1,
-   input signed [2:0][11:0] model_trans2,
-   input signed [2:0][11:0] rpy2,
-   input signed [2:0][11:0] world_trans2,
+   input signed [1:0][2:0][11:0] model_trans,
+   input signed [1:0][2:0][11:0] rpy,
+   input signed [1:0][2:0][11:0] world_trans,
    input [11:0] vcount_in,
    input [11:0] hcount_in,
    input hsync_in,
@@ -55,6 +52,8 @@ module graphics_subsystem(
     logic write_inactive_frame;
     logic [11:0] rgb_write_inactive_frame;
     
+    logic [2:0] obj_select;
+    
     assign next_frame = vsync_in && ~ last_vsync_in;
       
     graphics_fsm my_graphics_fsm(
@@ -77,6 +76,7 @@ module graphics_subsystem(
         .rst_in(reset),
         .next_triangle(next_triangle),
         .next_frame(next_frame),
+        .obj_select(obj_sel),
         .triangles_available(triangles_available),
         .rgb_out(rgb_triangle_source),
         .vertices_out(vertices_triangle_source)
@@ -86,9 +86,9 @@ module graphics_subsystem(
         .clk_in(clk),
         .rst_in(reset),
         .vertices_in(vertices_triangle_source),
-        .model_translation(model_trans1),
-        .rpy(rpy1),
-        .world_translation(world_trans1),
+        .model_translation(model_trans[obj_sel]),
+        .rpy(rpy[obj_sel]),
+        .world_translation(world_trans[obj_sel]),
         .new_data_in(new_data_transform),
         .vertices_out(vertices_transform),
         .finished_out(transform_finish)

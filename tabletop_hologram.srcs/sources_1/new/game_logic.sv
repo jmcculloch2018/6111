@@ -27,12 +27,9 @@ module game_logic(
     input [9:0] centroid_y,
     input saber_detected,
     input next_frame,
-    output logic signed [2:0][11:0] model_trans1,
-    output logic signed [2:0][11:0] rpy1,
-    output logic signed [2:0][11:0] world_trans1,
-    output logic signed [2:0][11:0] model_trans2,
-    output logic signed [2:0][11:0] rpy2,
-    output logic signed [2:0][11:0] world_trans2,
+    output logic signed [1:0][2:0][11:0] model_trans,
+    output logic signed [1:0][2:0][11:0] rpy,
+    output logic signed [1:0][2:0][11:0] world_trans,
     output logic saber_moving,
     output logic did_swipe_fruit
     );
@@ -77,20 +74,29 @@ module game_logic(
         if (rst_in) begin 
             frame_count <= 0;
             did_swipe_fruit <= 0;
-            rpy <= 0;
+            
+            rpy[0] <= 0; //model 1
+            rpy[1] <= 0; //model 2
+            
             separation <= 0;
         end else if (next_frame && (frame_count < TIME_OF_FLIGHT_FRAMES)) begin
             frame_count <= frame_count + 10'b1;
             did_swipe_fruit <= did_swipe_fruit || ((z_model > Z_MIN_SWIPE) && saber_moving);
             separation <= did_swipe_fruit ? (separation + 1) : separation;
-            model_trans1 <= 0;
-            model_trans2 <= 0;
-            rpy[2] <= 0;
-            rpy[1] <= (rpy[1] + 12'h01B);
-            rpy[0] <= (rpy[0] + 12'h011);
-
-            world_trans1 <= {separation, 12'h0, z_model};
-            world_trans2 <= {-separation, 12'h0, z_model};
+            model_trans[0] <= 0;
+            model_trans[1] <= 0;
+            //Model 1
+            rpy[0][2] <= 0;
+            rpy[0][1] <= (rpy[1] + 12'h01B);
+            rpy[0][0] <= (rpy[0] + 12'h011);
+            //Model 2
+            rpy[1][2] <= 0;
+            rpy[1][1] <= (rpy[1] + 12'h01B);
+            rpy[1][0] <= (rpy[0] + 12'h011);
+            //Model 1
+            world_trans[0] <= {separation, 12'h0, z_model};
+            //Model 2
+            world_trans[1] <= {-separation, 12'h0, z_model};
         end else if (next_frame) begin
             did_swipe_fruit <= 1'b0;
             separation <= 1'b0;

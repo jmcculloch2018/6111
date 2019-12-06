@@ -45,9 +45,9 @@ module top_level(
     logic btnu_clean, btnd_clean, btnl_clean, btnr_clean;
     logic last_btnu_clean, last_btnd_clean, last_btnl_clean, last_btnr_clean;
     
-    logic signed [2:0][11:0] model_trans1, model_trans2;
-    logic signed [2:0][11:0] rpy1, rpy2;
-    logic signed [2:0][11:0] world_trans1, world_trans2;
+    logic signed [1:0][2:0][11:0] model_trans;
+    logic signed [1:0][2:0][11:0] rpy;
+    logic signed [1:0][2:0][11:0] world_trans;
     
     logic pixel_clk, reset;
     
@@ -127,12 +127,9 @@ module top_level(
         .clk(clk),
         .reset(reset),
         .user(user),
-        .model_trans1(model_trans1),
-        .rpy1(rpy1),
-        .world_trans1(world_trans1),
-        .model_trans2(model_trans2),
-        .rpy2(rpy2),
-        .world_trans2(world_trans2),
+        .model_trans(model_trans),
+        .rpy(rpy),
+        .world_trans(world_trans),
         .vcount_in(vcount),
         .hcount_in(hcount),
         .hsync_in(hsync),
@@ -208,12 +205,9 @@ module top_level(
         .centroid_y(centroid_y_saber),
         .saber_detected(saber_detected),
         .next_frame(next_frame),
-        .model_trans1(model_trans1),
-        .rpy1(rpy1),
-        .world_trans1(world_trans1),
-        .model_trans2(model_trans2),
-        .rpy2(rpy2),
-        .world_trans2(world_trans2),
+        .model_trans(model_trans),
+        .rpy1(rpy),
+        .world_trans(world_trans),
         .saber_moving(saber_moving),
         .did_swipe_fruit(did_swipe_fruit)
         
