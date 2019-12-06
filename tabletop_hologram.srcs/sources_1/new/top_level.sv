@@ -41,6 +41,9 @@ module top_level(
     
     logic next_frame;
     
+    logic [1:0] game_state;
+    logic clk_5sec;
+    
     logic user_up, user_down, user_left, user_right, user_reset;
     logic btnu_clean, btnd_clean, btnl_clean, btnr_clean;
     logic last_btnu_clean, last_btnd_clean, last_btnl_clean, last_btnr_clean;
@@ -125,6 +128,7 @@ assign reset = 0;
         .model_trans(model_trans),
         .rpy(rpy),
         .world_trans(world_trans),
+        .game_state(game_state),
         .vcount_in(vcount),
         .hcount_in(hcount),
         .hsync_in(hsync),
@@ -143,6 +147,7 @@ assign reset = 0;
         .ja(jb),
         .jb(jc),
         .jbclk(jcclk),
+        .night(sw[0]),
         .centroid_x_green(centroid_x_user),
         .centroid_y_green(centroid_y_user),
         .green_detected(),
@@ -191,21 +196,27 @@ assign reset = 0;
         .seg_out(segments),
         .dp(),
         .strobe_out()); 
-        
+    
+    five_sec_clk my_slow_clock(
+    .clk_in(clk),
+    .rst_in(reset),
+    .clk_5sec(clk_5sec)
+    );  
 
     game_logic my_game(
         .clk_in(clk),
+        .clk_5sec(clk_5sec),
         .rst_in(reset),
         .centroid_x(centroid_x_saber),  
         .centroid_y(centroid_y_saber),
         .saber_detected(saber_detected),
         .next_frame(next_frame),
         .model_trans(model_trans),
-        .rpy1(rpy),
+        .rpy(rpy),
         .world_trans(world_trans),
         .saber_moving(saber_moving),
-        .did_swipe_fruit(did_swipe_fruit)
-        
+        .did_swipe_fruit(did_swipe_fruit),
+        .game_state(game_state)
     );
         
 //    vio your_instance_name (

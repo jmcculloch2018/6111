@@ -1,0 +1,2 @@
+banana_rom1.v,verilog,xil_defaultlib,../../../../tabletop_hologram.srcs/sources_1/ip/banana_rom1/sim/banana_rom1.v,
+glbl.v,Verilog,xil_defaultlib,glbl.v

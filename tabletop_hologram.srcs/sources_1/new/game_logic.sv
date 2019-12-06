@@ -1,27 +1,8 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 12/03/2019 01:38:44 PM
-// Design Name: 
-// Module Name: game_logic
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module game_logic(
     input clk_in,
+    input clk_5sec,
     input rst_in,
     input [10:0] centroid_x,
     input [9:0] centroid_y,
@@ -31,10 +12,9 @@ module game_logic(
     output logic signed [1:0][2:0][11:0] rpy,
     output logic signed [1:0][2:0][11:0] world_trans,
     output logic saber_moving,
-    output logic did_swipe_fruit
+    output logic did_swipe_fruit,
+    output logic [1:0] game_state
     );
-    
-    
     
     parameter Z_MIN = -12'sd500;
     parameter Z_MAX = 12'sd100;
@@ -54,11 +34,10 @@ module game_logic(
 //    logic did_swipe_fruit;
     logic signed [2:0][11:0] rpy;
     logic signed [63:0]delta_z;
-
-    assign rpy2 = rpy;
-    assign rpy1 = rpy;
+    logic [1:0] state = 0;
 
     assign delta_z = ($signed(cur_time) * $signed(cur_time) * $signed(Z_MIN - Z_MAX)) >>> (2 * TOF_N);
+    assign game_state = state;
     
     detect_motion detect(
         .clk_in(clk_in),
@@ -74,37 +53,40 @@ module game_logic(
         if (rst_in) begin 
             frame_count <= 0;
             did_swipe_fruit <= 0;
-            
             rpy[0] <= 0; //model 1
             rpy[1] <= 0; //model 2
+            state <= 0;
             
             separation <= 0;
         end else if (next_frame && (frame_count < TIME_OF_FLIGHT_FRAMES)) begin
             frame_count <= frame_count + 10'b1;
             did_swipe_fruit <= did_swipe_fruit || ((z_model > Z_MIN_SWIPE) && saber_moving);
             separation <= did_swipe_fruit ? (separation + 1) : separation;
+            //SET TRANSFORMATIONS
+            //If in game state, set game transforms
             model_trans[0] <= 0;
             model_trans[1] <= 0;
-            //Model 1
             rpy[0][2] <= 0;
-            rpy[0][1] <= (rpy[1] + 12'h01B);
-            rpy[0][0] <= (rpy[0] + 12'h011);
-            //Model 2
+            rpy[0][1] <= state==2'b11 ? (rpy[1] + 12'h00F):0;
+            rpy[0][0] <= state==2'b11 ? (rpy[0] + 12'h00D):0;
             rpy[1][2] <= 0;
-            rpy[1][1] <= (rpy[1] + 12'h01B);
-            rpy[1][0] <= (rpy[0] + 12'h011);
-            //Model 1
-            world_trans[0] <= {separation, 12'h0, z_model};
-            //Model 2
-            world_trans[1] <= {-separation, 12'h0, z_model};
+            rpy[1][1] <= state==2'b11 ? (rpy[1] + 12'h00F):0;
+            rpy[1][0] <= state==2'b11 ? (rpy[0] + 12'h00D):0;
+            world_trans[0] <= state==2'b11 ? {separation, 12'h0, z_model}:0;
+            world_trans[1] <= state==2'b11 ? {-separation, 12'h0, z_model}:0;
         end else if (next_frame) begin
             did_swipe_fruit <= 1'b0;
             separation <= 1'b0;
             frame_count <= 10'b0;
 
         end
+        //Game FSM
+        if (state!=2'b11 && did_swipe_fruit) begin
+            state <= 2'b11;
+        end else if (state!=2'b11 && clk_5sec==1) begin
+            state <= state==2'b10 ? 2'b00:(state+1);
+        end
     end
-    
     
     
     

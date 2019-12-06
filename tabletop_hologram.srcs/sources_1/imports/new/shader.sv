@@ -88,7 +88,7 @@ always_ff @(posedge clk_in) begin
             T[0] <= $signed(t2[1]-t1[1])*$signed(t3[2]-t1[2])-$signed(t3[1]-t1[1])*$signed(t2[2]-t1[2]);
             T[1] <= -$signed(t2[0]-t1[0])*$signed(t3[2]-t1[2])+$signed(t3[0]-t1[0])*$signed(t2[2]-t1[2]);
             T[2] <= $signed(t2[0]-t1[0])*$signed(t3[1]-t1[1])-$signed(t3[0]-t1[0])*$signed(t2[1]-t1[1]);
-            //User perspective vector (13 bits)
+            //User perspective vector (12 bits)
             V[0] <= $signed(user_pos[0]);
             V[1] <= $signed(user_pos[1]);
             V[2] <= $signed(user_pos[2]);

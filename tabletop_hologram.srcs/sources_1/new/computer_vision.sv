@@ -4,6 +4,7 @@ module computer_vision(
    input btnc, 
    input [7:0] ja,
    input [2:0] jb,
+   input night,
    output jbclk,
    output logic [10:0] centroid_x_green,
    output logic [9:0] centroid_y_green,
@@ -159,7 +160,7 @@ module computer_vision(
     
     logic [7:0] h;
     logic [7:0] out_v;
-    assign h_upper_green = 120;
+    assign h_upper_green = night ? 120:95;
     assign h_lower_green = 30;
     assign h_upper_red = 10;
     assign h_lower_red = 0;

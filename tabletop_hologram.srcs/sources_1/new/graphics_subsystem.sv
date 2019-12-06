@@ -7,6 +7,7 @@
    input signed [1:0][2:0][11:0] model_trans,
    input signed [1:0][2:0][11:0] rpy,
    input signed [1:0][2:0][11:0] world_trans,
+   input [1:0] game_state,
    input [11:0] vcount_in,
    input [11:0] hcount_in,
    input hsync_in,
@@ -52,7 +53,7 @@
     logic write_inactive_frame;
     logic [11:0] rgb_write_inactive_frame;
     
-    logic [2:0] obj_select;
+    logic obj_sel;
     
     assign next_frame = vsync_in && ~ last_vsync_in;
       
@@ -76,7 +77,8 @@
         .rst_in(reset),
         .next_triangle(next_triangle),
         .next_frame(next_frame),
-        .obj_select(obj_sel),
+        .game_state(game_state),
+        .tf_sel(obj_sel),
         .triangles_available(triangles_available),
         .rgb_out(rgb_triangle_source),
         .vertices_out(vertices_triangle_source)
