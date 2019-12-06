@@ -121,7 +121,7 @@ BEGIN
   U0 : rgb2dvi
     GENERIC MAP (
       kGenerateSerialClk => true,
-      kClkPrimitive => "PLL",
+      kClkPrimitive => "MMCM",
       kRstActiveHigh => true,
       kClkRange => 3,
       kD0Swap => false,

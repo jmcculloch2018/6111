@@ -218,31 +218,18 @@ module top_level(
         .did_swipe_fruit(did_swipe_fruit)
         
     );
-    
-    ila_0 ila (
-	.clk(clk), // input wire clk
-
-
-	.probe0(count_green), // input wire [16:0]  probe0  
-	.probe1(count_red), // input wire [16:0]  probe1 
-	.probe2(centroid_x_saber), // input wire [10:0]  probe2 
-	.probe3(centroid_y_saber), // input wire [9:0]  probe3 
-	.probe4(saber_moving), // input wire [0:0]  probe4 
-	.probe5(did_swipe_fruit) // input wire [0:0]  probe5
-);
         
-        
-//    ila_0 your_instance_name (
-//	.clk(clk), // input wire clk
-
-
-//	.probe0(jb), // input wire [7:0]  probe0  
-//	.probe1(jc), // input wire [2:0]  probe1 
-//	.probe2(jcclk), // input wire [0:0]  probe2 
-//	.probe3(centroid_x), // input wire [10:0]  probe3 
-//	.probe4(centroid_y), // input wire [9:0]  probe4 
-//	.probe5(user) // input wire [35:0]  probe5
-//);
+//    vio your_instance_name (
+//	  .clk(clk), // input wire clk
+//      .probe_in0(centroid_x_saber),  // input wire [10 : 0] probe_in0
+//      .probe_in1(centroid_y_saber),  // input wire [9 : 0] probe_in1
+//      .probe_in2(centroid_x_user),  // input wire [10 : 0] probe_in2
+//      .probe_in3(centroid_y_user),  // input wire [9 : 0] probe_in3
+//      .probe_in4(count_green),  // input wire [16 : 0] probe_in4
+//      .probe_in5(count_red),  // input wire [16 : 0] probe_in5
+//      .probe_in6(saber_moving),  // input wire [0 : 0] probe_in6
+//      .probe_in7(did_swipe_fruit)  // input wire [0 : 0] probe_in7
+//    );
 
         
     

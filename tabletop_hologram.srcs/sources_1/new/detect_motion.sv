@@ -38,9 +38,23 @@ module detect_motion(
     logic [10:0] delta_centroid_x;
     logic [9:0] delta_centroid_y;
     logic [19:0] dist_sq;
-    assign delta_centroid_x = (centroid_x > last_centroid_x) ? (centroid_x - last_centroid_x) : (last_centroid_x - centroid_x);
-    assign delta_centroid_y = (centroid_y > last_centroid_y) ? (centroid_y - last_centroid_y) : (last_centroid_y - centroid_y);
-    assign dist_sq = (delta_centroid_x * delta_centroid_x + delta_centroid_y * delta_centroid_y);
+    
+    logic [10:0] lag_centroid_x;
+    logic [9:0] lag_centroid_y;
+    logic lag_saber_detected;
+    pipeline #(.N_BITS(11), .N_REGISTERS(2)) pipeline_x(
+        .clk_in(clk_in), .rst_in(rst_in),
+        .data_in(centroid_x), .data_out(lag_centroid_x)
+    );
+    pipeline #(.N_BITS(10), .N_REGISTERS(2)) pipeline_y(
+        .clk_in(clk_in), .rst_in(rst_in),
+        .data_in(centroid_y), .data_out(lag_centroid_y)
+    );
+    pipeline #(.N_BITS(1), .N_REGISTERS(2)) pipeline_detected(
+        .clk_in(clk_in), .rst_in(rst_in),
+        .data_in(saber_detected), .data_out(lag_saber_detected)
+    );
+    
     always_ff @(posedge clk_in) begin
         if (rst_in) begin
             count <= 32'b0;
@@ -48,12 +62,19 @@ module detect_motion(
             last_centroid_x <= 11'b0;
             last_centroid_y <= 10'b0;
             saber_moving <= 1'b0;
+        end else if (count == CYCLES_PER_SAMPLE - 3) begin
+            count <= count + 32'b1;
+            delta_centroid_x <= (centroid_x > last_centroid_x) ? (centroid_x - last_centroid_x) : (last_centroid_x - centroid_x);
+            delta_centroid_y <= (centroid_y > last_centroid_y) ? (centroid_y - last_centroid_y) : (last_centroid_y - centroid_y);
+        end else if (count == CYCLES_PER_SAMPLE - 2) begin
+            count <= count + 32'b1;
+            dist_sq <= (delta_centroid_x * delta_centroid_x + delta_centroid_y * delta_centroid_y);
         end else if (count == CYCLES_PER_SAMPLE - 1) begin
             count <= 32'b0;
-            last_saber_detected <= saber_detected;
-            last_centroid_x <= centroid_x;
-            last_centroid_y <= centroid_y;
-            saber_moving <= saber_detected && last_saber_detected && (dist_sq >  PIXEL_THRESHOLD * PIXEL_THRESHOLD); 
+            last_saber_detected <= lag_saber_detected;
+            last_centroid_x <= lag_centroid_x;
+            last_centroid_y <= lag_centroid_y;
+            saber_moving <= lag_saber_detected && last_saber_detected && (dist_sq >  PIXEL_THRESHOLD * PIXEL_THRESHOLD); 
         end else begin
             count <= count + 32'b1;
         end

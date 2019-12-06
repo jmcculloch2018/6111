@@ -1,7 +1,7 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Tue Nov 19 18:06:52 2019
+// Date        : Thu Dec  5 21:23:16 2019
 // Host        : DESKTOP-982HE02 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/hdmi_render/hdmi_render_sim_netlist.v
@@ -47,7 +47,7 @@ module hdmi_render
   wire vid_pVDE;
   wire vid_pVSync;
 
-  (* kClkPrimitive = "PLL" *) 
+  (* kClkPrimitive = "MMCM" *) 
   (* kClkRange = "3" *) 
   (* kClkSwap = "FALSE" *) 
   (* kD0Swap = "FALSE" *) 
@@ -73,122 +73,200 @@ endmodule
 (* ORIG_REF_NAME = "ClockGen" *) 
 module hdmi_render_ClockGen
    (SerialClk,
-    PixelClk,
+    pLockGained_reg_0,
     in0,
     aRst,
-    \oSyncStages_reg[1] );
+    PixelClk);
   output SerialClk;
-  output PixelClk;
+  output pLockGained_reg_0;
   output in0;
   input aRst;
-  input \oSyncStages_reg[1] ;
+  input PixelClk;
 
   wire CLKFBIN;
+  wire CLR;
+  wire FeedbackClkOut;
   wire PixelClk;
+  wire PixelClkInX5;
   wire RST;
   wire SerialClk;
   wire aPixelClkLckd;
   wire aRst;
   wire in0;
   wire oOut;
-  wire \oSyncStages_reg[1] ;
-  wire pLockWasLost0_n_0;
+  wire pLockGained_i_1_n_0;
+  wire pLockGained_reg_0;
+  wire pLockWasLost0;
   wire \pLocked_q_reg_n_0_[0] ;
-  wire \pLocked_q_reg_n_0_[1] ;
+  wire \pLocked_q_reg_n_0_[2] ;
   wire pRst;
-  wire p_1_in;
-  wire \NLW_GenPLL.DVI_ClkGenerator_CLKOUT2_UNCONNECTED ;
-  wire \NLW_GenPLL.DVI_ClkGenerator_CLKOUT3_UNCONNECTED ;
-  wire \NLW_GenPLL.DVI_ClkGenerator_CLKOUT4_UNCONNECTED ;
-  wire \NLW_GenPLL.DVI_ClkGenerator_CLKOUT5_UNCONNECTED ;
-  wire \NLW_GenPLL.DVI_ClkGenerator_DRDY_UNCONNECTED ;
-  wire [15:0]\NLW_GenPLL.DVI_ClkGenerator_DO_UNCONNECTED ;
+  wire p_0_in;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKFBOUTB_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKFBSTOPPED_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKINSTOPPED_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKOUT0B_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKOUT1_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKOUT1B_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKOUT2_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKOUT2B_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKOUT3_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKOUT3B_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKOUT4_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKOUT5_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_CLKOUT6_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_DRDY_UNCONNECTED ;
+  wire \NLW_GenMMCM.DVI_ClkGenerator_PSDONE_UNCONNECTED ;
+  wire [15:0]\NLW_GenMMCM.DVI_ClkGenerator_DO_UNCONNECTED ;
 
   (* box_type = "PRIMITIVE" *) 
-  PLLE2_ADV #(
+  (* clock_buffer_type = "NONE" *) 
+  MMCME2_ADV #(
     .BANDWIDTH("OPTIMIZED"),
-    .CLKFBOUT_MULT(20),
+    .CLKFBOUT_MULT_F(15.000000),
     .CLKFBOUT_PHASE(0.000000),
-    .CLKIN1_PERIOD(18.750000),
+    .CLKFBOUT_USE_FINE_PS("FALSE"),
+    .CLKIN1_PERIOD(18.000000),
     .CLKIN2_PERIOD(0.000000),
-    .CLKOUT0_DIVIDE(4),
+    .CLKOUT0_DIVIDE_F(3.000000),
     .CLKOUT0_DUTY_CYCLE(0.500000),
     .CLKOUT0_PHASE(0.000000),
-    .CLKOUT1_DIVIDE(20),
+    .CLKOUT0_USE_FINE_PS("FALSE"),
+    .CLKOUT1_DIVIDE(15),
     .CLKOUT1_DUTY_CYCLE(0.500000),
     .CLKOUT1_PHASE(0.000000),
+    .CLKOUT1_USE_FINE_PS("FALSE"),
     .CLKOUT2_DIVIDE(1),
     .CLKOUT2_DUTY_CYCLE(0.500000),
     .CLKOUT2_PHASE(0.000000),
+    .CLKOUT2_USE_FINE_PS("FALSE"),
     .CLKOUT3_DIVIDE(1),
     .CLKOUT3_DUTY_CYCLE(0.500000),
     .CLKOUT3_PHASE(0.000000),
+    .CLKOUT3_USE_FINE_PS("FALSE"),
+    .CLKOUT4_CASCADE("FALSE"),
     .CLKOUT4_DIVIDE(1),
     .CLKOUT4_DUTY_CYCLE(0.500000),
     .CLKOUT4_PHASE(0.000000),
+    .CLKOUT4_USE_FINE_PS("FALSE"),
     .CLKOUT5_DIVIDE(1),
     .CLKOUT5_DUTY_CYCLE(0.500000),
     .CLKOUT5_PHASE(0.000000),
-    .COMPENSATION("INTERNAL"),
+    .CLKOUT5_USE_FINE_PS("FALSE"),
+    .CLKOUT6_DIVIDE(1),
+    .CLKOUT6_DUTY_CYCLE(0.500000),
+    .CLKOUT6_PHASE(0.000000),
+    .CLKOUT6_USE_FINE_PS("FALSE"),
+    .COMPENSATION("ZHOLD"),
     .DIVCLK_DIVIDE(1),
     .IS_CLKINSEL_INVERTED(1'b0),
+    .IS_PSEN_INVERTED(1'b0),
+    .IS_PSINCDEC_INVERTED(1'b0),
     .IS_PWRDWN_INVERTED(1'b0),
     .IS_RST_INVERTED(1'b0),
     .REF_JITTER1(0.010000),
     .REF_JITTER2(0.000000),
+    .SS_EN("FALSE"),
+    .SS_MODE("CENTER_HIGH"),
+    .SS_MOD_PERIOD(10000),
     .STARTUP_WAIT("FALSE")) 
-    \GenPLL.DVI_ClkGenerator 
+    \GenMMCM.DVI_ClkGenerator 
        (.CLKFBIN(CLKFBIN),
-        .CLKFBOUT(CLKFBIN),
-        .CLKIN1(\oSyncStages_reg[1] ),
+        .CLKFBOUT(FeedbackClkOut),
+        .CLKFBOUTB(\NLW_GenMMCM.DVI_ClkGenerator_CLKFBOUTB_UNCONNECTED ),
+        .CLKFBSTOPPED(\NLW_GenMMCM.DVI_ClkGenerator_CLKFBSTOPPED_UNCONNECTED ),
+        .CLKIN1(PixelClk),
         .CLKIN2(1'b0),
         .CLKINSEL(1'b1),
-        .CLKOUT0(SerialClk),
-        .CLKOUT1(PixelClk),
-        .CLKOUT2(\NLW_GenPLL.DVI_ClkGenerator_CLKOUT2_UNCONNECTED ),
-        .CLKOUT3(\NLW_GenPLL.DVI_ClkGenerator_CLKOUT3_UNCONNECTED ),
-        .CLKOUT4(\NLW_GenPLL.DVI_ClkGenerator_CLKOUT4_UNCONNECTED ),
-        .CLKOUT5(\NLW_GenPLL.DVI_ClkGenerator_CLKOUT5_UNCONNECTED ),
+        .CLKINSTOPPED(\NLW_GenMMCM.DVI_ClkGenerator_CLKINSTOPPED_UNCONNECTED ),
+        .CLKOUT0(PixelClkInX5),
+        .CLKOUT0B(\NLW_GenMMCM.DVI_ClkGenerator_CLKOUT0B_UNCONNECTED ),
+        .CLKOUT1(\NLW_GenMMCM.DVI_ClkGenerator_CLKOUT1_UNCONNECTED ),
+        .CLKOUT1B(\NLW_GenMMCM.DVI_ClkGenerator_CLKOUT1B_UNCONNECTED ),
+        .CLKOUT2(\NLW_GenMMCM.DVI_ClkGenerator_CLKOUT2_UNCONNECTED ),
+        .CLKOUT2B(\NLW_GenMMCM.DVI_ClkGenerator_CLKOUT2B_UNCONNECTED ),
+        .CLKOUT3(\NLW_GenMMCM.DVI_ClkGenerator_CLKOUT3_UNCONNECTED ),
+        .CLKOUT3B(\NLW_GenMMCM.DVI_ClkGenerator_CLKOUT3B_UNCONNECTED ),
+        .CLKOUT4(\NLW_GenMMCM.DVI_ClkGenerator_CLKOUT4_UNCONNECTED ),
+        .CLKOUT5(\NLW_GenMMCM.DVI_ClkGenerator_CLKOUT5_UNCONNECTED ),
+        .CLKOUT6(\NLW_GenMMCM.DVI_ClkGenerator_CLKOUT6_UNCONNECTED ),
         .DADDR({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .DCLK(1'b0),
         .DEN(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .DO(\NLW_GenPLL.DVI_ClkGenerator_DO_UNCONNECTED [15:0]),
-        .DRDY(\NLW_GenPLL.DVI_ClkGenerator_DRDY_UNCONNECTED ),
+        .DO(\NLW_GenMMCM.DVI_ClkGenerator_DO_UNCONNECTED [15:0]),
+        .DRDY(\NLW_GenMMCM.DVI_ClkGenerator_DRDY_UNCONNECTED ),
         .DWE(1'b0),
         .LOCKED(aPixelClkLckd),
+        .PSCLK(1'b0),
+        .PSDONE(\NLW_GenMMCM.DVI_ClkGenerator_PSDONE_UNCONNECTED ),
+        .PSEN(1'b0),
+        .PSINCDEC(1'b0),
         .PWRDWN(1'b0),
         .RST(RST));
+  (* box_type = "PRIMITIVE" *) 
+  BUFR #(
+    .BUFR_DIVIDE("1"),
+    .SIM_DEVICE("7SERIES")) 
+    \GenMMCM.Deskew 
+       (.CE(1'b1),
+        .CLR(1'b0),
+        .I(FeedbackClkOut),
+        .O(CLKFBIN));
+  (* box_type = "PRIMITIVE" *) 
+  BUFR #(
+    .BUFR_DIVIDE("5"),
+    .SIM_DEVICE("7SERIES")) 
+    \GenMMCM.PixelClkBuffer 
+       (.CE(1'b1),
+        .CLR(CLR),
+        .I(PixelClkInX5),
+        .O(pLockGained_reg_0));
+  (* box_type = "PRIMITIVE" *) 
+  BUFIO \GenMMCM.SerialClkBuffer 
+       (.I(PixelClkInX5),
+        .O(SerialClk));
   hdmi_render_ResetBridge_5 LockLostReset
        (.AR(pRst),
-        .aRst(aRst),
-        .\oSyncStages_reg[1] (\oSyncStages_reg[1] ));
+        .PixelClk(PixelClk),
+        .aRst(aRst));
   hdmi_render_SyncAsync__parameterized1 PLL_LockSyncAsync
        (.D(oOut),
-        .\oSyncStages_reg[0]_0 (aPixelClkLckd),
-        .\oSyncStages_reg[1]_0 (\oSyncStages_reg[1] ));
+        .PixelClk(PixelClk),
+        .\oSyncStages_reg[0]_0 (aPixelClkLckd));
   LUT1 #(
     .INIT(2'h1)) 
     aRst_int_inferred_i_1
        (.I0(aPixelClkLckd),
         .O(in0));
+  LUT2 #(
+    .INIT(4'h2)) 
+    pLockGained_i_1
+       (.I0(\pLocked_q_reg_n_0_[0] ),
+        .I1(p_0_in),
+        .O(pLockGained_i_1_n_0));
+  FDCE pLockGained_reg
+       (.C(PixelClk),
+        .CE(1'b1),
+        .CLR(pRst),
+        .D(pLockGained_i_1_n_0),
+        .Q(CLR));
   LUT3 #(
     .INIT(8'h70)) 
-    pLockWasLost0
-       (.I0(\pLocked_q_reg_n_0_[1] ),
+    pLockWasLost_i_1
+       (.I0(p_0_in),
         .I1(\pLocked_q_reg_n_0_[0] ),
-        .I2(p_1_in),
-        .O(pLockWasLost0_n_0));
+        .I2(\pLocked_q_reg_n_0_[2] ),
+        .O(pLockWasLost0));
   FDPE pLockWasLost_reg
-       (.C(\oSyncStages_reg[1] ),
+       (.C(PixelClk),
         .CE(1'b1),
-        .D(pLockWasLost0_n_0),
+        .D(pLockWasLost0),
         .PRE(pRst),
         .Q(RST));
   FDCE #(
     .INIT(1'b1)) 
     \pLocked_q_reg[0] 
-       (.C(\oSyncStages_reg[1] ),
+       (.C(PixelClk),
         .CE(1'b1),
         .CLR(pRst),
         .D(oOut),
@@ -196,19 +274,19 @@ module hdmi_render_ClockGen
   FDCE #(
     .INIT(1'b1)) 
     \pLocked_q_reg[1] 
-       (.C(\oSyncStages_reg[1] ),
+       (.C(PixelClk),
         .CE(1'b1),
         .CLR(pRst),
         .D(\pLocked_q_reg_n_0_[0] ),
-        .Q(\pLocked_q_reg_n_0_[1] ));
+        .Q(p_0_in));
   FDCE #(
     .INIT(1'b1)) 
     \pLocked_q_reg[2] 
-       (.C(\oSyncStages_reg[1] ),
+       (.C(PixelClk),
         .CE(1'b1),
         .CLR(pRst),
-        .D(\pLocked_q_reg_n_0_[1] ),
-        .Q(p_1_in));
+        .D(p_0_in),
+        .Q(\pLocked_q_reg_n_0_[2] ));
 endmodule
 
 (* ORIG_REF_NAME = "OutputSERDES" *) 
@@ -521,23 +599,23 @@ module hdmi_render_OutputSERDES_2
    (TMDS_Data_p,
     TMDS_Data_n,
     SerialClk,
-    PixelClk,
+    \TMDS_Data_p[1] ,
     pDataOut,
     out);
   output [0:0]TMDS_Data_p;
   output [0:0]TMDS_Data_n;
   input SerialClk;
-  input PixelClk;
+  input \TMDS_Data_p[1] ;
   input [9:0]pDataOut;
   input [0:0]out;
 
   wire I;
-  wire PixelClk;
   wire SHIFTIN1;
   wire SHIFTIN2;
   wire SerialClk;
   wire [0:0]TMDS_Data_n;
   wire [0:0]TMDS_Data_p;
+  wire \TMDS_Data_p[1] ;
   wire [0:0]out;
   wire [9:0]pDataOut;
   wire NLW_SerializerMaster_OFB_UNCONNECTED;
@@ -587,7 +665,7 @@ module hdmi_render_OutputSERDES_2
     .TRISTATE_WIDTH(1)) 
     SerializerMaster
        (.CLK(SerialClk),
-        .CLKDIV(PixelClk),
+        .CLKDIV(\TMDS_Data_p[1] ),
         .D1(pDataOut[0]),
         .D2(pDataOut[1]),
         .D3(pDataOut[2]),
@@ -642,7 +720,7 @@ module hdmi_render_OutputSERDES_2
     .TRISTATE_WIDTH(1)) 
     SerializerSlave
        (.CLK(SerialClk),
-        .CLKDIV(PixelClk),
+        .CLKDIV(\TMDS_Data_p[1] ),
         .D1(1'b0),
         .D2(1'b0),
         .D3(pDataOut[8]),
@@ -675,23 +753,23 @@ module hdmi_render_OutputSERDES_4
    (TMDS_Data_p,
     TMDS_Data_n,
     SerialClk,
-    PixelClk,
+    \TMDS_Data_p[2] ,
     pDataOut,
     out);
   output [0:0]TMDS_Data_p;
   output [0:0]TMDS_Data_n;
   input SerialClk;
-  input PixelClk;
+  input \TMDS_Data_p[2] ;
   input [9:0]pDataOut;
   input [0:0]out;
 
   wire I;
-  wire PixelClk;
   wire SHIFTIN1;
   wire SHIFTIN2;
   wire SerialClk;
   wire [0:0]TMDS_Data_n;
   wire [0:0]TMDS_Data_p;
+  wire \TMDS_Data_p[2] ;
   wire [0:0]out;
   wire [9:0]pDataOut;
   wire NLW_SerializerMaster_OFB_UNCONNECTED;
@@ -741,7 +819,7 @@ module hdmi_render_OutputSERDES_4
     .TRISTATE_WIDTH(1)) 
     SerializerMaster
        (.CLK(SerialClk),
-        .CLKDIV(PixelClk),
+        .CLKDIV(\TMDS_Data_p[2] ),
         .D1(pDataOut[0]),
         .D2(pDataOut[1]),
         .D3(pDataOut[2]),
@@ -796,7 +874,7 @@ module hdmi_render_OutputSERDES_4
     .TRISTATE_WIDTH(1)) 
     SerializerSlave
        (.CLK(SerialClk),
-        .CLKDIV(PixelClk),
+        .CLKDIV(\TMDS_Data_p[2] ),
         .D1(1'b0),
         .D2(1'b0),
         .D3(pDataOut[8]),
@@ -848,20 +926,20 @@ endmodule
 module hdmi_render_ResetBridge_5
    (AR,
     aRst,
-    \oSyncStages_reg[1] );
+    PixelClk);
   output [0:0]AR;
   input aRst;
-  input \oSyncStages_reg[1] ;
+  input PixelClk;
 
   wire [0:0]AR;
+  wire PixelClk;
   (* RTL_KEEP = "true" *) wire aRst_int;
-  wire \oSyncStages_reg[1] ;
 
   assign aRst_int = aRst;
   hdmi_render_SyncAsync_6 SyncAsyncx
        (.AR(AR),
         .AS(aRst_int),
-        .\oSyncStages_reg[1]_0 (\oSyncStages_reg[1] ));
+        .PixelClk(PixelClk));
 endmodule
 
 (* ORIG_REF_NAME = "SyncAsync" *) 
@@ -903,15 +981,15 @@ endmodule
 (* ORIG_REF_NAME = "SyncAsync" *) 
 module hdmi_render_SyncAsync_6
    (AR,
-    \oSyncStages_reg[1]_0 ,
+    PixelClk,
     AS);
   output [0:0]AR;
-  input \oSyncStages_reg[1]_0 ;
+  input PixelClk;
   input [0:0]AS;
 
   wire [0:0]AS;
+  wire PixelClk;
   (* async_reg = "true" *) wire [1:0]oSyncStages;
-  wire \oSyncStages_reg[1]_0 ;
 
   assign AR[0] = oSyncStages[1];
   (* ASYNC_REG *) 
@@ -919,7 +997,7 @@ module hdmi_render_SyncAsync_6
   FDPE #(
     .INIT(1'b1)) 
     \oSyncStages_reg[0] 
-       (.C(\oSyncStages_reg[1]_0 ),
+       (.C(PixelClk),
         .CE(1'b1),
         .D(1'b0),
         .PRE(AS),
@@ -929,7 +1007,7 @@ module hdmi_render_SyncAsync_6
   FDPE #(
     .INIT(1'b1)) 
     \oSyncStages_reg[1] 
-       (.C(\oSyncStages_reg[1]_0 ),
+       (.C(PixelClk),
         .CE(1'b1),
         .D(oSyncStages[0]),
         .PRE(AS),
@@ -939,15 +1017,15 @@ endmodule
 (* ORIG_REF_NAME = "SyncAsync" *) 
 module hdmi_render_SyncAsync__parameterized1
    (D,
-    \oSyncStages_reg[1]_0 ,
+    PixelClk,
     \oSyncStages_reg[0]_0 );
   output [0:0]D;
-  input \oSyncStages_reg[1]_0 ;
+  input PixelClk;
   input [0:0]\oSyncStages_reg[0]_0 ;
 
+  wire PixelClk;
   (* async_reg = "true" *) wire [1:0]oSyncStages;
   wire [0:0]\oSyncStages_reg[0]_0 ;
-  wire \oSyncStages_reg[1]_0 ;
 
   assign D[0] = oSyncStages[1];
   (* ASYNC_REG *) 
@@ -955,7 +1033,7 @@ module hdmi_render_SyncAsync__parameterized1
   FDRE #(
     .INIT(1'b0)) 
     \oSyncStages_reg[0] 
-       (.C(\oSyncStages_reg[1]_0 ),
+       (.C(PixelClk),
         .CE(1'b1),
         .D(\oSyncStages_reg[0]_0 ),
         .Q(oSyncStages[0]),
@@ -965,7 +1043,7 @@ module hdmi_render_SyncAsync__parameterized1
   FDRE #(
     .INIT(1'b0)) 
     \oSyncStages_reg[1] 
-       (.C(\oSyncStages_reg[1]_0 ),
+       (.C(PixelClk),
         .CE(1'b1),
         .D(oSyncStages[0]),
         .Q(oSyncStages[1]),
@@ -3897,7 +3975,7 @@ module hdmi_render_TMDS_Encoder_3
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "rgb2dvi" *) (* kClkPrimitive = "PLL" *) (* kClkRange = "3" *) 
+(* ORIG_REF_NAME = "rgb2dvi" *) (* kClkPrimitive = "MMCM" *) (* kClkRange = "3" *) 
 (* kClkSwap = "FALSE" *) (* kD0Swap = "FALSE" *) (* kD1Swap = "FALSE" *) 
 (* kD2Swap = "FALSE" *) (* kGenerateSerialClk = "TRUE" *) (* kRstActiveHigh = "TRUE" *) 
 module hdmi_render_rgb2dvi
@@ -3946,11 +4024,11 @@ module hdmi_render_rgb2dvi
   wire vid_pVSync;
 
   hdmi_render_ClockGen \ClockGenInternal.ClockGenX 
-       (.PixelClk(PixelClkIO),
+       (.PixelClk(PixelClk),
         .SerialClk(SerialClkIO),
         .aRst(aRst),
         .in0(aRstLck),
-        .\oSyncStages_reg[1] (PixelClk));
+        .pLockGained_reg_0(PixelClkIO));
   hdmi_render_OutputSERDES ClockSerializer
        (.PixelClk(PixelClkIO),
         .SerialClk(SerialClkIO),
@@ -3978,10 +4056,10 @@ module hdmi_render_rgb2dvi
         .SR(p_1_in),
         .vid_pData(vid_pData[7:0]));
   hdmi_render_OutputSERDES_2 \DataEncoders[1].DataSerializer 
-       (.PixelClk(PixelClkIO),
-        .SerialClk(SerialClkIO),
+       (.SerialClk(SerialClkIO),
         .TMDS_Data_n(TMDS_Data_n[1]),
         .TMDS_Data_p(TMDS_Data_p[1]),
+        .\TMDS_Data_p[1] (PixelClkIO),
         .out(pRstLck),
         .pDataOut(\pDataOutRaw[1] ));
   hdmi_render_TMDS_Encoder_3 \DataEncoders[2].DataEncoder 
@@ -3990,10 +4068,10 @@ module hdmi_render_rgb2dvi
         .SR(p_1_in),
         .vid_pData(vid_pData[23:16]));
   hdmi_render_OutputSERDES_4 \DataEncoders[2].DataSerializer 
-       (.PixelClk(PixelClkIO),
-        .SerialClk(SerialClkIO),
+       (.SerialClk(SerialClkIO),
         .TMDS_Data_n(TMDS_Data_n[2]),
         .TMDS_Data_p(TMDS_Data_p[2]),
+        .\TMDS_Data_p[2] (PixelClkIO),
         .out(pRstLck),
         .pDataOut(\pDataOutRaw[2] ));
   hdmi_render_ResetBridge LockLostReset
