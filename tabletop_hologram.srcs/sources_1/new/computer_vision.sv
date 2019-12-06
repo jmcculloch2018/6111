@@ -161,13 +161,13 @@ module computer_vision(
     logic [7:0] h;
     logic [7:0] out_v;
     assign h_upper_green = night ? 120:95;
-    assign h_lower_green = 30;
+    assign h_lower_green = night ? 100 : 30;
     assign h_upper_red = 10;
     assign h_lower_red = 0;
     assign v_upper = 255;
     assign v_lower = 127;
     assign s_upper_green = 255;
-    assign s_lower_green = 0;
+    assign s_lower_green = night ? 170 : 0;
     assign s_upper_red = 255;
     assign s_lower_red = 100;
     assign count_threshold_red = 20;
