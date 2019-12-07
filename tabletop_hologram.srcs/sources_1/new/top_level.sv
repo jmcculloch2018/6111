@@ -59,7 +59,7 @@ module top_level(
     logic increasing;
     
     assign pixel_clk = vclock_count[1];
-    assign model_trans = {12'd50, 12'h0, 12'h0};
+//    assign model_trans = {12'd50, 12'h0, 12'h0};
 //    assign rpy = {12'h0, 12'h0, 12'h200};
 //    assign world_trans = {12'h0, 12'h0, 12'h0};
 

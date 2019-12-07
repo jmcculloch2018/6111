@@ -20,7 +20,7 @@ module cv2render_tb;
     .user(out) );
     
     always begin
-        #1;  //every 5 ns switch...so period of clock is 10 ns...100 MHz clock
+        #5;  //every 5 ns switch...so period of clock is 10 ns...100 MHz clock
         clk = !clk;
     end
     
@@ -36,15 +36,25 @@ module cv2render_tb;
         next_frame = 1;
         #2
         next_frame = 0;
-
-        for (i =20; i<240; i= i+5) begin
-            blob_x = i;
-            blob_y = i;
-            #6;
+        #100;
+        blob_x = 100;
+        for (i = 0; i<100; i= i+1) begin
+            #100;
             next_frame = 1;
-            #2
+            #10; 
             next_frame = 0;
         end
+       
+        
+
+//        for (i =20; i<240; i= i+5) begin
+//            blob_x = i;
+//            blob_y = i;
+//            #6;
+//            next_frame = 1;
+//            #2
+//            next_frame = 0;
+//        end
     end
 
 endmodule //counter_tb

@@ -16,10 +16,10 @@ module game_logic(
     output logic [1:0] game_state
     );
     
-    parameter Z_MIN = -12'sd500;
+    parameter Z_MIN = -12'sd1000;
     parameter Z_MAX = 12'sd100;
-    parameter Z_MIN_SWIPE = 12'sd50;
-    parameter TIME_OF_FLIGHT_FRAMES = 32'sd360; // 6 sec
+    parameter Z_MIN_SWIPE = 12'sd0;
+    parameter TIME_OF_FLIGHT_FRAMES = 32'sd240; // 6 sec
     
     // reciprocal of time of flight
     parameter TOF_N = 16;
@@ -47,6 +47,7 @@ module game_logic(
         .saber_detected(saber_detected),
         .saber_moving(saber_moving)
     );
+    assign model_trans = 0;
     always_ff @(posedge clk_in) begin
         cur_time <= (16'sd2 * $signed(frame_count) - TIME_OF_FLIGHT_FRAMES) * TOF_M;
         z_model <= delta_z + Z_MAX;
@@ -64,13 +65,11 @@ module game_logic(
             separation <= did_swipe_fruit ? (separation + 1) : separation;
             //SET TRANSFORMATIONS
             //If in game state, set game transforms
-            model_trans[0] <= 0;
-            model_trans[1] <= 0;
-            rpy[0][2] <= 0;
-            rpy[0][1] <= state==2'b11 ? (rpy[1] + 12'h00F):0;
+            rpy[0][2] <= state==2'b11 ? (separation * 12'sh008):0;
+            rpy[0][1] <= 0;
             rpy[0][0] <= state==2'b11 ? (rpy[0] + 12'h00D):0;
-            rpy[1][2] <= 0;
-            rpy[1][1] <= state==2'b11 ? (rpy[1] + 12'h00F):0;
+            rpy[1][2] <= state==2'b11 ? (separation * 12'sh008):0;
+            rpy[1][1] <= 0;
             rpy[1][0] <= state==2'b11 ? (rpy[0] + 12'h00D):0;
             world_trans[0] <= state==2'b11 ? {separation, 12'h0, z_model}:0;
             world_trans[1] <= state==2'b11 ? {-separation, 12'h0, z_model}:0;
