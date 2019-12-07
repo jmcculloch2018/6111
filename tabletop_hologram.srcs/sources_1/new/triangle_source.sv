@@ -12,7 +12,7 @@ module triangle_source(
         output logic [8:0][11:0] vertices_out 
     );
     // Mobius Strip, Notre Dame, Cube, Banana 2, Banana 1
-    parameter integer NUM_TRIANGLES [4:0] = {13'd3904, 13'd3608, 13'd12, 13'd5647, 13'd4924} ;
+    parameter integer NUM_TRIANGLES [4:0] = {13'd3946, 13'd3990, 13'd560, 13'd5647, 13'd4924} ;
     logic [15:0] tri_count;
     logic [4:0][119:0] data_out;
     logic [2:0] obj_select;
