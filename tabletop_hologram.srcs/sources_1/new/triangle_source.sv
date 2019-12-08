@@ -12,40 +12,42 @@ module triangle_source(
         output logic [8:0][11:0] vertices_out,
         output logic signed [2:0] [11:0] normal
     );
-    // Mobius Strip, Notre Dame, Cube, Banana 2, Banana 1
-    parameter integer NUM_TRIANGLES [4:0] = {13'd3949, 13'd4042, 13'd560, 13'd5647, 13'd4924} ;
+    //Cube, Suit, Mobius, Thanos 2, Thanos 1
+    parameter integer NUM_TRIANGLES [4:0] = {14'd560, 14'd12754, 14'd1677, 14'd4982, 14'd4988} ;
     logic [15:0] tri_count;
     logic [4:0][155:0] data_out;
     logic [2:0] obj_select;
     //First Half of Model
-    banana_rom1 banana1 (
+    banana_rom1 thanos1 (
       .clka(clk_in),    // input wire clka
       .addra(tri_count),  // input wire [3 : 0] addra
       .douta(data_out[0]),  // output wire [119 : 0] douta
       .ena(1)
     );
     //Seconds Half of Model
-    banana_rom2 banana2 (
+    banana_rom2 thanos2 (
       .clka(clk_in),    // input wire clka
       .addra(tri_count),  // input wire [3 : 0] addra
       .douta(data_out[1]),  // output wire [119 : 0] douta
       .ena(1)
     );
     
-    demo_rom1 demo1 ( //FPGA cube
+    demo_rom1 mobius ( //Mobius Strip
       .clka(clk_in),    
       .addra(tri_count),
       .douta(data_out[2]), 
       .ena(1)
     );
-    demo_rom2 demo2 ( //Notre Dame
+    
+    demo_rom2 suit ( //Iron Man suit
       .clka(clk_in),   
       .addra(tri_count),  
       .douta(data_out[3]),  
       .ena(1)
     );
-    demo_rom3 demo3 ( //Mobius Strip
-      .clka(clk_in), 
+    
+    demo_rom3 cube ( //FPGA Cube
+      .clka(clk_in),   
       .addra(tri_count),  
       .douta(data_out[4]),  
       .ena(1)

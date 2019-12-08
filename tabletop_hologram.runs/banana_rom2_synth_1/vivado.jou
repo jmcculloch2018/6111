@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Sun Dec  8 16:29:11 2019
+# Process ID: 10176
+# Current directory: C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/banana_rom2_synth_1
+# Command line: vivado.exe -log banana_rom2.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source banana_rom2.tcl
+# Log file: C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/banana_rom2_synth_1/banana_rom2.vds
+# Journal file: C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/banana_rom2_synth_1\vivado.jou
+#-----------------------------------------------------------
+source banana_rom2.tcl -notrace

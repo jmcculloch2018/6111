@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="div_rom_synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/div_rom_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="hdmi_render_synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/hdmi_render_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="sqrt_rom_synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/sqrt_rom_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="z_interp_divider_synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/z_interp_divider_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="projection_divider_synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/projection_divider_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="frame_buffer_synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/frame_buffer_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="centroid_div_synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/centroid_div_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="fifo_synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/fifo_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="banana_rom1_synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/banana_rom1_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="banana_rom2_synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/banana_rom2_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="demo_rom3_synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/demo_rom3_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="demo_rom2_synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/demo_rom2_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="synth_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado">
+		<Parent Id="div_rom_synth_1"/>
+		<Parent Id="hdmi_render_synth_1"/>
+		<Parent Id="sqrt_rom_synth_1"/>
+		<Parent Id="z_interp_divider_synth_1"/>
+		<Parent Id="projection_divider_synth_1"/>
+		<Parent Id="frame_buffer_synth_1"/>
+		<Parent Id="centroid_div_synth_1"/>
+		<Parent Id="fifo_synth_1"/>
+		<Parent Id="banana_rom1_synth_1"/>
+		<Parent Id="banana_rom2_synth_1"/>
+		<Parent Id="demo_rom3_synth_1"/>
+		<Parent Id="demo_rom2_synth_1"/>
+	</Run>
+	<Run Id="impl_1" LaunchDir="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/impl_1" FlowId="Vivado_Implementation" FromStepId="init_design" ToStepId="write_bitstream">
+		<Parent Id="synth_1"/>
+		<Parent Id="div_rom_synth_1"/>
+		<Parent Id="hdmi_render_synth_1"/>
+		<Parent Id="sqrt_rom_synth_1"/>
+		<Parent Id="z_interp_divider_synth_1"/>
+		<Parent Id="projection_divider_synth_1"/>
+		<Parent Id="frame_buffer_synth_1"/>
+		<Parent Id="centroid_div_synth_1"/>
+		<Parent Id="fifo_synth_1"/>
+		<Parent Id="banana_rom1_synth_1"/>
+		<Parent Id="banana_rom2_synth_1"/>
+		<Parent Id="demo_rom3_synth_1"/>
+		<Parent Id="demo_rom2_synth_1"/>
+	</Run>
+	<Parameters>
+		<Parameter Name="runs.monitorLSFJobs" Val="true" Type="bool"/>
+	</Parameters>
+</Runs>
+
