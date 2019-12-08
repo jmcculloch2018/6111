@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="div_rom_synth_1" LaunchPart="xc7a200tsbg484-3" LaunchTime="1575842091">
   <File Type="PA-TCL" Name="div_rom.tcl"/>
-  <File Type="RDS-PROPCONSTRS" Name="div_rom_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="div_rom_reports.tcl"/>
   <File Type="RDS-RDS" Name="div_rom.vds"/>
-  <File Type="RDS-UTIL" Name="div_rom_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="div_rom_utilization_synth.pb"/>
   <File Type="RDS-DCP" Name="div_rom.dcp"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="div_rom_timing_summary_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="div_rom_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/div_rom">
     <File Path="$PSRCDIR/sources_1/ip/div_rom/div_rom.xci">
       <FileInfo>

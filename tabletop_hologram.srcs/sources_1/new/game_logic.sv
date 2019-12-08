@@ -17,8 +17,8 @@ module game_logic(
     );
     
     parameter Z_MIN = -12'sd1000;
-    parameter Z_MAX = 12'sd900;
-    parameter Z_MIN_SWIPE = 12'sd600;
+    parameter Z_MAX = 12'sd400;
+    parameter Z_MIN_SWIPE = 12'sd200;
     parameter TIME_OF_FLIGHT_FRAMES = 32'sd240; // 6 sec
     
     // reciprocal of time of flight
