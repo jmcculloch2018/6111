@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Mon Nov 25 12:56:36 2019
+// Date        : Mon Nov 25 12:56:35 2019
 // Host        : DESKTOP-982HE02 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/fifo/fifo_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top fifo -prefix
+//               fifo_ fifo_stub.v
 // Design      : fifo
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a200tsbg484-3

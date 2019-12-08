@@ -14,8 +14,8 @@ logic signed  [2:0] [11:0] t1;
 logic signed [2:0] [11:0] t2;
 logic signed [2:0] [11:0] t3;
 //Vectors for user and Triangle Normal
-logic signed [2:0] [15:0] T;
-logic signed [2:0] [15:0] V;
+logic signed [2:0] [11:0] T;
+logic signed [2:0] [11:0] V;
 //Top and bottom sum
 logic signed [31:0] magnitude_squared_T, magnitude_squared_V, T_dot_V;
 logic signed [63:0] top;
@@ -69,6 +69,7 @@ always_ff @(posedge clk_in) begin
         t3 [0] <= $signed(triag[6]);
         t3 [1] <= $signed(triag[7]);
         t3 [2] <= $signed(triag[8]); 
+         T <= normal;
     end else if (counter>13) begin //Finished
         finished <= 1;
         state <= 0;
@@ -89,13 +90,9 @@ always_ff @(posedge clk_in) begin
 //            T[0] <= $signed(t2[1]-t1[1])*$signed(t3[2]-t1[2])-$signed(t3[1]-t1[1])*$signed(t2[2]-t1[2]);
 //            T[1] <= -$signed(t2[0]-t1[0])*$signed(t3[2]-t1[2])+$signed(t3[0]-t1[0])*$signed(t2[2]-t1[2]);
 //            T[2] <= $signed(t2[0]-t1[0])*$signed(t3[1]-t1[1])-$signed(t3[0]-t1[0])*$signed(t2[1]-t1[1]);
-              T[0] <= normal[0];
-              T[1] <= normal[1];
-              T[2] <= normal[2];
+             
             //User perspective vector (12 bits)
-            V[0] <= $signed(user_pos[0]);
-            V[1] <= $signed(user_pos[1]);
-            V[2] <= $signed(user_pos[2]);
+            V <= user_pos;
             end
         3'b010: begin //Compute top and bottom
             //Dot product between the vectors, result squared (42)->84

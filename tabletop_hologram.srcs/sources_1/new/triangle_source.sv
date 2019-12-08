@@ -13,7 +13,7 @@ module triangle_source(
         output logic signed [2:0] [11:0] normal
     );
     // Mobius Strip, Notre Dame, Cube, Banana 2, Banana 1
-    parameter integer NUM_TRIANGLES [4:0] = {13'd3946, 13'd3990, 13'd560, 13'd5647, 13'd4924} ;
+    parameter integer NUM_TRIANGLES [4:0] = {13'd3949, 13'd4042, 13'd560, 13'd5647, 13'd4924} ;
     logic [15:0] tri_count;
     logic [4:0][155:0] data_out;
     logic [2:0] obj_select;
@@ -73,7 +73,7 @@ module triangle_source(
         end 
     end
     
-    assign normal = data_out[155:120];
+    assign normal = data_out[obj_select][155:120];
     assign triangles_available = tri_count < (NUM_TRIANGLES[obj_select] - 1) || (obj_select==0);
     assign rgb_out = data_out[obj_select][119:108];
     assign vertices_out = data_out[obj_select][107:0];

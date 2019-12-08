@@ -160,20 +160,20 @@ module computer_vision(
     
     logic [7:0] h;
     logic [7:0] out_v;
-    assign h_upper_green = night ? 120 : 120;
-    assign h_lower_green = night ? 100 : 90;
+    assign h_upper_green = 230; // green = blue
+    assign h_lower_green = 150;
     assign h_upper_red = 10;
     assign h_lower_red = 0;
+    assign v_upper_red = 255;
+    assign v_lower_red = 127;
     assign v_upper_green = 255;
-    assign v_lower_green = night ? 127 : 150;
-    assign v_upper_green = 255;
-    assign v_lower_green = night ? 127 : 150;
+    assign v_lower_green = 127;
     assign s_upper_green = 255;
-    assign s_lower_green = night ? 170 : 100;
+    assign s_lower_green = 200;
     assign s_upper_red = 255;
-    assign s_lower_red = 100;
+    assign s_lower_red = 200;
     assign count_threshold_red = 15;
-    assign count_threshold_green = 100;
+    assign count_threshold_green = 20;
     logic empty_p;
     
      pipeline #(.N_BITS(1), .N_REGISTERS(22)) pipeline_x(
