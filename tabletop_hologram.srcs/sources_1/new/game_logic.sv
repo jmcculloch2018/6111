@@ -32,7 +32,6 @@ module game_logic(
     logic signed [11:0] z_model;
     logic signed [11:0] separation;
 //    logic did_swipe_fruit;
-    logic signed [2:0][11:0] rpy;
     logic signed [63:0]delta_z;
     logic [1:0] state = 0;
 

@@ -44,6 +44,10 @@
     logic signed [8:0][11:0] vertices_projection_out;
     logic signed [8:0][11:0] vertices_rasterize;
     
+    
+    logic signed [2:0][11:0] normal_triangle_source;
+    logic signed [2:0][11:0] normal_transform;
+
     logic [11:0] x_read_inactive_frame;
     logic [11:0] y_read_inactive_frame;
     logic [11:0] x_write_inactive_frame;
@@ -81,7 +85,8 @@
         .tf_sel(obj_sel),
         .triangles_available(triangles_available),
         .rgb_out(rgb_triangle_source),
-        .vertices_out(vertices_triangle_source)
+        .vertices_out(vertices_triangle_source),
+        .normal(normal_triangle_source)
     );
     
     transformation my_trans(
@@ -91,9 +96,11 @@
         .model_translation(model_trans[obj_sel]),
         .rpy(rpy[obj_sel]),
         .world_translation(world_trans[obj_sel]),
+        .normal_in(normal_triangle_source),
         .new_data_in(new_data_transform),
         .vertices_out(vertices_transform),
-        .finished_out(transform_finish)
+        .finished_out(transform_finish),
+        .normal_out(normal_transform)
     );
     
     projection_with_height my_projection(
@@ -113,6 +120,7 @@
         .triag(vertices_transform), 
         .user_pos(user),
         .rgb_out(rgb_shader),
+        .normal(normal_transform),
         .finished(shader_finish)
     );    
         

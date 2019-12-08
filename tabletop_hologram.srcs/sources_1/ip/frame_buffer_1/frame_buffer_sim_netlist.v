@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Thu Nov 21 15:21:00 2019
+// Date        : Thu Nov 21 15:20:57 2019
 // Host        : DESKTOP-982HE02 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/frame_buffer_1/frame_buffer_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top frame_buffer -prefix
+//               frame_buffer_ frame_buffer_sim_netlist.v
 // Design      : frame_buffer
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -200,7 +200,6 @@ module frame_buffer
         .web(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_generic_cstr" *) 
 module frame_buffer_blk_mem_gen_generic_cstr
    (doutb,
     addrb,
@@ -5964,7 +5963,6 @@ module frame_buffer_blk_mem_gen_mux__parameterized0
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_width" *) 
 module frame_buffer_blk_mem_gen_prim_width
    (ram_doutb,
     addra_14_sp_1,
@@ -9975,7 +9973,6 @@ module frame_buffer_blk_mem_gen_prim_width__parameterized95
         .ram_enb(ram_enb));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper_init" *) 
 module frame_buffer_blk_mem_gen_prim_wrapper_init
    (ram_doutb,
     addra_14_sp_1,
@@ -37814,7 +37811,6 @@ module frame_buffer_blk_mem_gen_prim_wrapper_init__parameterized95
         .O(ram_enb));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_top" *) 
 module frame_buffer_blk_mem_gen_top
    (doutb,
     addrb,
@@ -37870,7 +37866,7 @@ endmodule
 (* C_WEA_WIDTH = "1" *) (* C_WEB_WIDTH = "1" *) (* C_WRITE_DEPTH_A = "160000" *) 
 (* C_WRITE_DEPTH_B = "160000" *) (* C_WRITE_MODE_A = "NO_CHANGE" *) (* C_WRITE_MODE_B = "READ_FIRST" *) 
 (* C_WRITE_WIDTH_A = "24" *) (* C_WRITE_WIDTH_B = "24" *) (* C_XDEVICEFAMILY = "artix7" *) 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_3" *) (* downgradeipidentifiedwarnings = "yes" *) 
+(* downgradeipidentifiedwarnings = "yes" *) 
 module frame_buffer_blk_mem_gen_v8_4_3
    (clka,
     rsta,
@@ -38126,7 +38122,6 @@ module frame_buffer_blk_mem_gen_v8_4_3
         .wea(wea));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_3_synth" *) 
 module frame_buffer_blk_mem_gen_v8_4_3_synth
    (doutb,
     addrb,

@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Thu Dec  5 21:23:16 2019
+// Date        : Thu Dec  5 21:23:15 2019
 // Host        : DESKTOP-982HE02 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/hdmi_render/hdmi_render_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top hdmi_render -prefix
+//               hdmi_render_ hdmi_render_sim_netlist.v
 // Design      : hdmi_render
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -12,65 +12,6 @@
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CHECK_LICENSE_TYPE = "hdmi_render,rgb2dvi,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "rgb2dvi,Vivado 2019.1" *) 
-(* NotValidForBitStream *)
-module hdmi_render
-   (TMDS_Clk_p,
-    TMDS_Clk_n,
-    TMDS_Data_p,
-    TMDS_Data_n,
-    aRst,
-    vid_pData,
-    vid_pVDE,
-    vid_pHSync,
-    vid_pVSync,
-    PixelClk);
-  (* x_interface_info = "digilentinc.com:interface:tmds:1.0 TMDS CLK_P, xilinx.com:signal:clock:1.0 TMDS_Clk_p CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME TMDS, BOARD.ASSOCIATED_PARAM TMDS_BOARD_INTERFACE, XIL_INTERFACENAME TMDS_Clk_p, FREQ_HZ 100000000, PHASE 0.000, INSERT_VIP 0" *) output TMDS_Clk_p;
-  (* x_interface_info = "digilentinc.com:interface:tmds:1.0 TMDS CLK_N, xilinx.com:signal:clock:1.0 TMDS_Clk_n CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME TMDS_Clk_n, ASSOCIATED_RESET aRst_n, FREQ_HZ 100000000, PHASE 0.000, INSERT_VIP 0" *) output TMDS_Clk_n;
-  (* x_interface_info = "digilentinc.com:interface:tmds:1.0 TMDS DATA_P" *) output [2:0]TMDS_Data_p;
-  (* x_interface_info = "digilentinc.com:interface:tmds:1.0 TMDS DATA_N" *) output [2:0]TMDS_Data_n;
-  (* x_interface_info = "xilinx.com:signal:reset:1.0 AsyncRst RST" *) (* x_interface_parameter = "XIL_INTERFACENAME AsyncRst, POLARITY ACTIVE_HIGH, INSERT_VIP 0" *) input aRst;
-  (* x_interface_info = "xilinx.com:interface:vid_io:1.0 RGB DATA" *) input [23:0]vid_pData;
-  (* x_interface_info = "xilinx.com:interface:vid_io:1.0 RGB ACTIVE_VIDEO" *) input vid_pVDE;
-  (* x_interface_info = "xilinx.com:interface:vid_io:1.0 RGB HSYNC" *) input vid_pHSync;
-  (* x_interface_info = "xilinx.com:interface:vid_io:1.0 RGB VSYNC" *) input vid_pVSync;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 PixelClk CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME PixelClk, FREQ_HZ 100000000, PHASE 0.000, INSERT_VIP 0" *) input PixelClk;
-
-  wire PixelClk;
-  (* IOSTANDARD = "TMDS_33" *) (* SLEW = "SLOW" *) wire TMDS_Clk_n;
-  (* IOSTANDARD = "TMDS_33" *) (* SLEW = "SLOW" *) wire TMDS_Clk_p;
-  (* IOSTANDARD = "TMDS_33" *) (* SLEW = "SLOW" *) wire [2:0]TMDS_Data_n;
-  (* IOSTANDARD = "TMDS_33" *) (* SLEW = "SLOW" *) wire [2:0]TMDS_Data_p;
-  wire aRst;
-  wire [23:0]vid_pData;
-  wire vid_pHSync;
-  wire vid_pVDE;
-  wire vid_pVSync;
-
-  (* kClkPrimitive = "MMCM" *) 
-  (* kClkRange = "3" *) 
-  (* kClkSwap = "FALSE" *) 
-  (* kD0Swap = "FALSE" *) 
-  (* kD1Swap = "FALSE" *) 
-  (* kD2Swap = "FALSE" *) 
-  (* kGenerateSerialClk = "TRUE" *) 
-  (* kRstActiveHigh = "TRUE" *) 
-  hdmi_render_rgb2dvi U0
-       (.PixelClk(PixelClk),
-        .SerialClk(1'b0),
-        .TMDS_Clk_n(TMDS_Clk_n),
-        .TMDS_Clk_p(TMDS_Clk_p),
-        .TMDS_Data_n(TMDS_Data_n),
-        .TMDS_Data_p(TMDS_Data_p),
-        .aRst(aRst),
-        .aRst_n(1'b1),
-        .vid_pData(vid_pData),
-        .vid_pHSync(vid_pHSync),
-        .vid_pVDE(vid_pVDE),
-        .vid_pVSync(vid_pVSync));
-endmodule
-
-(* ORIG_REF_NAME = "ClockGen" *) 
 module hdmi_render_ClockGen
    (SerialClk,
     pLockGained_reg_0,
@@ -289,7 +230,6 @@ module hdmi_render_ClockGen
         .Q(\pLocked_q_reg_n_0_[2] ));
 endmodule
 
-(* ORIG_REF_NAME = "OutputSERDES" *) 
 module hdmi_render_OutputSERDES
    (TMDS_Clk_p,
     TMDS_Clk_n,
@@ -902,7 +842,6 @@ module hdmi_render_OutputSERDES_4
         .TQ(NLW_SerializerSlave_TQ_UNCONNECTED));
 endmodule
 
-(* ORIG_REF_NAME = "ResetBridge" *) 
 module hdmi_render_ResetBridge
    (out,
     in0,
@@ -942,7 +881,6 @@ module hdmi_render_ResetBridge_5
         .PixelClk(PixelClk));
 endmodule
 
-(* ORIG_REF_NAME = "SyncAsync" *) 
 module hdmi_render_SyncAsync
    (out,
     PixelClk,
@@ -1050,7 +988,6 @@ module hdmi_render_SyncAsync__parameterized1
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "TMDS_Encoder" *) 
 module hdmi_render_TMDS_Encoder
    (SR,
     Q,
@@ -3975,9 +3912,67 @@ module hdmi_render_TMDS_Encoder_3
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "rgb2dvi" *) (* kClkPrimitive = "MMCM" *) (* kClkRange = "3" *) 
-(* kClkSwap = "FALSE" *) (* kD0Swap = "FALSE" *) (* kD1Swap = "FALSE" *) 
-(* kD2Swap = "FALSE" *) (* kGenerateSerialClk = "TRUE" *) (* kRstActiveHigh = "TRUE" *) 
+(* CHECK_LICENSE_TYPE = "hdmi_render,rgb2dvi,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "rgb2dvi,Vivado 2019.1" *) 
+(* NotValidForBitStream *)
+module hdmi_render
+   (TMDS_Clk_p,
+    TMDS_Clk_n,
+    TMDS_Data_p,
+    TMDS_Data_n,
+    aRst,
+    vid_pData,
+    vid_pVDE,
+    vid_pHSync,
+    vid_pVSync,
+    PixelClk);
+  (* x_interface_info = "digilentinc.com:interface:tmds:1.0 TMDS CLK_P, xilinx.com:signal:clock:1.0 TMDS_Clk_p CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME TMDS, BOARD.ASSOCIATED_PARAM TMDS_BOARD_INTERFACE, XIL_INTERFACENAME TMDS_Clk_p, FREQ_HZ 100000000, PHASE 0.000, INSERT_VIP 0" *) output TMDS_Clk_p;
+  (* x_interface_info = "digilentinc.com:interface:tmds:1.0 TMDS CLK_N, xilinx.com:signal:clock:1.0 TMDS_Clk_n CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME TMDS_Clk_n, ASSOCIATED_RESET aRst_n, FREQ_HZ 100000000, PHASE 0.000, INSERT_VIP 0" *) output TMDS_Clk_n;
+  (* x_interface_info = "digilentinc.com:interface:tmds:1.0 TMDS DATA_P" *) output [2:0]TMDS_Data_p;
+  (* x_interface_info = "digilentinc.com:interface:tmds:1.0 TMDS DATA_N" *) output [2:0]TMDS_Data_n;
+  (* x_interface_info = "xilinx.com:signal:reset:1.0 AsyncRst RST" *) (* x_interface_parameter = "XIL_INTERFACENAME AsyncRst, POLARITY ACTIVE_HIGH, INSERT_VIP 0" *) input aRst;
+  (* x_interface_info = "xilinx.com:interface:vid_io:1.0 RGB DATA" *) input [23:0]vid_pData;
+  (* x_interface_info = "xilinx.com:interface:vid_io:1.0 RGB ACTIVE_VIDEO" *) input vid_pVDE;
+  (* x_interface_info = "xilinx.com:interface:vid_io:1.0 RGB HSYNC" *) input vid_pHSync;
+  (* x_interface_info = "xilinx.com:interface:vid_io:1.0 RGB VSYNC" *) input vid_pVSync;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 PixelClk CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME PixelClk, FREQ_HZ 100000000, PHASE 0.000, INSERT_VIP 0" *) input PixelClk;
+
+  wire PixelClk;
+  (* IOSTANDARD = "TMDS_33" *) (* SLEW = "SLOW" *) wire TMDS_Clk_n;
+  (* IOSTANDARD = "TMDS_33" *) (* SLEW = "SLOW" *) wire TMDS_Clk_p;
+  (* IOSTANDARD = "TMDS_33" *) (* SLEW = "SLOW" *) wire [2:0]TMDS_Data_n;
+  (* IOSTANDARD = "TMDS_33" *) (* SLEW = "SLOW" *) wire [2:0]TMDS_Data_p;
+  wire aRst;
+  wire [23:0]vid_pData;
+  wire vid_pHSync;
+  wire vid_pVDE;
+  wire vid_pVSync;
+
+  (* kClkPrimitive = "MMCM" *) 
+  (* kClkRange = "3" *) 
+  (* kClkSwap = "FALSE" *) 
+  (* kD0Swap = "FALSE" *) 
+  (* kD1Swap = "FALSE" *) 
+  (* kD2Swap = "FALSE" *) 
+  (* kGenerateSerialClk = "TRUE" *) 
+  (* kRstActiveHigh = "TRUE" *) 
+  hdmi_render_rgb2dvi U0
+       (.PixelClk(PixelClk),
+        .SerialClk(1'b0),
+        .TMDS_Clk_n(TMDS_Clk_n),
+        .TMDS_Clk_p(TMDS_Clk_p),
+        .TMDS_Data_n(TMDS_Data_n),
+        .TMDS_Data_p(TMDS_Data_p),
+        .aRst(aRst),
+        .aRst_n(1'b1),
+        .vid_pData(vid_pData),
+        .vid_pHSync(vid_pHSync),
+        .vid_pVDE(vid_pVDE),
+        .vid_pVSync(vid_pVSync));
+endmodule
+
+(* kClkPrimitive = "MMCM" *) (* kClkRange = "3" *) (* kClkSwap = "FALSE" *) 
+(* kD0Swap = "FALSE" *) (* kD1Swap = "FALSE" *) (* kD2Swap = "FALSE" *) 
+(* kGenerateSerialClk = "TRUE" *) (* kRstActiveHigh = "TRUE" *) 
 module hdmi_render_rgb2dvi
    (TMDS_Clk_p,
     TMDS_Clk_n,

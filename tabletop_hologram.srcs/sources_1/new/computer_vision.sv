@@ -164,8 +164,8 @@ module computer_vision(
     assign h_lower_green = night ? 100 : 90;
     assign h_upper_red = 10;
     assign h_lower_red = 0;
-    assign v_upper_green = 255;
-    assign v_lower_green = night ? 127 : 150;
+    assign v_upper_red = 255;
+    assign v_lower_red = night ? 127 : 150;
     assign v_upper_green = 255;
     assign v_lower_green = night ? 127 : 150;
     assign s_upper_green = 255;
