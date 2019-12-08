@@ -9,17 +9,19 @@ parser.add_argument("--color", "-color", type=str, required=True)
 parser.add_argument("--size", "-size", type=int, required=False, default=0)
 parser.add_argument("--scale", "-scale", type=float, required=False, default=0)
 parser.add_argument("--center", "-center", type=bool, required=False, default=False)
+parser.add_argument("--normals", "-n", type=bool, required=False, default=False)
 args = parser.parse_args()
 filenames = [args.input]
 filewrite = args.output
 should_center = args.center
 desired_size = args.size
 scale = args.scale
+normals = args.normals
 shift = np.zeros(3)
 pos_len= 12 #length in bits of max coordinate range
 radix= 2 #in hex
-color = "{0:08b}".format(int(args.color, 16)) 
-
+color = "{0:012b}".format(int(args.color, 16)) 
+scale_normal = 2 ** (pos_len - 1) - 1
 
 # '000000001111' blue
 # '101000101101' purple
@@ -50,6 +52,12 @@ def convert(num1, num2, num3):
     n3 = to_bin(num3 - shift[2])
     return n1+n2+n3
 
+def convert_normal(num1, num2, num3):
+    n1 = twos_comp(int(num1 * scale_normal))
+    n2 = twos_comp(int(num2 * scale_normal))
+    n3 = twos_comp(int(num3 * scale_normal))
+    return n1+n2+n3
+
 def is_a_triangle(T):
     t=list()
     for i in T:
@@ -74,11 +82,16 @@ for filename in filenames:
     # Read File
     lines = open(filename).read().splitlines()
     #delim = '  vertex '
-    delim = '         vertex '
-    data = [x[len(delim):] for x in lines if x[:len(delim)]==delim]
+    delim_vert = 'vertex '
+    delim_norm = 'normal '
     block = []
-    for i in data:
-        block.append(i.split(' '))
+    normals = []
+    for line in lines:
+        if delim_vert in line:
+            block.append(line[(line.index(delim_vert) + len(delim_vert)):].split(' '))
+        elif delim_norm in line:
+            normals.append(line[(line.index(delim_norm) + len(delim_norm)):].split(' '))
+    
     
     maxes = np.array([float(x) for x in block[0]])
     mins =  np.array([float(x) for x in block[0]])
@@ -88,7 +101,7 @@ for filename in filenames:
             mins[j] = min(mins[j], float(i[j]))
     
     if (should_center):
-        scale = (maxes + mins) / 2
+        shift = (maxes + mins) / 2
     
     if (scale == 0):
         size = np.max(maxes - mins)
@@ -100,8 +113,8 @@ for filename in filenames:
     
     # Create Triangle List
     triangles=list()
-    for i in range(0,len(block),3):
-        triangles.append([[float(x) for x in block[i]],[float(x) for x in block[i+1]],[float(x) for x in block[i+2]]])
+    for i in range(0,int(len(block)/3)):
+        triangles.append([[float(x) for x in block[i*3]],[float(x) for x in block[i * 3+1]],[float(x) for x in block[i * 3+2]], [float(x) for x in normals[i]]])
     file_out.append(triangles)
     
 
@@ -113,9 +126,10 @@ if make_coe:
         for t in triangle:
             if is_a_triangle(t):
                 #Color
+                f.write(convert_normal(t[3][0], t[3][1], t[3][2]))
                 f.write(color)
-                for i in t:
-                    f.write(convert(i[0],i[1],i[2]))
+                for i in range(3):
+                    f.write(convert(t[i][0],t[i][1],t[i][2]))
                 f.write(',\n')
                 t_count +=1
     f.write(';')
