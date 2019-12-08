@@ -3,6 +3,7 @@ input clk_in,
 input [11:0] rgb_in,
 input [8:0] [11:0] triag, //pnts 1,2,3  1,2,3  1,2,3
 input [2:0] [11:0] user_pos,
+input [2:0] [11:0] normal, //included in COE
 input new_data,
 output logic finished,
 output logic [11:0] rgb_out
@@ -85,9 +86,12 @@ always_ff @(posedge clk_in) begin
     case (counter) //Does a multiplication in steps
         3'b001: begin //Find Vectors
             //Cross product of two triangles (27 bits) 
-            T[0] <= $signed(t2[1]-t1[1])*$signed(t3[2]-t1[2])-$signed(t3[1]-t1[1])*$signed(t2[2]-t1[2]);
-            T[1] <= -$signed(t2[0]-t1[0])*$signed(t3[2]-t1[2])+$signed(t3[0]-t1[0])*$signed(t2[2]-t1[2]);
-            T[2] <= $signed(t2[0]-t1[0])*$signed(t3[1]-t1[1])-$signed(t3[0]-t1[0])*$signed(t2[1]-t1[1]);
+//            T[0] <= $signed(t2[1]-t1[1])*$signed(t3[2]-t1[2])-$signed(t3[1]-t1[1])*$signed(t2[2]-t1[2]);
+//            T[1] <= -$signed(t2[0]-t1[0])*$signed(t3[2]-t1[2])+$signed(t3[0]-t1[0])*$signed(t2[2]-t1[2]);
+//            T[2] <= $signed(t2[0]-t1[0])*$signed(t3[1]-t1[1])-$signed(t3[0]-t1[0])*$signed(t2[1]-t1[1]);
+              T[0] <= normal[0];
+              T[1] <= normal[1];
+              T[2] <= normal[2];
             //User perspective vector (12 bits)
             V[0] <= $signed(user_pos[0]);
             V[1] <= $signed(user_pos[1]);

@@ -8,6 +8,8 @@ module transformation(
     input signed [2:0][11:0] rpy,
     input signed [2:0][11:0] world_translation,
     input new_data_in, 
+    input [2:0] [11:0] normal,
+    output logic signed [2:0] [11:0] normal_out,
     output logic signed [8:0][11:0] vertices_out,
     output logic finished_out
 );
@@ -42,6 +44,16 @@ module transformation(
         .world_translation(world_translation),
         .new_data_in(new_data_in), 
         .vertex_out(vertices_out[2:0])
+    );
+        transformation_vertex #(.ROTATION_LATENCY(ROTATION_LATENCY), 
+        .TOTAL_LATENCY(TOTAL_LATENCY)) normal1(
+        .clk_in(clk_in), .rst_in(rst_in),
+        .vertex_in(normal),
+        .model_translation(model_translation),
+        .rpy(rpy),
+        .world_translation(world_translation),
+        .new_data_in(new_data_in), 
+        .vertex_out(normal_out)
     );
     pipeline #(.N_BITS(1), .N_REGISTERS(TOTAL_LATENCY)) pipeline_finished( 
         .clk_in(clk_in), .rst_in(rst_in),
