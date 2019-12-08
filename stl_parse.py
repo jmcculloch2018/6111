@@ -92,6 +92,10 @@ for filename in filenames:
         elif delim_norm in line:
             normals.append(line[(line.index(delim_norm) + len(delim_norm)):].split(' '))
     
+    for i in range(len(block)):
+        block[i] = [x for x in block[i] if x!='']
+    for i in range(len(normals)):
+        normals[i] = [x for x in normals[i] if x!='']
     
     maxes = np.array([float(x) for x in block[0]])
     mins =  np.array([float(x) for x in block[0]])
