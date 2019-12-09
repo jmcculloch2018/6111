@@ -128,7 +128,7 @@ if make_coe:
     f.write("memory_initialization_radix=2;\nmemory_initialization_vector=\n")
     for triangle in file_out:
         for t in triangle:
-            if is_a_triangle(t):
+            if is_a_triangle(t) and t[0][0]:
                 #Color
                 f.write(convert_normal(t[3][0], t[3][1], t[3][2]))
                 f.write(color)

@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-| Date         : Sun Dec  8 17:53:09 2019
+| Date         : Sun Dec  8 19:19:38 2019
 | Host         : LAPTOP-9UO525CG running 64-bit major release  (build 9200)
 | Command      : report_methodology -file top_level_methodology_drc_routed.rpt -pb top_level_methodology_drc_routed.pb -rpx top_level_methodology_drc_routed.rpx
 | Design       : top_level
@@ -23,16 +23,16 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 314
+             Violations found: 310
 +-----------+------------------+---------------------------------------------+------------+
 | Rule      | Severity         | Description                                 | Violations |
 +-----------+------------------+---------------------------------------------+------------+
 | TIMING-17 | Critical Warning | Non-clocked sequential cell                 | 275        |
 | LUTAR-1   | Warning          | LUT drives async reset alert                | 2          |
 | SYNTH-10  | Warning          | Wide multiplier                             | 8          |
-| SYNTH-11  | Warning          | DSP output not registered                   | 9          |
-| SYNTH-12  | Warning          | DSP input not registered                    | 4          |
-| SYNTH-13  | Warning          | combinational multiplier                    | 3          |
+| SYNTH-11  | Warning          | DSP output not registered                   | 10         |
+| SYNTH-12  | Warning          | DSP input not registered                    | 1          |
+| SYNTH-13  | Warning          | combinational multiplier                    | 1          |
 | TIMING-18 | Warning          | Missing input or output delay               | 12         |
 | XDCB-5    | Warning          | Runtime inefficient way to find pin objects | 1          |
 +-----------+------------------+---------------------------------------------+------------+
@@ -1481,67 +1481,47 @@ Related violations: <none>
 
 SYNTH-11#4 Warning
 DSP output not registered  
-DSP instance my_graphics/my_projection/vertex3/numerator_y1 is not fully pipelined on the output side. MREG/PREG are not used.
+DSP instance my_graphics/my_projection/vertex1/numerator_x1 is not fully pipelined on the output side. MREG/PREG are not used.
 Related violations: <none>
 
 SYNTH-11#5 Warning
 DSP output not registered  
-DSP instance my_graphics/my_rasterize/numerator0 is not fully pipelined on the output side. MREG/PREG are not used.
+DSP instance my_graphics/my_projection/vertex1/numerator_y1 is not fully pipelined on the output side. MREG/PREG are not used.
 Related violations: <none>
 
 SYNTH-11#6 Warning
 DSP output not registered  
-DSP instance my_graphics/my_rasterize/numerator1 is not fully pipelined on the output side. MREG/PREG are not used.
+DSP instance my_graphics/my_projection/vertex3/numerator_x1 is not fully pipelined on the output side. MREG/PREG are not used.
 Related violations: <none>
 
 SYNTH-11#7 Warning
 DSP output not registered  
-DSP instance my_graphics/my_shader/T_dot_V1 is not fully pipelined on the output side. MREG/PREG are not used.
+DSP instance my_graphics/my_projection/vertex3/numerator_y1 is not fully pipelined on the output side. MREG/PREG are not used.
 Related violations: <none>
 
 SYNTH-11#8 Warning
 DSP output not registered  
-DSP instance my_graphics/my_shader/magnitude_squared_T0 is not fully pipelined on the output side. MREG/PREG are not used.
+DSP instance my_graphics/my_shader/T_dot_V0 is not fully pipelined on the output side. MREG/PREG are not used.
 Related violations: <none>
 
 SYNTH-11#9 Warning
+DSP output not registered  
+DSP instance my_graphics/my_shader/magnitude_squared_T0 is not fully pipelined on the output side. MREG/PREG are not used.
+Related violations: <none>
+
+SYNTH-11#10 Warning
 DSP output not registered  
 DSP instance my_graphics/my_shader/magnitude_squared_T1 is not fully pipelined on the output side. MREG/PREG are not used.
 Related violations: <none>
 
 SYNTH-12#1 Warning
 DSP input not registered  
-DSP instance my_cv/rgb2hsv_red/h_top_reg is not fully pipelined on the input side. AREG/BREG/CREG/DREG are not used.
-Related violations: <none>
-
-SYNTH-12#2 Warning
-DSP input not registered  
-DSP instance my_graphics/my_rasterize/get_area1/area_reg is not fully pipelined on the input side. AREG/BREG/CREG/DREG are not used.
-Related violations: <none>
-
-SYNTH-12#3 Warning
-DSP input not registered  
-DSP instance my_graphics/my_rasterize/get_area3/area_reg is not fully pipelined on the input side. AREG/BREG/CREG/DREG are not used.
-Related violations: <none>
-
-SYNTH-12#4 Warning
-DSP input not registered  
-DSP instance my_graphics/my_rasterize/get_area_total/area_reg is not fully pipelined on the input side. AREG/BREG/CREG/DREG are not used.
+DSP instance my_game/cur_time_reg is not fully pipelined on the input side. AREG/BREG/CREG/DREG are not used.
 Related violations: <none>
 
 SYNTH-13#1 Warning
 combinational multiplier  
 Detected combinational multiplier in DSP instance my_game/delta_z1.
-Related violations: <none>
-
-SYNTH-13#2 Warning
-combinational multiplier  
-Detected combinational multiplier in DSP instance my_graphics/my_rasterize/get_area1/area1.
-Related violations: <none>
-
-SYNTH-13#3 Warning
-combinational multiplier  
-Detected combinational multiplier in DSP instance my_graphics/my_rasterize/get_area_total/area1.
 Related violations: <none>
 
 TIMING-18#1 Warning

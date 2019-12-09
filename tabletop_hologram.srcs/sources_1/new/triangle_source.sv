@@ -13,7 +13,7 @@ module triangle_source(
         output logic signed [2:0] [11:0] normal
     );
     //Cube, Suit, Mobius, Thanos 2, Thanos 1
-    parameter integer NUM_TRIANGLES [4:0] = {14'd560, 14'd12754, 14'd1677, 14'd4982, 14'd4988} ;
+    parameter integer NUM_TRIANGLES [4:0] = {14'd560, 14'd12754, 14'd1677, 14'd6160, 14'd6152} ;
     logic [15:0] tri_count;
     logic [4:0][155:0] data_out;
     logic [2:0] obj_select;

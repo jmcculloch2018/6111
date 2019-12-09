@@ -17,8 +17,8 @@ module game_logic(
     );
     
     parameter Z_MIN = -12'sd1000;
-    parameter Z_MAX = 12'sd400;
-    parameter Z_MIN_SWIPE = 12'sd200;
+    parameter Z_MAX = 12'sd200;
+    parameter Z_MIN_SWIPE = 12'sd100;
     parameter TIME_OF_FLIGHT_FRAMES = 32'sd240; // 6 sec
     
     // reciprocal of time of flight
@@ -35,7 +35,8 @@ module game_logic(
     logic signed [63:0]delta_z;
     logic [1:0] state = 0;
     
-    logic [39:0] model_spin = 0;
+    logic [11:0] model_spin = 0;
+    logic [23:0] spin_counter = 0;
 
     assign delta_z = ($signed(cur_time) * $signed(cur_time) * $signed(Z_MIN - Z_MAX)) >>> (2 * TOF_N);
     assign game_state = state;
@@ -66,24 +67,10 @@ module game_logic(
             separation <= did_swipe_fruit ? (separation + 1) : separation;
             //SET TRANSFORMATIONS
             //If in game state, set game transforms
-            case (state)
-                2'b00: begin
-                
-                end
-                2'b01: begin
-                
-                end
-                2'b10: begin
-                
-                end
-                2'b11: begin
-                
-                end
-            endcase
             rpy[0][2] <= state==2'b11 ? (separation * 12'sh008):0;
-            rpy[0][0] <= state==2'b11 ? (rpy[0] + 12'h00D): state!==2'b10 ? (rpy[0] + model_spin >> 28):0;
+            rpy[0][0] <= state==2'b11 ? (rpy[0] + 12'h00D): state!==2'b10 ? (rpy[0] + model_spin):0;
             rpy[1][2] <= state==2'b11 ? (separation * 12'sh008):0;
-            rpy[1][0] <= state==2'b11 ? (rpy[0] + 12'h00D): state!==2'b10 ? (rpy[0] + model_spin >> 28):0;
+            rpy[1][0] <= state==2'b11 ? (rpy[0] + 12'h00D): state!==2'b10 ? (rpy[0] + model_spin):0;
             rpy[0][1] <= 0;
             rpy[1][1] <= 0;
             world_trans[0] <= state==2'b11 ? {separation, 12'h0, z_model}:0;
@@ -98,10 +85,13 @@ module game_logic(
         if (state==2'b10 && did_swipe_fruit) begin
             state <= 2'b11;
         end else if ( (state==2'b00 || state==2'b01) && did_swipe_fruit) begin
-            model_spin <= 40'd34359738368;
-        end else if ( (state==2'b00 || state==2'b01) && model_spin>0) begin
+            model_spin <= 12'd30;
+        end else if ( (state==2'b00 || state==2'b01) && model_spin>0 && spin_counter<=0) begin
             model_spin <= model_spin - 1;
-        end 
+            spin_counter <= 24'd10000000;
+        end else if ((state==2'b00 || state==2'b01) && model_spin>0) begin
+            spin_counter <= spin_counter -1;
+        end
         if (state!=2'b11 && clk_5sec==1) begin
             state <= state==2'b10 ? 2'b00:(state+1);
         end

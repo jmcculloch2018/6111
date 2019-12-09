@@ -17,7 +17,6 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
-set_param chipscope.maxJobs 2
 set_param xicom.use_bs_reader 1
 create_project -in_memory -part xc7a200tsbg484-3
 
@@ -46,10 +45,10 @@ add_files {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/banan2.coe}}
 add_files {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/mobius.coe}}
 add_files {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/notre_dame.coe}}
 add_files {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/fpga.coe}}
-add_files {{c:/Users/adamp/Desktop/Fall 2019/6.111/6111/thanos1.coe}}
-add_files {{c:/Users/adamp/Desktop/Fall 2019/6.111/6111/thanos2.coe}}
-add_files {{c:/Users/adamp/Desktop/Fall 2019/6.111/6111/mobius_new.coe}}
-add_files {{c:/Users/adamp/Desktop/Fall 2019/6.111/6111/iron_man.coe}}
+add_files {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/thanos1.coe}}
+add_files {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/thanos2.coe}}
+add_files {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/mobius_new.coe}}
+add_files {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/iron_man.coe}}
 read_verilog -library xil_defaultlib -sv {
   {C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/new/5sec_clock.sv}
   {C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/imports/sources_1/imports/Final/camera_read.sv}
