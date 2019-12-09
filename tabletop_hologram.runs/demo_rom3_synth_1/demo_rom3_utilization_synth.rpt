@@ -1,8 +1,8 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-| Date         : Sun Dec  8 16:34:44 2019
-| Host         : LAPTOP-9UO525CG running 64-bit major release  (build 9200)
+| Date         : Sun Dec  8 20:11:38 2019
+| Host         : DESKTOP-982HE02 running 64-bit major release  (build 9200)
 | Command      : report_utilization -file demo_rom3_utilization_synth.rpt -pb demo_rom3_utilization_synth.pb
 | Design       : demo_rom3
 | Device       : 7a200tsbg484-3

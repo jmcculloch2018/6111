@@ -64,7 +64,7 @@ module top_level(
 //    assign world_trans = {12'h0, 12'h0, 12'h0};
 
 //    assign {cg, cf, ce, cd, cc, cb, ca} = segments;
-assign reset = 0;
+    assign reset = sw[7];
     
     assign user_up = btnu_clean && ~last_btnu_clean;
     assign user_down = btnd_clean && ~last_btnd_clean;

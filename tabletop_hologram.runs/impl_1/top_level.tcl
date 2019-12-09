@@ -65,38 +65,38 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
-  set_param chipscope.maxJobs 2
+  set_param chipscope.maxJobs 1
   set_param xicom.use_bs_reader 1
   create_project -in_memory -part xc7a200tsbg484-3
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
-  set_property webtalk.parent_dir {C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.cache/wt} [current_project]
-  set_property parent.project_path {C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.xpr} [current_project]
+  set_property webtalk.parent_dir C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.cache/wt [current_project]
+  set_property parent.project_path C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.xpr [current_project]
   set_property ip_repo_paths {
-  {C:/Users/adamp/Desktop/Fall 2019/6.111/6111/vivado-library}
-  {C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip}
+  C:/Users/Jeremy/tabletop_hologram/vivado-library
+  C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip
 } [current_project]
   update_ip_catalog
-  set_property ip_output_repo {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.cache/ip}} [current_project]
+  set_property ip_output_repo C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
   set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
-  add_files -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/synth_1/top_level.dcp}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/div_16/div_16.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/model_rotation/model_rotation.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/div_rom/div_rom.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/hdmi_render/hdmi_render.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/sqrt_rom/sqrt_rom.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/z_interp_divider/z_interp_divider.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/projection_divider/projection_divider.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/frame_buffer_1/frame_buffer.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/centroid_div/centroid_div.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/fifo/fifo.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/banana_rom1/banana_rom1.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/banana_rom2/banana_rom2.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/demo_rom3/demo_rom3.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/demo_rom2/demo_rom2.xci}}
-  read_ip -quiet {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/demo_rom1/demo_rom1.xci}}
-  read_xdc {{C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/constrs_1/imports/Downloads/Nexys-Video-Master.xdc}}
+  add_files -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/synth_1/top_level.dcp
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/div_16/div_16.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/model_rotation/model_rotation.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/div_rom/div_rom.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/hdmi_render/hdmi_render.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/sqrt_rom/sqrt_rom.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/z_interp_divider/z_interp_divider.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/projection_divider/projection_divider.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/frame_buffer_1/frame_buffer.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/centroid_div/centroid_div.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/fifo/fifo.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/banana_rom1/banana_rom1.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/banana_rom2/banana_rom2.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/demo_rom3/demo_rom3.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/demo_rom2/demo_rom2.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/demo_rom1/demo_rom1.xci
+  read_xdc C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/constrs_1/imports/Downloads/Nexys-Video-Master.xdc
   link_design -top top_level -part xc7a200tsbg484-3
   close_msg_db -file init_design.pb
 } RESULT]

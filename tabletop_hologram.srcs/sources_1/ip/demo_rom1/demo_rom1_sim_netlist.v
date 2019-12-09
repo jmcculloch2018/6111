@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Sun Dec  8 16:33:41 2019
+// Date        : Sun Dec  8 16:33:40 2019
 // Host        : LAPTOP-9UO525CG running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim {C:/Users/adamp/Desktop/Fall
-//               2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/demo_rom1/demo_rom1_sim_netlist.v}
+// Command     : write_verilog -force -mode funcsim -rename_top demo_rom1 -prefix
+//               demo_rom1_ demo_rom1_sim_netlist.v
 // Design      : demo_rom1
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -191,7 +191,6 @@ module demo_rom1
         .web(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_generic_cstr" *) 
 module demo_rom1_blk_mem_gen_generic_cstr
    (douta,
     clka,
@@ -254,7 +253,6 @@ module demo_rom1_blk_mem_gen_generic_cstr
         .ena(ena));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_width" *) 
 module demo_rom1_blk_mem_gen_prim_width
    (douta,
     clka,
@@ -461,7 +459,6 @@ module demo_rom1_blk_mem_gen_prim_width__parameterized7
         .ena(ena));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper_init" *) 
 module demo_rom1_blk_mem_gen_prim_wrapper_init
    (douta,
     clka,
@@ -2609,7 +2606,6 @@ module demo_rom1_blk_mem_gen_prim_wrapper_init__parameterized7
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_top" *) 
 module demo_rom1_blk_mem_gen_top
    (douta,
     clka,
@@ -2657,7 +2653,7 @@ endmodule
 (* C_WEA_WIDTH = "1" *) (* C_WEB_WIDTH = "1" *) (* C_WRITE_DEPTH_A = "1677" *) 
 (* C_WRITE_DEPTH_B = "1677" *) (* C_WRITE_MODE_A = "WRITE_FIRST" *) (* C_WRITE_MODE_B = "WRITE_FIRST" *) 
 (* C_WRITE_WIDTH_A = "156" *) (* C_WRITE_WIDTH_B = "156" *) (* C_XDEVICEFAMILY = "artix7" *) 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_3" *) (* downgradeipidentifiedwarnings = "yes" *) 
+(* downgradeipidentifiedwarnings = "yes" *) 
 module demo_rom1_blk_mem_gen_v8_4_3
    (clka,
     rsta,
@@ -3159,7 +3155,6 @@ module demo_rom1_blk_mem_gen_v8_4_3
         .ena(ena));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_3_synth" *) 
 module demo_rom1_blk_mem_gen_v8_4_3_synth
    (douta,
     clka,

@@ -2,11 +2,11 @@
 # Vivado v2019.1 (64-bit)
 # SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
 # IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
-# Start of session at: Sun Dec  8 16:55:00 2019
-# Process ID: 15240
-# Current directory: C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/div_rom_synth_1
+# Start of session at: Sun Dec  8 20:13:35 2019
+# Process ID: 7224
+# Current directory: C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/div_rom_synth_1
 # Command line: vivado.exe -log div_rom.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source div_rom.tcl
-# Log file: C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/div_rom_synth_1/div_rom.vds
-# Journal file: C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.runs/div_rom_synth_1\vivado.jou
+# Log file: C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/div_rom_synth_1/div_rom.vds
+# Journal file: C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.runs/div_rom_synth_1\vivado.jou
 #-----------------------------------------------------------
 source div_rom.tcl -notrace

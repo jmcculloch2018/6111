@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Sun Dec  8 17:40:40 2019
+// Date        : Sun Dec  8 17:40:39 2019
 // Host        : LAPTOP-9UO525CG running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim {C:/Users/adamp/Desktop/Fall
-//               2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/demo_rom2/demo_rom2_sim_netlist.v}
+// Command     : write_verilog -force -mode funcsim -rename_top demo_rom2 -prefix
+//               demo_rom2_ demo_rom2_sim_netlist.v
 // Design      : demo_rom2
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -191,7 +191,6 @@ module demo_rom2
         .web(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "bindec" *) 
 module demo_rom2_bindec
    (ena_array,
     addra,
@@ -216,7 +215,6 @@ module demo_rom2_bindec
         .O(ena_array));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_generic_cstr" *) 
 module demo_rom2_blk_mem_gen_generic_cstr
    (douta,
     clka,
@@ -1208,7 +1206,6 @@ module demo_rom2_blk_mem_gen_generic_cstr
         .p_187_out(p_187_out));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_mux" *) 
 module demo_rom2_blk_mem_gen_mux
    (douta,
     ena,
@@ -5280,7 +5277,6 @@ module demo_rom2_blk_mem_gen_mux
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_width" *) 
 module demo_rom2_blk_mem_gen_prim_width
    (douta,
     clka,
@@ -6989,7 +6985,6 @@ module demo_rom2_blk_mem_gen_prim_width__parameterized9
         .ena(ena));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper_init" *) 
 module demo_rom2_blk_mem_gen_prim_wrapper_init
    (douta,
     clka,
@@ -20471,7 +20466,6 @@ module demo_rom2_blk_mem_gen_prim_wrapper_init__parameterized9
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_top" *) 
 module demo_rom2_blk_mem_gen_top
    (douta,
     clka,
@@ -20519,7 +20513,7 @@ endmodule
 (* C_WEA_WIDTH = "1" *) (* C_WEB_WIDTH = "1" *) (* C_WRITE_DEPTH_A = "12754" *) 
 (* C_WRITE_DEPTH_B = "12754" *) (* C_WRITE_MODE_A = "WRITE_FIRST" *) (* C_WRITE_MODE_B = "WRITE_FIRST" *) 
 (* C_WRITE_WIDTH_A = "156" *) (* C_WRITE_WIDTH_B = "156" *) (* C_XDEVICEFAMILY = "artix7" *) 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_3" *) (* downgradeipidentifiedwarnings = "yes" *) 
+(* downgradeipidentifiedwarnings = "yes" *) 
 module demo_rom2_blk_mem_gen_v8_4_3
    (clka,
     rsta,
@@ -21027,7 +21021,6 @@ module demo_rom2_blk_mem_gen_v8_4_3
         .ena(ena));
 endmodule
 
-(* ORIG_REF_NAME = "blk_mem_gen_v8_4_3_synth" *) 
 module demo_rom2_blk_mem_gen_v8_4_3_synth
    (douta,
     clka,

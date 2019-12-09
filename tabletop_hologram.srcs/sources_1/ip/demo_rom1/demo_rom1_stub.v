@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Sun Dec  8 16:33:41 2019
+// Date        : Sun Dec  8 16:33:40 2019
 // Host        : LAPTOP-9UO525CG running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub {C:/Users/adamp/Desktop/Fall
-//               2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/demo_rom1/demo_rom1_stub.v}
+// Command     : write_verilog -force -mode synth_stub -rename_top demo_rom1 -prefix
+//               demo_rom1_ demo_rom1_stub.v
 // Design      : demo_rom1
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a200tsbg484-3

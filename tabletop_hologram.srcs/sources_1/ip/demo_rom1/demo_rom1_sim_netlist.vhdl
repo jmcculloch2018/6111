@@ -1,10 +1,10 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
--- Date        : Sun Dec  8 16:33:41 2019
+-- Date        : Sun Dec  8 16:33:40 2019
 -- Host        : LAPTOP-9UO525CG running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim {C:/Users/adamp/Desktop/Fall
---               2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip/demo_rom1/demo_rom1_sim_netlist.vhdl}
+-- Command     : write_vhdl -force -mode funcsim -rename_top demo_rom1 -prefix
+--               demo_rom1_ demo_rom1_sim_netlist.vhdl
 -- Design      : demo_rom1
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -21,8 +21,6 @@ entity demo_rom1_blk_mem_gen_prim_wrapper_init is
     ena : in STD_LOGIC;
     addra : in STD_LOGIC_VECTOR ( 10 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of demo_rom1_blk_mem_gen_prim_wrapper_init : entity is "blk_mem_gen_prim_wrapper_init";
 end demo_rom1_blk_mem_gen_prim_wrapper_init;
 
 architecture STRUCTURE of demo_rom1_blk_mem_gen_prim_wrapper_init is
@@ -2263,8 +2261,6 @@ entity demo_rom1_blk_mem_gen_prim_width is
     ena : in STD_LOGIC;
     addra : in STD_LOGIC_VECTOR ( 10 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of demo_rom1_blk_mem_gen_prim_width : entity is "blk_mem_gen_prim_width";
 end demo_rom1_blk_mem_gen_prim_width;
 
 architecture STRUCTURE of demo_rom1_blk_mem_gen_prim_width is
@@ -2488,8 +2484,6 @@ entity demo_rom1_blk_mem_gen_generic_cstr is
     ena : in STD_LOGIC;
     addra : in STD_LOGIC_VECTOR ( 10 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of demo_rom1_blk_mem_gen_generic_cstr : entity is "blk_mem_gen_generic_cstr";
 end demo_rom1_blk_mem_gen_generic_cstr;
 
 architecture STRUCTURE of demo_rom1_blk_mem_gen_generic_cstr is
@@ -2569,8 +2563,6 @@ entity demo_rom1_blk_mem_gen_top is
     ena : in STD_LOGIC;
     addra : in STD_LOGIC_VECTOR ( 10 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of demo_rom1_blk_mem_gen_top : entity is "blk_mem_gen_top";
 end demo_rom1_blk_mem_gen_top;
 
 architecture STRUCTURE of demo_rom1_blk_mem_gen_top is
@@ -2594,8 +2586,6 @@ entity demo_rom1_blk_mem_gen_v8_4_3_synth is
     ena : in STD_LOGIC;
     addra : in STD_LOGIC_VECTOR ( 10 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of demo_rom1_blk_mem_gen_v8_4_3_synth : entity is "blk_mem_gen_v8_4_3_synth";
 end demo_rom1_blk_mem_gen_v8_4_3_synth;
 
 architecture STRUCTURE of demo_rom1_blk_mem_gen_v8_4_3_synth is
@@ -2828,8 +2818,6 @@ entity demo_rom1_blk_mem_gen_v8_4_3 is
   attribute C_WRITE_WIDTH_B of demo_rom1_blk_mem_gen_v8_4_3 : entity is 156;
   attribute C_XDEVICEFAMILY : string;
   attribute C_XDEVICEFAMILY of demo_rom1_blk_mem_gen_v8_4_3 : entity is "artix7";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of demo_rom1_blk_mem_gen_v8_4_3 : entity is "blk_mem_gen_v8_4_3";
   attribute downgradeipidentifiedwarnings : string;
   attribute downgradeipidentifiedwarnings of demo_rom1_blk_mem_gen_v8_4_3 : entity is "yes";
 end demo_rom1_blk_mem_gen_v8_4_3;

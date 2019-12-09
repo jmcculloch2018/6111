@@ -9,10 +9,9 @@
     ** Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 
 source sqrt_rom.tcl -notrace
-create_project: Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 355.520 ; gain = 45.219
 INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/Users/adamp/Desktop/Fall 2019/6.111/6111/vivado-library'.
-INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.srcs/sources_1/ip'.
-INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Programs/Xilynx/Vivado/2019.1/data/ip'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/Users/Jeremy/tabletop_hologram/vivado-library'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2019.1/data/ip'.
 INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP sqrt_rom, cache-ID = f013d968bde00f1c.
-INFO: [Common 17-206] Exiting Vivado at Sun Dec  8 16:55:21 2019...
+INFO: [Common 17-206] Exiting Vivado at Sun Dec  8 20:13:45 2019...
