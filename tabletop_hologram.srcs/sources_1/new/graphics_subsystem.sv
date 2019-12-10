@@ -19,35 +19,38 @@
    output logic blank_out,
    output logic next_frame
     );
+    
     parameter SCREEN_WIDTH = 400;
     parameter SCREEN_HEIGHT = 400;
     
+    // New Data signals (from FSM to each module)
     logic new_data_rasterize; 
     logic new_data_projection;
     logic new_data_transform;
+    
+    // Finish signals (to FSM from each module)
     logic projection_finish;
     logic rasterize_finish;
     logic shader_finish;
     logic transform_finish;
-    logic triangles_available;
-    logic next_triangle;
-    logic last_vsync_in;
-
     
+    // RGB signals (passed out of given module i.e. rgb_triangle source comes from triangle source)
     logic [11:0] rgb_triangle_source; 
     logic [11:0] rgb_transform;
     logic [11:0] rgb_shader;  
     logic [11:0] rgb_rasterize;
   
+    // Vertex coordinates (passed out of given module i.e. vertices_triangle source comes from triangle source)
     logic signed [8:0][11:0] vertices_triangle_source;
     logic signed [8:0][11:0] vertices_transform;
     logic signed [8:0][11:0] vertices_projection_out;
     logic signed [8:0][11:0] vertices_rasterize;
     
-    
+    // Normal vectors (passed out of given module i.e. normal_triangle source comes from triangle source)
     logic signed [2:0][11:0] normal_triangle_source;
     logic signed [2:0][11:0] normal_transform;
 
+    // Framebuffer / Rasterize I/O signals
     logic [11:0] x_read_inactive_frame;
     logic [11:0] y_read_inactive_frame;
     logic [11:0] x_write_inactive_frame;
@@ -57,10 +60,14 @@
     logic write_inactive_frame;
     logic [11:0] rgb_write_inactive_frame;
     
-    logic obj_sel;
+    // Triangle Source inputs
+    logic triangles_available;
+    logic next_triangle;
     
-    assign next_frame = vsync_in && ~ last_vsync_in;
-      
+    // Other
+    logic last_vsync_in;
+    logic obj_sel;
+          
     graphics_fsm my_graphics_fsm(
         .clk_in(clk),
         .rst_in(reset),
@@ -171,7 +178,9 @@
         .clk_in(clk), .rst_in(reset), 
         .data_in(blank_in), .data_out(blank_out)
     ); 
-        
+    
+    // Calculate next_frame from VGA signals   
+    assign next_frame = vsync_in && ~ last_vsync_in;
     always_ff @(posedge clk) begin 
         if (reset) begin
             rgb_rasterize <= 12'h0;

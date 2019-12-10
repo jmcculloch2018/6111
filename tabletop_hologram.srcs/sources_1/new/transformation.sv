@@ -13,6 +13,8 @@ module transformation(
     output logic signed [8:0][11:0] vertices_out,
     output logic finished_out
 );
+    // We transform each vertex and the normal vector separately using the values passed in
+    // Translation is always set to 0 for the normal vector
     parameter ROTATION_LATENCY = 19;
     parameter TOTAL_LATENCY = 3 * ROTATION_LATENCY + 8;
     transformation_vertex #(.ROTATION_LATENCY(ROTATION_LATENCY), 
@@ -77,10 +79,13 @@ module transformation_vertex(
     parameter ROTATION_LATENCY = 0;
     parameter TOTAL_LATENCY = 0;
         
+    // Store I/O from CORDIC IP (rotates x, y coordinates by an angle)
     logic signed [1:0][15:0] cartesian_data;
-    logic signed[15:0] phase_data;
+    logic signed[15:0] phase_data; // signed pi radians 0x1FF = pi, 0xE00 = -pi
     logic signed [1:0][15:0] data_out;
-    logic valid_in, valid_out;
+    logic valid_in;
+    
+    // count number of clock cycles since new data
     logic [7:0] count;
     
     model_rotation rotation (
@@ -89,19 +94,21 @@ module transformation_vertex(
       .s_axis_phase_tdata(phase_data),            // input wire [15 : 0] s_axis_phase_tdata
       .s_axis_cartesian_tvalid(valid_in),  // input wire s_axis_cartesian_tvalid
       .s_axis_cartesian_tdata(cartesian_data),    // input wire [31 : 0] s_axis_cartesian_tdata
-      .m_axis_dout_tvalid(valid_out),            // output wire m_axis_dout_tvalid
+      .m_axis_dout_tvalid(),            // output wire m_axis_dout_tvalid
       .m_axis_dout_tdata(data_out)              // output wire [31 : 0] m_axis_dout_tdata
     );
     
     always_ff @(posedge clk_in) begin
         if (rst_in || new_data_in) begin
             count <= 0;
+            // When we receive new data, add model translation and save in vertex_out
             vertex_out[2] <= $signed(vertex_in[2]) + $signed(model_translation[2]);
             vertex_out[1] <= $signed(vertex_in[1]) + $signed(model_translation[1]);
             vertex_out[0] <= $signed(vertex_in[0]) + $signed(model_translation[0]);
 
         end else begin
             count <= count < (TOTAL_LATENCY - 1) ? count + 1 : count;
+            
             // Inputs
             cartesian_data[1] <= (count == 0) ? vertex_out[1] : 
                 (count == ROTATION_LATENCY + 2) ? vertex_out[0] : 

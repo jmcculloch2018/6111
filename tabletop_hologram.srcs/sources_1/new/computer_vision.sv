@@ -194,7 +194,6 @@ module computer_vision(
             .v_upper(v_upper_green), .v_lower(v_lower_green), .s_upper(s_upper_green), .s_lower(s_lower_green), .out_h());
 
 
-//    logic [16:0] count_green, count_red;
     
    centroid centroid_red (.clock(clk_65mhz), .reset(reset), .x(hcount_fifo), .y(vcount_fifo), 
         .color(!empty_p ? red : 1'b0), .frame_done(frame_done), .centroid_x(centroid_x_red), 
@@ -204,7 +203,6 @@ module computer_vision(
             .centroid_y(centroid_y_green), .count_out(count_green), .detected(green_detected), .count_threshold(count_threshold_green));
   
 
-//    display_8hex display(.clk_in(clk_65mhz),.data_in(x_acc), .seg_out(segments), .strobe_out(an));
     
 
 
@@ -218,93 +216,6 @@ module computer_vision(
                           .frame_done_out(frame_done_out));
    
 
-
-endmodule
-
-
-//////////////////////////////////////////////////////////////////////////////////
-// Engineer:   g.p.hom
-// 
-// Create Date:    18:18:59 04/21/2013 
-// Module Name:    display_8hex 
-// Description:  Display 8 hex numbers on 7 segment display
-//
-//////////////////////////////////////////////////////////////////////////////////
-
-module display_8hex(
-    input clk_in,                 // system clock
-    input [31:0] data_in,         // 8 hex numbers, msb first
-    output reg [6:0] seg_out,     // seven segment display output
-    output reg [7:0] strobe_out   // digit strobe
-    );
-
-    localparam bits = 13;
-     
-    reg [bits:0] counter = 0;  // clear on power up
-     
-    wire [6:0] segments[15:0]; // 16 7 bit memorys
-    assign segments[0]  = 7'b100_0000;  // inverted logic
-    assign segments[1]  = 7'b111_1001;  // gfedcba
-    assign segments[2]  = 7'b010_0100;
-    assign segments[3]  = 7'b011_0000;
-    assign segments[4]  = 7'b001_1001;
-    assign segments[5]  = 7'b001_0010;
-    assign segments[6]  = 7'b000_0010;
-    assign segments[7]  = 7'b111_1000;
-    assign segments[8]  = 7'b000_0000;
-    assign segments[9]  = 7'b001_1000;
-    assign segments[10] = 7'b000_1000;
-    assign segments[11] = 7'b000_0011;
-    assign segments[12] = 7'b010_0111;
-    assign segments[13] = 7'b010_0001;
-    assign segments[14] = 7'b000_0110;
-    assign segments[15] = 7'b000_1110;
-     
-    always_ff @(posedge clk_in) begin
-      // Here I am using a counter and select 3 bits which provides
-      // a reasonable refresh rate starting the left most digit
-      // and moving left.
-      counter <= counter + 1;
-      case (counter[bits:bits-2])
-          3'b000: begin  // use the MSB 4 bits
-                  seg_out <= segments[data_in[31:28]];
-                  strobe_out <= 8'b0111_1111 ;
-                 end
-
-          3'b001: begin
-                  seg_out <= segments[data_in[27:24]];
-                  strobe_out <= 8'b1011_1111 ;
-                 end
-
-          3'b010: begin
-                   seg_out <= segments[data_in[23:20]];
-                   strobe_out <= 8'b1101_1111 ;
-                  end
-          3'b011: begin
-                  seg_out <= segments[data_in[19:16]];
-                  strobe_out <= 8'b1110_1111;        
-                 end
-          3'b100: begin
-                  seg_out <= segments[data_in[15:12]];
-                  strobe_out <= 8'b1111_0111;
-                 end
-
-          3'b101: begin
-                  seg_out <= segments[data_in[11:8]];
-                  strobe_out <= 8'b1111_1011;
-                 end
-
-          3'b110: begin
-                   seg_out <= segments[data_in[7:4]];
-                   strobe_out <= 8'b1111_1101;
-                  end
-          3'b111: begin
-                  seg_out <= segments[data_in[3:0]];
-                  strobe_out <= 8'b1111_1110;
-                 end
-
-       endcase
-      end
 
 endmodule
 
