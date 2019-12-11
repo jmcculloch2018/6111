@@ -96,9 +96,9 @@ module top_level(
         .jb(jc),
         .jbclk(jcclk),
         .night(sw[0]),
-        .centroid_x_green(centroid_x_user),
-        .centroid_y_green(centroid_y_user),
-        .green_detected(),
+        .centroid_x_blue(centroid_x_user),
+        .centroid_y_blue(centroid_y_user),
+        .blue_detected(),
         .centroid_x_red(centroid_x_saber),
         .centroid_y_red(centroid_y_saber),
         .red_detected(saber_detected)

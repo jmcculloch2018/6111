@@ -1,3 +1,5 @@
+//used to delay registers if some adjacent data needs to pass through a module with latency
+
 `timescale 1ns / 1ps
 
 module pipeline(

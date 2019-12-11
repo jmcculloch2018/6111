@@ -1,41 +1,29 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Engineer: Sreya Vangara
 // 
-// Create Date: 11/17/2019 01:18:17 PM
-// Design Name: 
+// Create Date: 11/17/2019 01:18:17 PM 
 // Module Name: centroid
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
+// Project Name: FPGA 6.111
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
 //x and y coordinate signal
 //frame done
 //update centroid_x, centroid_y when done
-//send in x, y, isgreen
+//send in x, y, isblue
 module centroid(clock, reset, x, y, color, centroid_x, centroid_y, frame_done, count_out, detected, count_threshold);
-    input logic clock;
+    input logic clock; //system clock 100mghz
     input logic reset;
-    input logic [10:0] x;
-    input logic [9:0] y;
-    input logic color;
-    input logic frame_done;
-    input [16:0] count_threshold;
-    logic [15:0] averaging;
-    output logic [10:0] centroid_x;
-    output logic [9:0] centroid_y;
-    output logic detected;
-    logic [55:0] centroid_x_temp;
+    input logic [10:0] x; //hcount of pixel
+    input logic [9:0] y; //vcount of pixel
+    input logic color; //boolean, high if the color of pixel matches the color we want to track
+    input logic frame_done; //high if this pixel is the last to be removed from the FIFO
+    input [16:0] count_threshold; //number of colored pixels in a frame to justify that an object is being tracked, not noise
+    output logic [10:0] centroid_x; //x coordinate of object's centroid
+    output logic [9:0] centroid_y; //y coordinate of object's centroid
+    output logic detected; //Boolean for whether enough colored pixels were on screen to guarantee an object
+    logic [55:0] centroid_x_temp; //
     logic [55:0] centroid_y_temp;
     logic [26:0] x_acc;
     logic [26:0] y_acc;
