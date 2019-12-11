@@ -1,5 +1,7 @@
 `timescale 1ns / 1ps
 
+// Much unused code here, now pretty much just sets height to a constant
+// Previously was used to allow user to adjust height using switches on Nexys DDR4 and display height on hex display
 module display_height(
     input clk_in,
     input rst_in, 
@@ -8,6 +10,8 @@ module display_height(
    output reg [6:0] seg_out,     // seven segment display output
    output logic dp,
     output reg [7:0] strobe_out);   // digit strobe
+    
+    
    
    logic [3:0] height_ft, height_inches_ones;
    logic [4:0] height_inches;
