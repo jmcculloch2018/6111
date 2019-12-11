@@ -86,11 +86,6 @@ always_ff @(posedge clk_in) begin
     
     case (counter) //Does a multiplication in steps
         3'b001: begin //Find Vectors
-            //Cross product of two triangles (27 bits) 
-//            T[0] <= $signed(t2[1]-t1[1])*$signed(t3[2]-t1[2])-$signed(t3[1]-t1[1])*$signed(t2[2]-t1[2]);
-//            T[1] <= -$signed(t2[0]-t1[0])*$signed(t3[2]-t1[2])+$signed(t3[0]-t1[0])*$signed(t2[2]-t1[2]);
-//            T[2] <= $signed(t2[0]-t1[0])*$signed(t3[1]-t1[1])-$signed(t3[0]-t1[0])*$signed(t2[1]-t1[1]);
-             
             //User perspective vector (12 bits)
             V <= user_pos;
             end
@@ -150,6 +145,7 @@ module msb(
     input new_data_in,
     input [63:0] number, 
     output logic [7:0] msb);
+    
     logic [31:0] num;
     logic [3:0] count;
     always_ff @(posedge clk) begin

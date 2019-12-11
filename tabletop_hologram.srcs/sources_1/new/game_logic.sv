@@ -69,7 +69,7 @@ module game_logic(
             did_swipe_fruit <= did_swipe_fruit || ((z_model > Z_MIN_SWIPE) && saber_moving);
             separation <= did_swipe_fruit ? (separation + 1) : separation;
             //SET TRANSFORMATIONS
-            //If in game state, set game transforms
+            //If in game state, set game transforms, sipe object transformations
             rpy[0][2] <= game_state==2'b11 ? (separation * 12'sh008):0;
             rpy[0][0] <= game_state==2'b11 ? (rpy[0] + 12'h00D): game_state!==2'b10 ? (rpy[0] + model_spin):0;
             rpy[1][2] <= game_state==2'b11 ? (separation * 12'sh008):0;
@@ -87,16 +87,20 @@ module game_logic(
         end
         
         //Game FSM
-        if (game_state==2'b10 && did_swipe_fruit) begin
+        //Enter Game
+        if (game_state==2'b10 && did_swipe_fruit) begin 
             game_state <= 2'b11;
+        //Start model spinning
         end else if ( (game_state==2'b00 || game_state==2'b01) && did_swipe_fruit) begin
             model_spin <= 12'd30;
+        //Slow down model spinning
         end else if ( (game_state==2'b00 || game_state==2'b01) && model_spin>0 && spin_counter<=0) begin
             model_spin <= model_spin - 1;
             spin_counter <= 24'd10000000;
         end else if ((game_state==2'b00 || game_state==2'b01) && model_spin>0) begin
             spin_counter <= spin_counter -1;
         end
+        //Switch between Models
         if (game_state!=2'b11 && clk_5sec) begin
             game_state <= game_state==2'b10 ? 2'b00:(game_state+1);
         end
