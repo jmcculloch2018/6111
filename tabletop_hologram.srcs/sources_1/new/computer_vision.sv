@@ -3,7 +3,6 @@ module computer_vision(
    input btnc, //reset
    input [7:0] ja, //camera input
    input [2:0] jb, //camera input
-   input night, //toggle for night mode: different Value thresholds
    output jbclk,
    //used to track the arc reactor/user position
    output logic [10:0] centroid_x_blue,
@@ -26,7 +25,6 @@ module computer_vision(
     // btnc button is user reset
     wire reset;
     debounce db1(.reset_in(reset),.clock_in(clk_100mhz),.noisy_in(btnc),.clean_out(reset)); //debounce button
-   
    
     logic xclk;
     logic[1:0] xclk_count;
@@ -121,6 +119,8 @@ module computer_vision(
     //address of pixel is essentially its "index" within the frame
     assign pixel_addr_in = hcount_fifo+vcount_fifo*32'd320;
     
+    assign cam = frame_buff_out; //was set to 'cam' previously for VGA output
+    
     //to process camera inputs
     always_ff @(posedge clk_100mhz) begin
         pclk_buff <= jb[0];//WAS JB
@@ -152,17 +152,27 @@ module computer_vision(
     assign count_threshold_red = 15;
     assign count_threshold_blue = 20;
     
-    logic empty_p; //pipelined "empty" signal for pixel taken from FIFO, delaye 22 cycles to account for rgb2hsv module
+    logic empty_delay; //pipelined "empty" signal for pixel taken from FIFO, delayed 22 cycles to account for rgb2hsv module
+    logic [10:0] hcount_fifo_delay; //pipelined hcount_fifo, delayed 22 cycles for rgb2hsv module
+    logic [9:0] vcount_fifo_delay;  //pipelined vcount_fifo, delayed 22 cycles for rgb2hsv module
     
-     pipeline #(.N_BITS(1), .N_REGISTERS(22)) pipeline_x(
+     pipeline #(.N_BITS(1), .N_REGISTERS(22)) pipeline_empty(
         .clk_in(clk_100mhz), 
         .rst_in(reset),
         .data_in(empty),
-        .data_out(empty_p));
-
+        .data_out(empty_delay));
     
-    assign cam = frame_buff_out; //was set to 'cam' previously for VGA output
+     pipeline #(.N_BITS(11), .N_REGISTERS(22)) pipeline_hcount(
+        .clk_in(clk_100mhz), 
+        .rst_in(reset),
+        .data_in(hcount_fifo),
+        .data_out(hcount_fifo_delay));
     
+     pipeline #(.N_BITS(10), .N_REGISTERS(22)) pipeline_vcount(
+        .clk_in(clk_100mhz), 
+        .rst_in(reset),
+        .data_in(vcount_fifo),
+        .data_out(vcount_fifo_delay));
     
     //determines if pixel is red
     rgb2hsv rgb2hsv_red (.clock(clk_100mhz), .reset(reset), .r(cam[11:8]<<4), .g(cam[7:4]<<4), 
@@ -174,15 +184,14 @@ module computer_vision(
         .b(cam[3:0]<<4), .color(blue), .h_upper(h_upper_blue), .h_lower(h_lower_blue), 
             .v_upper(v_upper_blue), .v_lower(v_lower_blue), .s_upper(s_upper_blue), .s_lower(s_lower_blue), .out_h());
 
-
    //takes pixel (x, y) and Boolean (is color red?) input, at frame_done, updates centroid of red pixels if a red object is in frame 
-   centroid centroid_red (.clock(clk_100mhz), .reset(reset), .x(hcount_fifo), .y(vcount_fifo), 
-        .color(!empty_p ? red : 1'b0), .frame_done(frame_done), .centroid_x(centroid_x_red), 
+   centroid centroid_red (.clock(clk_100mhz), .reset(reset), .x(hcount_fifo_delay), .y(vcount_fifo_delay), 
+        .color(!empty_delay ? red : 1'b0), .frame_done(frame_done), .centroid_x(centroid_x_red), 
             .centroid_y(centroid_y_red), .count_out(count_red), .detected(red_detected), .count_threshold(count_threshold_red));
     
    //takes pixel (x, y) and Boolean (is color blue?) input, at frame_done, updates centroid of blue pixels if a blue object is in frame 
-   centroid centroid_blue (.clock(clk_100mhz), .reset(reset), .x(hcount_fifo), .y(vcount_fifo),
-         .color(!empty_p ? blue : 1'b0), .frame_done(frame_done), .centroid_x(centroid_x_blue), 
+   centroid centroid_blue (.clock(clk_100mhz), .reset(reset), .x(hcount_fifo_delay), .y(vcount_fifo_delay),
+         .color(!empty_delay ? blue : 1'b0), .frame_done(frame_done), .centroid_x(centroid_x_blue), 
             .centroid_y(centroid_y_blue), .count_out(count_blue), .detected(blue_detected), .count_threshold(count_threshold_blue));
   
   //use camera_read module to input camera data                                     

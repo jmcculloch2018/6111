@@ -1,38 +1,23 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: Kevin Zheng Class of 2012 
-//           Dept of Electrical Engineering &  Computer Science
-// 
-// Create Date:    18:45:01 11/10/2010 
-// Design Name: 
-// Module Name:    rgb2hsv 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
+//Largely adapted from Kevin Zheng, Class of 2012
 //////////////////////////////////////////////////////////////////////////////////
-module rgb2hsv(clock, reset, r, g, b, color, h_upper, h_lower, v_upper, v_lower, s_upper, s_lower, out_h);
+module rgb2hsv(clock, reset, r, g, b, color, h_upper, h_lower, v_upper, v_lower, s_upper, s_lower);
 		input wire clock;
 		input wire reset;
 		input wire [7:0] r;
 		input wire [7:0] g;
 		input wire [7:0] b;
-		output wire color;
+		//Thresholds for color identification
 		input logic [7:0] h_upper;
 		input logic [7:0] h_lower;
 		input logic [7:0] v_upper;
 		input logic [7:0] v_lower;
-		
 		input logic [7:0] s_upper;
 		input logic [7:0] s_lower;
+		
+		//Returns high if color is matched
+		output wire color;
 		
 		
 		reg [7:0] h;
@@ -58,16 +43,14 @@ module rgb2hsv(clock, reset, r, g, b, color, h_upper, h_lower, v_upper, v_lower,
 		reg [4:0] i;
 		logic s_ready;
 		logic h_ready;
-		logic [7:0] out_v;
-		output logic [7:0] out_h;
 		logic [31:0] s_quotient_temp;
 		logic [31:0] h_quotient_temp;
 		
 		// Clocks 4-18: perform all the divisions
-		//the s_divider (16/16) has delay 18
-		//the hue_div (16/16) has delay 18
+		//the s_div (16/16) has delay 18
+		//the h_div (16/16) has delay 18
 
-div_16 hue_div1 (
+    div_16 s_div (
   .aclk(clock),                                      // input wire aclk
   .s_axis_divisor_tvalid(1'b1),    // input wire s_axis_divisor_tvalid
   .s_axis_divisor_tdata(s_bottom),      // input wire [15 : 0] s_axis_divisor_tdata
@@ -77,22 +60,8 @@ div_16 hue_div1 (
   .m_axis_dout_tdata(s_quotient_temp)            // output wire [31 : 0] m_axis_dout_tdata
 );
 
-
-/*		divider hue_div1(
-		.clk(clock),
-		.dividend(s_top),
-		.divisor(s_bottom),
-		.quotient(s_quotient),
-	        // note: the "fractional" output was originally named "remainder" in this
-		// file -- it seems coregen will name this output "fractional" even if
-		// you didn't select the remainder type as fractional.
-		.remainder(s_remainder),
-		.ready(s_ready),
-		.start(1),
-		.sign(0)
-		);*/
 		
-	div_16 hue_div2 (
+	div_16 h_div (
   .aclk(clock),                                      // input wire aclk
   .s_axis_divisor_tvalid(1'b1),    // input wire s_axis_divisor_tvalid
   .s_axis_divisor_tdata(h_bottom),      // input wire [15 : 0] s_axis_divisor_tdata
@@ -101,16 +70,6 @@ div_16 hue_div1 (
   .m_axis_dout_tvalid(),          // output wire m_axis_dout_tvalid
   .m_axis_dout_tdata(h_quotient_temp)            // output wire [31 : 0] m_axis_dout_tdata
 );
-/*		divider hue_div2(
-		.clk(clock),
-		.dividend(h_top),
-		.divisor(h_bottom),
-		.quotient(h_quotient),
-		.remainder(h_remainder),
-		.ready(h_ready),
-		.start(1),
-		.sign(0)
-		);*/
 
     assign s_quotient = s_quotient_temp[31:16];
     assign h_quotient = h_quotient_temp[31:16];
@@ -191,17 +150,7 @@ div_16 hue_div1 (
 			
 		end
 		
+		//check if HSV matches thresholds
 		assign color = ((h <= h_upper) && (h >= h_lower) && (v <= v_upper) && (v >= v_lower) && (s <= s_upper) && (s >= s_lower));
-		assign out_v = v;
-		assign out_h=h;
-			/*if ((h< 90) && (h>30) && (v<255) && (v>80)) begin
-			//if (h< h_upper && h>h_lower && v<v_upper && v>v_lower) begin
-			    green <= 1;
-			end else begin
-			    green <= 0;
-			end
-		end*/
-		
-		
-		
+			
 endmodule
