@@ -19,9 +19,11 @@ module frame_buffer_manager(
     output logic [11:0] rgb_active_frame
 
     );
+    // Overriden by graphics subsystem
     parameter SCREEN_WIDTH = 0;
     parameter SCREEN_HEIGHT = 0;
     
+    // Dimensions of entire projection
     parameter VGA_WIDTH = 640;
     parameter VGA_HEIGHT = 480;
     
@@ -37,9 +39,11 @@ module frame_buffer_manager(
     logic active_frame;
     logic pixel_in_frame;
     
+    // Shift since we are not using entire screen and want to use the middle of the screen
     assign x_active_frame = hcount_in - VGA_WIDTH / 2 + SCREEN_WIDTH / 2;
     assign y_active_frame = vcount_in - VGA_HEIGHT / 2 + SCREEN_HEIGHT / 2;
     
+    // Pipeline by 4 since VGA clock is 4 times faster than clock
     pipeline #(.N_BITS(12), .N_REGISTERS(4)) pipeline_x_active(
         .clk_in(clk_in), 
         .rst_in(rst_in), 
@@ -51,6 +55,7 @@ module frame_buffer_manager(
         .data_in(y_active_frame),
         .data_out(last_y_active_frame));
         
+    // Two framebuffers, one of which is active and one is inactive at a time
     frame_buffer buffer0(
       .clka(clk_in),            // input wire clka
       .wea((active_frame == 0) ? write_active_frame : write_inactive_frame),              // input wire [0 : 0] wea
@@ -71,9 +76,9 @@ module frame_buffer_manager(
       .doutb(data_read[1])          // output wire [19 : 0] doutb
     );
     
-    assign address_write_active = last_x_active_frame + last_y_active_frame * SCREEN_WIDTH;
-    assign address_read_active = x_active_frame + y_active_frame * SCREEN_WIDTH;
-    assign data_write_active = 24'h000800;
+    assign address_write_active = last_x_active_frame + last_y_active_frame * SCREEN_WIDTH; // write based on previous hcount / vcount
+    assign address_read_active = x_active_frame + y_active_frame * SCREEN_WIDTH; // read based on hcount and vcount
+    assign data_write_active = 24'h000800; // Reset after reading
     assign rgb_active_frame = pixel_in_frame ? data_read[active_frame][23:12] : 12'h000; // Black if outside screen
     
     assign address_write_inactive = x_write_inactive_frame + 
@@ -97,6 +102,7 @@ module frame_buffer_manager(
         if (rst_in) begin 
             active_frame <= 0;
         end else begin 
+            // on next frame switch which which frame is active
             active_frame <= next_frame ? ~active_frame : active_frame;
         end
         

@@ -1,14 +1,15 @@
 `timescale 1ns / 1ps
 
 module rasterize(
-    // OTHER
     input clk_in,
     input rst_in, 
+    // Inputs from shader / projection
     input [11:0] rgb_in,
     input signed [8:0][11:0] vertices,
+    // FSM Signals
     input new_data, 
     output logic finished,
-    // RAM
+    // Framebuffer interaction
     input signed [11:0] z_read,
     output logic write_ram,
     output logic [11:0] x_write,
@@ -18,17 +19,31 @@ module rasterize(
     output logic [11:0] rgb_write,
     output logic signed [11:0] z_write
 );  
-    logic busy;
 
     parameter DIVISION_LATENCY = 30;  
-    parameter SCREEN_WIDTH = 0;
+    parameter SCREEN_WIDTH = 0; // Gets overriden by graphics subsystem
     parameter SCREEN_HEIGHT = 0;
     
-    // Lag of 0
+
+    // Current position and max / min coordinates for triangle
     logic [11:0] x_cur;
     logic [11:0] y_cur;
-        
     logic signed [11:0] x_min, x_max, y_min, y_max;
+
+    // z interpolation and triangle checking
+    logic signed [23:0] area_total, area1, area2, area3; // First clock cycle
+    logic signed [31:0] numerator; // Second clock cycle
+    logic signed [23:0] denominator; // Second clock cycle
+    logic in_triangle = 0; // Second clock cycle
+    logic in_triangle_lag; // 32nd clock cycle
+    
+    // State
+    logic busy;
+    logic busy_lag;
+    logic last_busy;
+    
+    // Calculate min / max x and y (combinational)
+    // Always returns value within screen dimensions
     get_min #(.ABSOLUTE_MIN(0), .ABSOLUTE_MAX(SCREEN_WIDTH - 1)) 
         get_min_x(.val1(vertices[8]), .val2(vertices[5]), .val3(vertices[2]), .min(x_min));
     get_min #(.ABSOLUTE_MIN(0), .ABSOLUTE_MAX(SCREEN_HEIGHT - 1)) 
@@ -38,8 +53,7 @@ module rasterize(
     get_max #(.ABSOLUTE_MIN(0), .ABSOLUTE_MAX(SCREEN_HEIGHT - 1)) 
         get_max_y(.val1(vertices[7]), .val2(vertices[4]), .val3(vertices[1]), .max(y_max));
     
-    // Calculate Area (lag by 1)
-    logic signed [23:0] area_total, area1, area2, area3, area_check; 
+    // Calculate Areas for z interpolation + triangle checking
     get_area get_area_total(.clk_in(clk_in), .x1(vertices[8]), .y1(vertices[7]), .x2(vertices[5]), .y2(vertices[4]), 
         .x3(vertices[2]), .y3(vertices[1]), .area(area_total));
     get_area get_area1(.clk_in(clk_in), .x1(x_cur), .y1(y_cur), .x2(vertices[5]), .y2(vertices[4]), 
@@ -48,22 +62,15 @@ module rasterize(
         .x3(vertices[2]), .y3(vertices[1]), .area(area2));
     get_area get_area3(.clk_in(clk_in), .x1(vertices[8]), .y1(vertices[7]), .x2(vertices[5]), .y2(vertices[4]), 
         .x3(x_cur), .y3(y_cur), .area(area3));
-    assign area_check = area1 + area2 + area3 - area_total;
-
-    // Interp z before division (lag by 2) and test in triangle
-    logic signed [31:0] numerator;
-    logic signed [23:0] denominator;
-    logic in_triangle = 0;
-    logic valid_in;
-    assign valid_in = 1;
+    
     
     // Lag of 2 + DIVISION_LATENCY
     logic [55:0] divider_out;
     z_interp_divider my_div (
       .aclk(clk_in),                                      // input wire aclk
-      .s_axis_divisor_tvalid(valid_in),    // input wire s_axis_divisor_tvalid
+      .s_axis_divisor_tvalid(1'b1),    // input wire s_axis_divisor_tvalid
       .s_axis_divisor_tdata(denominator),      // input wire [23 : 0] s_axis_divisor_tdata
-      .s_axis_dividend_tvalid(valid_in),  // input wire s_axis_dividend_tvalid
+      .s_axis_dividend_tvalid(1'b1),  // input wire s_axis_dividend_tvalid
       .s_axis_dividend_tdata(numerator),    // input wire [31 : 0] s_axis_dividend_tdata
       .m_axis_dout_tvalid(),          // output wire m_axis_dout_tvalid
       .m_axis_dout_tdata(divider_out)            // output wire [55 : 0] m_axis_dout_tdata
@@ -71,7 +78,7 @@ module rasterize(
     assign z_write = divider_out[35:24];
     
     
-    // Delay x, y, read (lag by DIVISION_LATENCY)
+    // Delay a bunch of signals
     pipeline #(.N_BITS(12), .N_REGISTERS(DIVISION_LATENCY)) pipeline_x(
         .clk_in(clk_in), 
         .rst_in(rst_in),
@@ -82,14 +89,11 @@ module rasterize(
         .rst_in(rst_in),
         .data_in(y_cur),
         .data_out(y_read));
-
-    logic in_triangle_lag;
     pipeline #(.N_BITS(1), .N_REGISTERS(DIVISION_LATENCY)) pipeline_intri(
         .clk_in(clk_in), 
         .rst_in(rst_in),
         .data_in(in_triangle),
         .data_out(in_triangle_lag));
-    logic busy_lag;
     pipeline #(.N_BITS(1), .N_REGISTERS(DIVISION_LATENCY + 2)) pipeline_busy(
         .clk_in(clk_in), 
         .rst_in(rst_in),
@@ -105,15 +109,13 @@ module rasterize(
         .rst_in(rst_in),
         .data_in(y_read),
         .data_out(y_write));
-    assign write_ram = (z_write > z_read) && in_triangle_lag && busy_lag;
-
     pipeline #(.N_BITS(12), .N_REGISTERS(2 + DIVISION_LATENCY)) pipeline_rgb(
         .clk_in(clk_in), 
         .rst_in(rst_in),
         .data_in(rgb_in),
         .data_out(rgb_write));
-     
-    logic last_busy;
+        
+    assign write_ram = (z_write > z_read) && in_triangle_lag && busy_lag;
     assign finished = ~busy && last_busy;
     always_ff @(posedge clk_in) begin
         if (rst_in) begin

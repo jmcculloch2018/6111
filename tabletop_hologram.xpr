@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="40" Path="C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.xpr">
+<Project Version="7" Minor="40" Path="C:/Users/adamp/Desktop/Fall 2019/6.111/6111/tabletop_hologram.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="7d082ea286904e6eb61778e325a940ba"/>
@@ -137,7 +137,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/new/external_ram.sv">
+      <File Path="$PSRCDIR/sources_1/new/framebuffer_manager.sv">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>

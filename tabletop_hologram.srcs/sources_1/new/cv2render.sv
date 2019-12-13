@@ -12,7 +12,7 @@ parameter cam_y = 240;
 //(proj_x*measure_cam)/(cam_x*measure_proj)
 parameter fov_ratio_m = 12'sd9;
 parameter fov_ratio_n = 1;
-
+//Weight of filter
 parameter fir_alpha = 16'sh2; // 4 bits
 parameter fir_n = 4;
 
@@ -37,8 +37,10 @@ logic signed [2:0] [11:0] post_fir = 0;
 
 
 always_ff @(posedge clk_in) begin
+    //Scale user position into graphics reference frame
     buffer [2] <= (fov_ratio_m * blob_x_shifted) >>> fov_ratio_n;
     buffer [1] <= (fov_ratio_m * blob_y_shifted) >>> fov_ratio_n;
+    //Apply Filter
     diff[2] <= (($signed(buffer[2]) - $signed(user[2])) * fir_alpha) >>> fir_n;
     diff[1] <= (($signed(buffer[1]) - $signed(user[1])) * fir_alpha) >>> fir_n;
     post_fir[2] <= $signed(diff[2]) + $signed(user[2]);

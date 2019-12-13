@@ -110,7 +110,7 @@
         .normal_out(normal_transform)
     );
     
-    projection_with_height my_projection(
+    projection my_projection(
         .clk_in(clk),
         .rst_in(reset),
         .vertices_in(vertices_transform),
