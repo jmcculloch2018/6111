@@ -110,7 +110,7 @@
         .normal_out(normal_transform)
     );
     
-    projection my_projection(
+    projection_cone my_projection(
         .clk_in(clk),
         .rst_in(reset),
         .vertices_in(vertices_transform),

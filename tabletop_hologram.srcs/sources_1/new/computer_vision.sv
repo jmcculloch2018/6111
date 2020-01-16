@@ -177,12 +177,12 @@ module computer_vision(
     //determines if pixel is red
     rgb2hsv rgb2hsv_red (.clock(clk_100mhz), .reset(reset), .r(cam[11:8]<<4), .g(cam[7:4]<<4), 
         .b(cam[3:0]<<4), .color(red), .h_upper(h_upper_red), .h_lower(h_lower_red), 
-            .v_upper(v_upper_red), .v_lower(v_lower_red), .s_upper(s_upper_red), .s_lower(s_lower_red), .out_h());
+            .v_upper(v_upper_red), .v_lower(v_lower_red), .s_upper(s_upper_red), .s_lower(s_lower_red));
 
     //determines if pixel is blue
     rgb2hsv rgb2hsv_blue (.clock(clk_100mhz), .reset(reset), .r(cam[11:8]<<4), .g(cam[7:4]<<4), 
         .b(cam[3:0]<<4), .color(blue), .h_upper(h_upper_blue), .h_lower(h_lower_blue), 
-            .v_upper(v_upper_blue), .v_lower(v_lower_blue), .s_upper(s_upper_blue), .s_lower(s_lower_blue), .out_h());
+            .v_upper(v_upper_blue), .v_lower(v_lower_blue), .s_upper(s_upper_blue), .s_lower(s_lower_blue));
 
    //takes pixel (x, y) and Boolean (is color red?) input, at frame_done, updates centroid of red pixels if a red object is in frame 
    centroid centroid_red (.clock(clk_100mhz), .reset(reset), .x(hcount_fifo_delay), .y(vcount_fifo_delay), 

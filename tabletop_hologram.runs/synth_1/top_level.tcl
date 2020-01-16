@@ -17,8 +17,6 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
-set_param chipscope.maxJobs 1
-set_param xicom.use_bs_reader 1
 create_project -in_memory -part xc7a200tsbg484-3
 
 set_param project.singleFileAddWarning.threshold 0
@@ -59,12 +57,12 @@ read_verilog -library xil_defaultlib -sv {
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/debounce.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/detect_motion.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/display_height.sv
-  C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/external_ram.sv
+  C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/framebuffer_manager.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/game_logic.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/graphics_fsm.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/graphics_subsystem.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/pipeline.sv
-  C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/projection.sv
+  C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/project_vertex_cone.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/rasterize.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/imports/sources_1/new/rgb2hsv.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/imports/new/shader.sv
@@ -121,6 +119,12 @@ set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tablet
 
 read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/demo_rom1/demo_rom1.xci
 set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/demo_rom1/demo_rom1_ooc.xdc]
+
+read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/projection_cone_divider/projection_cone_divider.xci
+set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/projection_cone_divider/projection_cone_divider_ooc.xdc]
+
+read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/projection_sqrt/projection_sqrt.xci
+set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/projection_sqrt/projection_sqrt_ooc.xdc]
 
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the

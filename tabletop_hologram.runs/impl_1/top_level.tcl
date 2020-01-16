@@ -66,7 +66,6 @@ set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
   set_param chipscope.maxJobs 1
-  set_param xicom.use_bs_reader 1
   create_project -in_memory -part xc7a200tsbg484-3
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
@@ -96,6 +95,8 @@ set rc [catch {
   read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/demo_rom3/demo_rom3.xci
   read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/demo_rom2/demo_rom2.xci
   read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/demo_rom1/demo_rom1.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/projection_cone_divider/projection_cone_divider.xci
+  read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/projection_sqrt/projection_sqrt.xci
   read_xdc C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/constrs_1/imports/Downloads/Nexys-Video-Master.xdc
   link_design -top top_level -part xc7a200tsbg484-3
   close_msg_db -file init_design.pb

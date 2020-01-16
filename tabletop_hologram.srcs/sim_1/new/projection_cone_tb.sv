@@ -26,19 +26,18 @@ module projection_cone_tb;
    // inputs
    logic clk;
    logic reset;
-   logic signed [8:0][15:0] vertices_in;
-   logic signed [2:0][15:0] user_in;
+   logic signed [2:0][11:0] vertex_in;
+   logic signed [2:0][11:0] user_in;
    logic new_data_in;
-   logic signed [8:0][15:0] vertices_out;
-   logic finished; 
-   projection_cone uut(
+   logic signed [2:0][11:0] vertex_out;
+   
+   project_vertex_cone uut(
     .clk_in(clk),
     .rst_in(reset),
-    .vertices_in(vertices_in),
+    .vertex_in(vertex_in),
     .user_in(user_in),
     .new_data_in(new_data_in), 
-    .finished_out(finished),
-    .vertices_out(vertices_out)
+    .vertex_out(vertex_out)
 );
     
     always begin
@@ -49,10 +48,12 @@ module projection_cone_tb;
     initial begin
         clk = 0; //initialize clk (super important)
         reset = 0;
-        vertices_in = {16'd40, 16'd50, 16'd80, 16'd40, 16'd50, 16'd80, 16'd40, 16'd50, 16'd80};
-        user_in = {16'd512, -16'd512, 16'd256};
+        vertex_in = {12'd60, -12'd20, 12'd50};
+        user_in = {12'd600, -12'd600, 12'd1000};
         new_data_in = 0;
         #20;
+        reset = 1;
+        #10;
         reset = 0;
         #100;
         new_data_in = 1;

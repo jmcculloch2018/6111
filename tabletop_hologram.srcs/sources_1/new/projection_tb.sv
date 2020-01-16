@@ -31,7 +31,7 @@ module projection_tb;
    logic new_data_in;
    logic signed [2:0][11:0] vertex_out;
    
-   project_vertex_with_height uut(
+   project_vertex_cone uut(
     .clk_in(clk),
     .rst_in(reset),
     .vertex_in(vertex_in),

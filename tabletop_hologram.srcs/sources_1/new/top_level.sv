@@ -95,7 +95,6 @@ module top_level(
         .ja(jb),
         .jb(jc),
         .jbclk(jcclk),
-        .night(sw[0]),
         .centroid_x_blue(centroid_x_user),
         .centroid_y_blue(centroid_y_user),
         .blue_detected(),
