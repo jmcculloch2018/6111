@@ -50,17 +50,16 @@ module project_vertex_cone(
     input new_data_in, 
     output logic signed [2:0][11:0] vertex_out
 );
-    parameter SCREEN_WIDTH = 400;
-    parameter SCREEN_HEIGHT = 400;
+    parameter SCREEN_WIDTH = 16'd400;
+    parameter SCREEN_HEIGHT = 16'd400;
+    parameter CONE_RADIUS_INCHES = 16'd5; // TODO set this experimentally
+    parameter USER_HEIGHT_INCHES = 16'd66;
+    parameter PROJECTOR_HEIGHT_INCHES = 16'd98;
     
-    parameter PIXELS_PER_INCH = 640 / 28;
-    parameter USER_HEIGHT_INCHES = 16'd44;
-    parameter TABLE_HEIGHT_INCHES = 16'd26;
-    parameter PROJECTOR_HEIGHT_INCHES = 16'd100;
-    parameter CONE_HEIGHT_INCHES = 16'd18;
-    parameter H_CONE = $signed(CONE_HEIGHT_INCHES * PIXELS_PER_INCH);
-    parameter H_PROJ = $signed((PROJECTOR_HEIGHT_INCHES - TABLE_HEIGHT_INCHES) * PIXELS_PER_INCH);
-    parameter H_USER = $signed((USER_HEIGHT_INCHES - TABLE_HEIGHT_INCHES) * PIXELS_PER_INCH);
+    parameter PIXELS_PER_INCH = SCREEN_WIDTH / (2 * CONE_RADIUS_INCHES);
+    parameter H_CONE = 16'sd346; // 200 sqrt(3)
+    parameter H_USER = H_CONE;
+    parameter H_PROJ = $signed((PROJECTOR_HEIGHT_INCHES - USER_HEIGHT_INCHES) * PIXELS_PER_INCH) + H_USER;
     parameter K = $signed(3); // Equal to H^2 / R^2, 3 for an equilateral triangle, 1 for 90 degree apex
     
     parameter SQRT_LATENCY = 13;

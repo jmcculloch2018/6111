@@ -9,14 +9,14 @@ parser.add_argument("--color", "-color", type=str, required=True)
 parser.add_argument("--size", "-size", type=int, required=False, default=0)
 parser.add_argument("--scale", "-scale", type=float, required=False, default=0)
 parser.add_argument("--center", "-center", type=bool, required=False, default=False)
-parser.add_argument("--normals", "-n", type=bool, required=False, default=False)
+parser.add_argument("--zoffset", "-z", type=float, required=False, default=0)
 args = parser.parse_args()
 filenames = [args.input]
 filewrite = args.output
 should_center = args.center
 desired_size = args.size
 scale = args.scale
-normals = args.normals
+z_offset = args.zoffset
 shift = np.zeros(3)
 pos_len= 12 #length in bits of max coordinate range
 radix= 2 #in hex
@@ -47,9 +47,9 @@ def to_bin(num):
     return o
 
 def convert(num1, num2, num3):
-    n1 = to_bin(num1 - shift[0])
-    n2 = to_bin(num2 - shift[1])
-    n3 = to_bin(num3 - shift[2])
+    n1 = to_bin(num1 + shift[0])
+    n2 = to_bin(num2 + shift[1])
+    n3 = to_bin(num3 + shift[2])
     return n1+n2+n3
 
 def convert_normal(num1, num2, num3):
@@ -105,13 +105,14 @@ for filename in filenames:
             mins[j] = min(mins[j], float(i[j]))
     
     if (should_center):
-        shift = (maxes + mins) / 2
+        shift = - (maxes + mins) / 2
     
     if (scale == 0):
         size = np.max(maxes - mins)
         scale = desired_size / size
         
-
+    shift[2] += z_offset
+    
     print("Shift: " +str(shift))
     print("Scale: " +str(scale))
     

@@ -9,7 +9,7 @@ module cv2render(
 parameter cam_x = 320;
 parameter cam_y = 240;
 //fov_ratio = M/2^N
-//(proj_x*measure_cam)/(cam_x*measure_proj)
+// TODO update this based on new measurements 400 / 2R / 320 * MAXDISTCAM
 parameter fov_ratio_m = 12'sd9;
 parameter fov_ratio_n = 1;
 //Weight of filter
