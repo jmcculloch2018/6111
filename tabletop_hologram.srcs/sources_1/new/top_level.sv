@@ -21,6 +21,7 @@ module top_level(
     logic [10:0] centroid_x_saber;
     logic [9:0] centroid_y_saber;
     logic saber_detected;
+    logic [16:0] count_green, count_red;
     
     // Converted centroid to world frame
     logic signed [2:0][11:0] user;
@@ -96,12 +97,14 @@ module top_level(
         .jb(jc),
         .jbclk(jcclk),
         .night(sw[0]),
-        .centroid_x_blue(centroid_x_user),
-        .centroid_y_blue(centroid_y_user),
-        .blue_detected(),
+        .centroid_x_green(centroid_x_user),
+        .centroid_y_green(centroid_y_user),
+        .green_detected(),
         .centroid_x_red(centroid_x_saber),
         .centroid_y_red(centroid_y_saber),
-        .red_detected(saber_detected)
+        .red_detected(saber_detected),
+        .count_green(count_green),
+        .count_red(count_red)
 
     );
     
@@ -164,6 +167,15 @@ module top_level(
         .game_state(game_state)
     );
         
+  vio vio (
+  .clk(clk),              // input wire clk
+  .probe_in0(centroid_x_saber),  // input wire [10 : 0] probe_in0
+  .probe_in1(centroid_y_saber),  // input wire [9 : 0] probe_in1
+  .probe_in2(centroid_x_user),  // input wire [10 : 0] probe_in2
+  .probe_in3(centroid_y_user),  // input wire [9 : 0] probe_in3
+  .probe_in4(count_red),  // input wire [16 : 0] probe_in4
+  .probe_in5(count_green)  // input wire [16 : 0] probe_in5
+);
 
         
     

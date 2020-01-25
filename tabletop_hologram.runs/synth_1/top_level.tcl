@@ -18,7 +18,6 @@ proc create_report { reportName command } {
   }
 }
 set_param chipscope.maxJobs 1
-set_param xicom.use_bs_reader 1
 create_project -in_memory -part xc7a200tsbg484-3
 
 set_param project.singleFileAddWarning.threshold 0
@@ -59,7 +58,7 @@ read_verilog -library xil_defaultlib -sv {
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/debounce.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/detect_motion.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/display_height.sv
-  C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/external_ram.sv
+  C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/framebuffer_manager.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/game_logic.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/graphics_fsm.sv
   C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/new/graphics_subsystem.sv
@@ -106,6 +105,10 @@ read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_
 set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/fifo/fifo.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/fifo/fifo_clocks.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/fifo/fifo_ooc.xdc]
+
+read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/vio/vio.xci
+set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/vio/vio.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/vio/vio_ooc.xdc]
 
 read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/banana_rom1/banana_rom1.xci
 set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/banana_rom1/banana_rom1_ooc.xdc]
