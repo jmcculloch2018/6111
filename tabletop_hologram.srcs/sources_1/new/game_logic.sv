@@ -6,6 +6,8 @@ module game_logic(
     input rst_in,
     input [10:0] centroid_x,
     input [9:0] centroid_y,
+    input [10:0] centroid_x_user,
+    input [9:0] centroid_y_user,
     input saber_detected,
     input next_frame,
     output logic signed [1:0][2:0][11:0] model_trans,
@@ -28,16 +30,16 @@ module game_logic(
     // Thanos Arc
     logic [9:0] frame_count;
     logic signed [19:0] cur_time;
-    logic signed [63:0]delta_z;
+    logic signed [63:0] delta_z;
     logic signed [11:0] z_model;
     
     // Thanos breaking in half
-    logic saber_moving;
+    logic saber_moving, swipe_left;
     logic signed [11:0] separation;
     logic did_swipe_fruit; // used to be fruit, now thanos
     
     // Spin model
-    logic [11:0] model_spin = 0;
+    logic signed [11:0] model_spin = 0;
     logic [23:0] spin_counter = 0;
 
     assign delta_z = ($signed(cur_time) * $signed(cur_time) * $signed(Z_MIN - Z_MAX)) >>> (2 * TOF_N);
@@ -47,8 +49,11 @@ module game_logic(
         .rst_in(rst_in),
         .centroid_x(centroid_x),
         .centroid_y(centroid_y),
+        .centroid_x_user(centroid_x_user),
+        .centroid_y_user(centroid_y_user),
         .saber_detected(saber_detected),
-        .saber_moving(saber_moving)
+        .saber_moving(saber_moving),
+        .swipe_left(swipe_left)
     );
     assign model_trans = 0;
     always_ff @(posedge clk_in) begin
@@ -71,9 +76,9 @@ module game_logic(
             //SET TRANSFORMATIONS
             //If in game state, set game transforms, sipe object transformations
             rpy[0][2] <= game_state==2'b11 ? (separation * 12'sh008):0;
-            rpy[0][0] <= game_state==2'b11 ? (rpy[0] + 12'h00D): game_state!==2'b10 ? (rpy[0] + model_spin):0;
+            rpy[0][0] <= game_state==2'b11 ? (rpy[0][0] + 12'h00D): game_state!==2'b10 ? (rpy[0][0] + model_spin):0;
             rpy[1][2] <= game_state==2'b11 ? (separation * 12'sh008):0;
-            rpy[1][0] <= game_state==2'b11 ? (rpy[0] + 12'h00D): game_state!==2'b10 ? (rpy[0] + model_spin):0;
+            rpy[1][0] <= game_state==2'b11 ? (rpy[1][0] + 12'h00D): game_state!==2'b10 ? (rpy[1][0] + model_spin):0;
             rpy[0][1] <= 0;
             rpy[1][1] <= 0;
             world_trans[0] <= game_state==2'b11 ? {separation, 12'h0, z_model}:0;
@@ -88,16 +93,16 @@ module game_logic(
         
         //Game FSM
         //Enter Game
-        if (game_state==2'b10 && did_swipe_fruit) begin 
+        if (game_state==2'b10 && saber_moving) begin 
             game_state <= 2'b11;
         //Start model spinning
-        end else if ( (game_state==2'b00 || game_state==2'b01) && did_swipe_fruit) begin
-            model_spin <= 12'd30;
+        end else if ( (game_state==2'b00 || game_state==2'b01) && saber_moving) begin
+            model_spin <= swipe_left ? 12'd30 : -12'd30;
         //Slow down model spinning
-        end else if ( (game_state==2'b00 || game_state==2'b01) && model_spin>0 && spin_counter<=0) begin
-            model_spin <= model_spin - 1;
+        end else if ( (game_state==2'b00 || game_state==2'b01) && model_spin!=0 && spin_counter<=0) begin
+            model_spin <= (model_spin > 0) ? (model_spin - 1) : (model_spin + 1);
             spin_counter <= 24'd10000000;
-        end else if ((game_state==2'b00 || game_state==2'b01) && model_spin>0) begin
+        end else if ((game_state==2'b00 || game_state==2'b01) && model_spin!=0) begin
             spin_counter <= spin_counter -1;
         end
         //Switch between Models

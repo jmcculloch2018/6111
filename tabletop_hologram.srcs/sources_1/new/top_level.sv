@@ -156,6 +156,8 @@ module top_level(
         .rst_in(reset),
         .centroid_x(centroid_x_saber),  
         .centroid_y(centroid_y_saber),
+        .centroid_x_user(centroid_x_user),  
+        .centroid_y_user(centroid_y_user),
         .saber_detected(saber_detected),
         .next_frame(next_frame),
         .model_trans(model_trans),

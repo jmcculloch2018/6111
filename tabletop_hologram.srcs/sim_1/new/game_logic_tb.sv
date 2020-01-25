@@ -25,8 +25,8 @@ module game_logic_tb;
 // inputs
     logic clk;
     logic reset;
-    logic [10:0] x;
-    logic [9:0] y;
+    logic [10:0] x, x_user;
+    logic [9:0] y, y_user;
     logic detected, next;
     
     //outputs 
@@ -37,6 +37,8 @@ module game_logic_tb;
         .rst_in(reset),
         .centroid_x(x),
         .centroid_y(y),
+        .centroid_x_user(x_user),
+        .centroid_y_user(y_user),
         .saber_detected(detected),
         .next_frame(next),
         .model_trans1(mt1),
@@ -57,6 +59,8 @@ module game_logic_tb;
         reset = 0; //initialize rst (super important)
         x = 0;
         y = 0;
+        x_user = 0;
+        y_user = 0;
         detected = 0;
         next = 1;
         #100;

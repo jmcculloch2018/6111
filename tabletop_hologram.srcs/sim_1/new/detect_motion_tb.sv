@@ -22,17 +22,20 @@
 
 module detect_motion_tb;
 
-    logic clk, reset, detected;
-    logic [10:0] x;
-    logic [9:0] y;
+    logic clk, reset, detected, left;
+    logic [10:0] x, x_user;
+    logic [9:0] y, y_user;
 
     detect_motion #(.CYCLES_PER_SAMPLE(10)) uut(
         .clk_in(clk),
         .rst_in(reset),
         .centroid_x(x),
         .centroid_y(y),
+        .centroid_x_user(x_user),
+        .centroid_y_user(y_user),
         .saber_detected(detected),
-        .saber_moving(moving)
+        .saber_moving(moving),
+        .swipe_left(left)
     );
     always begin
         #5;  //every 5 ns switch...so period of clock is 10 ns...100 MHz clock
@@ -44,6 +47,8 @@ module detect_motion_tb;
         reset = 0; //initialize rst (super important)
         x = 0;
         y = 0;
+        x_user = 300;
+        y_user = 300;
         detected = 0;
         #20; 
         reset = 1;
@@ -65,6 +70,8 @@ module detect_motion_tb;
         y = 40;
         #400;
         x = 0;
+        #400;
+        x = 130;
         #400;
         
         
