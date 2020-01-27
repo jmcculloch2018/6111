@@ -52,7 +52,7 @@ module project_vertex_cone(
 );
     parameter SCREEN_WIDTH = 16'd400;
     parameter SCREEN_HEIGHT = 16'd400;
-    parameter CONE_RADIUS_INCHES = 16'd5; // TODO set this experimentally
+    parameter CONE_RADIUS_INCHES = 16'd6; // TODO set this experimentally
     parameter USER_HEIGHT_INCHES = 16'd66;
     parameter PROJECTOR_HEIGHT_INCHES = 16'd98;
     

@@ -36,6 +36,8 @@ module game_logic(
     logic signed [11:0] separation;
     logic did_swipe_fruit; // used to be fruit, now thanos
     
+    assign game_state = 2'b01;
+    
     // Spin model
     logic [11:0] model_spin = 0;
     logic [23:0] spin_counter = 0;
@@ -61,7 +63,7 @@ module game_logic(
             did_swipe_fruit <= 0;
             rpy[0] <= 0; //model 1
             rpy[1] <= 0; //model 2
-            game_state <= 0;
+//            game_state <= 0;
             
             separation <= 0;
         end else if (next_frame && (frame_count < TIME_OF_FLIGHT_FRAMES)) begin
@@ -88,10 +90,11 @@ module game_logic(
         
         //Game FSM
         //Enter Game
-        if (game_state==2'b10 && did_swipe_fruit) begin 
-            game_state <= 2'b11;
+//        if (game_state==2'b10 && did_swipe_fruit) begin 
+//            game_state <= 2'b11;
         //Start model spinning
-        end else if ( (game_state==2'b00 || game_state==2'b01) && did_swipe_fruit) begin
+//        end else 
+        if (did_swipe_fruit) begin
             model_spin <= 12'd30;
         //Slow down model spinning
         end else if ( (game_state==2'b00 || game_state==2'b01) && model_spin>0 && spin_counter<=0) begin
@@ -101,9 +104,9 @@ module game_logic(
             spin_counter <= spin_counter -1;
         end
         //Switch between Models
-        if (game_state!=2'b11 && clk_5sec) begin
-            game_state <= game_state==2'b10 ? 2'b00:(game_state+1);
-        end
+//        if (game_state!=2'b11 && clk_5sec) begin
+//            game_state <= game_state==2'b10 ? 2'b00:(game_state+1);
+//        end
     end
     
     

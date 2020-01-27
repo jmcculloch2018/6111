@@ -9,9 +9,9 @@ module cv2render(
 parameter cam_x = 320;
 parameter cam_y = 240;
 //fov_ratio = M/2^N
-// TODO update this based on new measurements 400 / 2R / 320 * MAXDISTCAM
-parameter fov_ratio_m = 12'sd9;
-parameter fov_ratio_n = 1;
+// TODO update this based on new measurements 400 / 12 / 240 * 44
+parameter fov_ratio_m = 12'sd6;
+parameter fov_ratio_n = 0;
 //Weight of filter
 parameter fir_alpha = 16'sh2; // 4 bits
 parameter fir_n = 4;

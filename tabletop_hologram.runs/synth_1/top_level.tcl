@@ -17,6 +17,7 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
+set_param chipscope.maxJobs 1
 create_project -in_memory -part xc7a200tsbg484-3
 
 set_param project.singleFileAddWarning.threshold 0
@@ -104,6 +105,10 @@ read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_
 set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/fifo/fifo.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/fifo/fifo_clocks.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/fifo/fifo_ooc.xdc]
+
+read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/vio/vio.xci
+set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/vio/vio.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/vio/vio_ooc.xdc]
 
 read_ip -quiet C:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/banana_rom1/banana_rom1.xci
 set_property used_in_implementation false [get_files -all c:/Users/Jeremy/tabletop_hologram/tabletop_hologram.srcs/sources_1/ip/banana_rom1/banana_rom1_ooc.xdc]

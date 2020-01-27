@@ -14,7 +14,7 @@ module triangle_source(
     );
     //Cube, Suit, Mobius, Thanos 2, Thanos 1
     //Max triangles for Nexys Video <25000
-    parameter integer NUM_TRIANGLES [4:0] = {14'd560, 14'd12754, 14'd1677, 14'd6160, 14'd6152} ;
+    parameter integer NUM_TRIANGLES [4:0] = {14'd560, 14'd12625, 14'd1677, 14'd6160, 14'd6152} ;
     logic [15:0] tri_count;
     logic [4:0][155:0] data_out; //One for each model
     logic [2:0] obj_select;
@@ -40,7 +40,7 @@ module triangle_source(
       .ena(1)
     );
     
-    demo_rom2 suit ( //Iron Man suit
+    demo_rom2 suit ( //Iron Man suit (only one we are showing)
       .clka(clk_in),   
       .addra(tri_count),  
       .douta(data_out[3]),  

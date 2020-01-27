@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-| Date         : Thu Jan 16 18:33:25 2020
+| Date         : Mon Jan 27 14:53:03 2020
 | Host         : DESKTOP-982HE02 running 64-bit major release  (build 9200)
 | Command      : report_utilization -file top_level_utilization_synth.rpt -pb top_level_utilization_synth.pb
 | Design       : top_level
@@ -30,13 +30,13 @@ Table of Contents
 +----------------------------+------+-------+-----------+-------+
 |          Site Type         | Used | Fixed | Available | Util% |
 +----------------------------+------+-------+-----------+-------+
-| Slice LUTs*                | 3489 |     0 |    134600 |  2.59 |
-|   LUT as Logic             | 3408 |     0 |    134600 |  2.53 |
-|   LUT as Memory            |   81 |     0 |     46200 |  0.18 |
+| Slice LUTs*                | 3516 |     0 |    134600 |  2.61 |
+|   LUT as Logic             | 3457 |     0 |    134600 |  2.57 |
+|   LUT as Memory            |   59 |     0 |     46200 |  0.13 |
 |     LUT as Distributed RAM |    0 |     0 |           |       |
-|     LUT as Shift Register  |   81 |     0 |           |       |
-| Slice Registers            | 2453 |     0 |    269200 |  0.91 |
-|   Register as Flip Flop    | 2453 |     0 |    269200 |  0.91 |
+|     LUT as Shift Register  |   59 |     0 |           |       |
+| Slice Registers            | 2408 |     0 |    269200 |  0.89 |
+|   Register as Flip Flop    | 2408 |     0 |    269200 |  0.89 |
 |   Register as Latch        |    0 |     0 |    269200 |  0.00 |
 | F7 Muxes                   |   14 |     0 |     67300 |  0.02 |
 | F8 Muxes                   |    2 |     0 |     33650 | <0.01 |
@@ -59,7 +59,7 @@ Table of Contents
 | 0     |          Yes |           - |          Set |
 | 0     |          Yes |           - |        Reset |
 | 22    |          Yes |         Set |            - |
-| 2431  |          Yes |       Reset |            - |
+| 2386  |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -152,16 +152,16 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDRE     | 2431 |        Flop & Latch |
-| LUT2     | 1373 |                 LUT |
-| LUT6     |  942 |                 LUT |
-| CARRY4   |  602 |          CarryLogic |
-| LUT1     |  510 |                 LUT |
-| LUT5     |  362 |                 LUT |
-| LUT4     |  347 |                 LUT |
-| LUT3     |  342 |                 LUT |
+| FDRE     | 2386 |        Flop & Latch |
+| LUT2     | 1318 |                 LUT |
+| LUT6     | 1046 |                 LUT |
+| CARRY4   |  632 |          CarryLogic |
+| LUT1     |  496 |                 LUT |
+| LUT4     |  442 |                 LUT |
+| LUT3     |  362 |                 LUT |
+| LUT5     |  250 |                 LUT |
 | DSP48E1  |  100 |    Block Arithmetic |
-| SRLC32E  |   68 |  Distributed Memory |
+| SRLC32E  |   46 |  Distributed Memory |
 | FDSE     |   22 |        Flop & Latch |
 | MUXF7    |   14 |               MuxFx |
 | SRL16E   |   13 |  Distributed Memory |
@@ -187,6 +187,7 @@ Table of Contents
 | sqrt_rom                |    2 |
 | frame_buffer            |    2 |
 | z_interp_divider        |    1 |
+| vio                     |    1 |
 | hdmi_render             |    1 |
 | fifo                    |    1 |
 | div_rom                 |    1 |
