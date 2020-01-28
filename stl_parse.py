@@ -110,8 +110,8 @@ for filename in filenames:
     if (scale == 0):
         size = np.max(maxes - mins)
         scale = desired_size / size
-        
-    shift[2] += z_offset
+      
+    shift[2] += z_offset / scale
     
     print("Shift: " +str(shift))
     print("Scale: " +str(scale))

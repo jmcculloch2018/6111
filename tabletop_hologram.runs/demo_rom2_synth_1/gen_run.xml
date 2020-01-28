@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="demo_rom2_synth_1" LaunchPart="xc7a200tsbg484-3" LaunchTime="1580139165">
+<GenRun Id="demo_rom2_synth_1" LaunchPart="xc7a200tsbg484-3" LaunchTime="1580166446">
   <File Type="PA-TCL" Name="demo_rom2.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="demo_rom2_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="demo_rom2_reports.tcl"/>
